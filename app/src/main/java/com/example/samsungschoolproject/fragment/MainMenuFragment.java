@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.activity.SettingsMenuActivity;
@@ -32,6 +33,8 @@ public class MainMenuFragment extends Fragment {
 
         Button settingsButton = (Button) view.findViewById(R.id.settings_button);
         Button chooseStationButton = (Button) view.findViewById(R.id.choose_station_button) ;
+        Button start = (Button) view.findViewById(R.id.start_button);
+
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +55,13 @@ public class MainMenuFragment extends Fragment {
             }
         });
 
+        start.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String name = getString(R.string.main_button_push);
+                Toast.makeText(v.getContext(), name, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

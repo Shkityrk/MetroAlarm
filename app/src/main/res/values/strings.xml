@@ -8,4 +8,6 @@
     <string name="settings_button">Настройки</string>
     <string name="chose_stations_buttons">Выбрать станцию</string>
     <string name="back_to_main_menu">Назад</string>
+    <string name="start">ON</string>
+    <string name="main_button_push">start/stop button pushed</string>
 </resources>
