@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.activity.SettingsMenuActivity;
+import com.example.samsungschoolproject.model.Station;
+import com.example.samsungschoolproject.view_adapter.StationListAdapter;
 
 
 public class MainMenuFragment extends Fragment {
@@ -24,6 +26,9 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
     }
 
     @Override
@@ -47,9 +52,11 @@ public class MainMenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 StationsListFragment stationsListFragment = new StationsListFragment();
+
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, stationsListFragment);
+
 
                 transaction.commit();
             }
@@ -62,6 +69,8 @@ public class MainMenuFragment extends Fragment {
                 Toast.makeText(v.getContext(), name, Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
         return view;
     }
