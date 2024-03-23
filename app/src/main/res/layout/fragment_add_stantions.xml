@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <Button
-        android:id="@+id/back_to_main_menu_button"
+        android:id="@+id/back_to_stations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -13,22 +13,22 @@
         android:text="@string/back_to_main_menu" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+        android:id="@+id/rv_add_stantion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="7dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="7dp"
-        android:layout_marginBottom="73dp" />
+        android:layout_marginBottom="7dp" />
 
     <Button
-        android:id="@+id/create_new_alarm"
+        android:id="@+id/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|top"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="15dp"
-        android:text="@string/new_alarm" />
+        android:text="@string/done" />
 
 
 

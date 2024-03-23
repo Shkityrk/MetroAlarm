@@ -35,6 +35,7 @@ public class StationsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_stantions_list, container, false);
         Button back_to_main_menu_button= (Button) view.findViewById(R.id.back_to_main_menu_button);
 
+        Button create_new_alarm = (Button) view.findViewById(R.id.create_new_alarm);
         RecyclerView rv = view.findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(
                 getContext(),
@@ -64,6 +65,18 @@ public class StationsListFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, mainMenuFragment);
+
+                transaction.commit();
+            }
+        });
+
+        create_new_alarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddStantionsFragment addStantionsFragment = new AddStantionsFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.container, addStantionsFragment);
 
                 transaction.commit();
             }
