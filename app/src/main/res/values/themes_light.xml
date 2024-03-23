@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.SamsungSchoolProject" parent="Theme.AppCompat.DayNight">
+        <item name="android:textColorPrimary">@color/lightTextColor</item>
+        <item name="android:textColorSecondary">@color/lightAdditionalButtonsColor</item>
+        <item name="android:windowBackground">@color/lightThemeBackgroundColor</item>
+        <item name="android:buttonTint">@color/lightAdditionalButtonsColor</item>
+        <item name="android:statusBarColor">@color/lightThemeStatusBarColor</item>
+        <!-- Другие атрибуты для светлой темы -->
+        <item name="android:textSize">16sp</item>
+
+
+
+    </style>
+
+    <style name="PrimaryText">
+        <item name="android:textSize">@dimen/primary_text_size</item> <!-- Размер основного текста -->
+        <!-- Другие атрибуты, такие как цвет и т.д., могут быть добавлены здесь -->
+    </style>
+
+    <style name="SecondaryText">
+        <item name="android:textSize">@dimen/secondary_text_size</item> <!-- Размер вторичного текста -->
+        <!-- Другие атрибуты, такие как цвет и т.д., могут быть добавлены здесь -->
+    </style>
+
+
+
+</resources>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkThemeBackgroundColor"
+
     tools:context=".fragment.MainMenuFragment">
 
     <Button
@@ -12,14 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
-        android:backgroundTint="@color/additionalButtonsColor"
         android:text="@string/settings_button" />
 
     <Button
         android:id="@+id/choose_station_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/additionalButtonsColor"
         android:layout_marginTop="600dp"
         android:layout_marginLeft="110dp"
         android:text="@string/chose_stations_buttons" />

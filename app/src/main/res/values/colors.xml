@@ -2,9 +2,24 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="textColor">#FFFFFFFF</color>
-    <color name="darkThemeStatusBarColor">#2e2f34</color>
+
+
+    <color name="darkTextColor">#FFFFFFFF</color>
+    <color name="lightTextColor">#FF000000</color>
+
     <color name="darkThemeBackgroundColor">#2e2f34</color>
-    <color name="additionalButtonsColor">#3f4047</color>
+    <color name="lightThemeBackgroundColor">#F5F5F5</color>
+
+
+    <color name="darkAdditionalButtonsColor">#3f4047</color>
+    <color name="lightAdditionalButtonsColor">#4B000000</color>
+
+
     <color name="startAlarmButtonColor">#d4212d</color>
+
+
+    <color name="darkThemeStatusBarColor">#2e2f34</color>
+    <color name="lightThemeStatusBarColor">#E5E7ED</color>
+
+
 </resources>
