@@ -16,10 +16,9 @@ import android.widget.Button;
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.StationAdapter;
 import com.example.samsungschoolproject.model.Station;
-import com.example.samsungschoolproject.view_adapter.StationListAdapter;
 
 public class AddStantionsFragment extends Fragment {
-    private StationListAdapter adapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState);}
@@ -40,22 +39,22 @@ public class AddStantionsFragment extends Fragment {
         ));
         StationAdapter stationAdapter = new StationAdapter();
 
-        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
-        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
-        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
-        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
-        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
-        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
-        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
-        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
-        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
-        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
-        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
-        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
-        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
-        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
-        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
-        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
+//        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
+//        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
+//        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
+//        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
+//        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
+//        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
+//        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
+//        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
+//        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
+//        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
+//        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
+//        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
+//        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
+//        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
+//        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
+//        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
 
 
 

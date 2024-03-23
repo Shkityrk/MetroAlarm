@@ -8,15 +8,15 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/name_textview"
+        android:id="@+id/station"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
-        android:text="@string/name"
-        app:layout_constraintBottom_toTopOf="@+id/line_textview"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toStartOf="@+id/icon_delete"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/icon_station"
@@ -46,19 +46,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/line_textview"
+        android:id="@+id/line"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/line"
+        android:text="Line"
         android:textColor="?android:textColorSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/icon_delete"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/icon_station"
-        app:layout_constraintTop_toBottomOf="@+id/name_textview"
+        app:layout_constraintTop_toBottomOf="@+id/stantion"
         app:layout_constraintVertical_bias="0.0"
         style="@style/SecondaryText"/>
 

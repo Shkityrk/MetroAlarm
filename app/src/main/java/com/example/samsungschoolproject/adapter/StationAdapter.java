@@ -46,10 +46,9 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
             stantionItemBinding = StantionItemBinding.bind(itemView);
         }
         public void bind(Station station){
-//            stantionItemBinding.name.setText(station.name);
-//            stantionItemBinding.line.setText(station.line);
-            //stantionItemBinding.color.setText(station.color);
-            //productItemBinding.price.setText(String.valueOf(product.price));
+            stantionItemBinding.station.setText(station.name);
+            stantionItemBinding.line.setText(station.line);
+
         }
 
     }

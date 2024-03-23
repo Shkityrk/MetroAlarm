@@ -1,6 +1,5 @@
 package com.example.samsungschoolproject.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,13 +16,10 @@ import android.widget.Button;
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.StationAdapter;
 import com.example.samsungschoolproject.model.Station;
-import com.example.samsungschoolproject.view_adapter.StationListAdapter;
-
-import java.util.ArrayList;
 
 public class StationsListFragment extends Fragment {
 
-    private StationListAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +40,10 @@ public class StationsListFragment extends Fragment {
         ));
 
         StationAdapter stationAdapter = new StationAdapter();
-        stationAdapter.Add(new Station("Station 1", "Line 1", "Color 1"));
-        stationAdapter.Add(new Station("Station 2", "Line 2", "Color 2"));
-        stationAdapter.Add(new Station("Station 3", "Line 3", "Color 3"));
-        stationAdapter.Add(new Station("Station 4", "Line 4", "Color 4"));
-
-
+        stationAdapter.Add(new Station("Юго-западная", "Сокольническая линия"));
+        stationAdapter.Add(new Station("Коптево", "МЦК"));
+        stationAdapter.Add(new Station("Проспект Вернадского", "МЦК-Сокольническая линия"));
+        stationAdapter.Add(new Station("Киевская", "Кольцевая линия-Арбатско-покровская линия-Филевская линия"));
 
 
         rv.setAdapter(stationAdapter);

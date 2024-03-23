@@ -13,12 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.activity.SettingsMenuActivity;
-import com.example.samsungschoolproject.model.Station;
-import com.example.samsungschoolproject.view_adapter.StationListAdapter;
 
 
 public class MainMenuFragment extends Fragment {
@@ -26,9 +25,8 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
+        FrameLayout frameLayout = new FrameLayout(getContext());
+        frameLayout.setId(R.id.container_1);
     }
 
     @Override
