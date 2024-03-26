@@ -8,28 +8,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.databinding.StantionItemBinding;
+import com.example.samsungschoolproject.databinding.AddStationItemBinding;
 import com.example.samsungschoolproject.model.Station;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationViewHolder>{
+public class AllStationAdapter extends RecyclerView.Adapter<AllStationAdapter.AllStationViewHolder>{
     private List<Station> stations = new ArrayList<>();
 
     @NonNull
     @Override
-    public StationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AllStationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.stantion_item,
+                R.layout.add_station_item,
                 parent,
                 false
         );
-        return new StationViewHolder(view);
+        return new AllStationViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AllStationViewHolder holder, int position) {
         holder.bind(stations.get(position));
     }
 
@@ -38,16 +38,16 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
         return stations.size();
     }
 
-    public class StationViewHolder extends RecyclerView.ViewHolder{
-        private StantionItemBinding stantionItemBinding;
+    public class AllStationViewHolder extends RecyclerView.ViewHolder{
+        private  AddStationItemBinding addStationItemBinding;
 
-        public StationViewHolder(@NonNull View itemView) {
+        public AllStationViewHolder(@NonNull View itemView) {
             super(itemView);
-            stantionItemBinding = StantionItemBinding.bind(itemView);
+            addStationItemBinding = AddStationItemBinding.bind(itemView);
         }
         public void bind(Station station){
-            stantionItemBinding.station.setText(station.name);
-            stantionItemBinding.line.setText(station.line);
+            addStationItemBinding.addStation.setText(station.name);
+            addStationItemBinding.lineAdd.setText(station.line);
 
         }
 

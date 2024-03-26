@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.adapter.StationAdapter;
+import com.example.samsungschoolproject.adapter.FavouriteStationAdapter;
 import com.example.samsungschoolproject.model.Station;
 
 public class StationsListFragment extends Fragment {
@@ -39,14 +39,14 @@ public class StationsListFragment extends Fragment {
                 false
         ));
 
-        StationAdapter stationAdapter = new StationAdapter();
-        stationAdapter.Add(new Station("Юго-западная", "Сокольническая линия"));
-        stationAdapter.Add(new Station("Коптево", "МЦК"));
-        stationAdapter.Add(new Station("Проспект Вернадского", "МЦК-Сокольническая линия"));
-        stationAdapter.Add(new Station("Киевская", "Кольцевая линия-Арбатско-покровская линия-Филевская линия"));
+        FavouriteStationAdapter favouriteStationAdapter = new FavouriteStationAdapter();
+        favouriteStationAdapter.Add(new Station("Юго-западная", "Сокольническая линия"));
+        favouriteStationAdapter.Add(new Station("Коптево", "МЦК"));
+        favouriteStationAdapter.Add(new Station("Проспект Вернадского", "МЦК-Сокольническая линия"));
+        favouriteStationAdapter.Add(new Station("Киевская", "Кольцевая линия-Арбатско-покровская линия-Филевская линия"));
 
 
-        rv.setAdapter(stationAdapter);
+        rv.setAdapter(favouriteStationAdapter);
 
 
 
