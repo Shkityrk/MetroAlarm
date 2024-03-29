@@ -46,8 +46,8 @@ public class FavouriteStationAdapter extends RecyclerView.Adapter<FavouriteStati
             stantionItemBinding = StantionItemBinding.bind(itemView);
         }
         public void bind(Station station){
-            stantionItemBinding.station.setText(station.name);
-            stantionItemBinding.line.setText(station.line);
+            stantionItemBinding.station.setText(station.getName());
+            stantionItemBinding.line.setText(station.getLine());
 
         }
 

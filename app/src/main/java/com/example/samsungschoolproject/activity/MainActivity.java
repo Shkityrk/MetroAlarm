@@ -1,7 +1,6 @@
 package com.example.samsungschoolproject.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -18,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().popBackStack();
         MainMenuFragment mainMenuFragment = new MainMenuFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        DatabaseHelper.copyDatabaseFromAssets(this);
         transaction.add(R.id.container, mainMenuFragment);
         transaction.commit();
     }

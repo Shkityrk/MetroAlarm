@@ -1,5 +1,6 @@
 package com.example.samsungschoolproject.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,23 +15,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.samsungschoolproject.R;
+import com.example.samsungschoolproject.StationLoaderDB;
 import com.example.samsungschoolproject.adapter.AllStationAdapter;
-import com.example.samsungschoolproject.adapter.FavouriteStationAdapter;
 import com.example.samsungschoolproject.model.Station;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddStantionsFragment extends Fragment {
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState);}
-
 
 
     @Override
@@ -47,42 +41,17 @@ public class AddStantionsFragment extends Fragment {
                 RecyclerView.VERTICAL,
                 false
         ));
+
         AllStationAdapter allStationAdapter = new AllStationAdapter();
-//        stationAdapter.Add(new Station("Тропарево", "Сокольническая линия"));
-//        stationAdapter.Add(new Station("Окружная", "МЦК"));
-//----------------------------------------------
+
+
         List<Station> stations = new ArrayList<>();
 
-        // Путь к вашему файлу stations.csv
-        String csvFile = "stations.csv";
-        String line;
-        String csvSplitBy = ",";
-
-        try  {
-            InputStream inputStream = getResources().getAssets().open("stations.csv");
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            while ((line = br.readLine()) != null) {
-                // Разделить строку CSV по запятым
-                String[] data = line.split(csvSplitBy);
-                // Удалить кавычки из значений
-                String name = data[1];
-                String lineName = data[0];
-                // Создать объект Station и добавить его в список
-                stations.add(new Station(name, lineName));
-            }
-            br.close();
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Теперь у вас есть список станций. Можете использовать его по вашему усмотрению.
-        // Например, добавить их в ваш адаптер
-
+        stations = AllStationAdapter.GetStationsDatabase("stations.db");
         for (Station station : stations) {
             allStationAdapter.Add(station);
         }
-//----------------------------------------------
+        //----------------------------------------------
 
 
         rv_add_station.setAdapter(allStationAdapter);
@@ -111,22 +80,7 @@ public class AddStantionsFragment extends Fragment {
                 transaction.commit();
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
         return view;
     }
 }
