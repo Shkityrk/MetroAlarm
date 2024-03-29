@@ -3,12 +3,16 @@ package com.example.samsungschoolproject.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.AssetManager;
 import android.os.Bundle;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.fragment.MainMenuFragment;
 
+import java.io.InputStream;
+
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +24,12 @@ public class MainActivity extends AppCompatActivity {
 //        DatabaseHelper.copyDatabaseFromAssets(this);
         transaction.add(R.id.container, mainMenuFragment);
         transaction.commit();
+
+        AssetManager am = this.getAssets();
+        try {
+            InputStream is = am.open("default_book.txt");
+        }catch (Exception e){
+
+        }
     }
 }

@@ -44,9 +44,17 @@ dependencies {
     implementation("org.slf4j:slf4j-api:2.0.12")
     implementation("org.slf4j:slf4j-simple:1.7.32")
 
-    val room_version = "2.6.1"
+    val roomVersion = "2.6.1"
 
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
     implementation("org.xerial:sqlite-jdbc:3.45.2.0")
+
+    val lifecycleVersion = "'2.3.1'"
+
+    // Lifecycle components
+    implementation ("androidx.lifecycle:lifecycle-viewmodel:$lifecycleVersion")
+    implementation ("androidx.lifecycle:lifecycle-livedata:$lifecycleVersion")
+    implementation ("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
+
 }

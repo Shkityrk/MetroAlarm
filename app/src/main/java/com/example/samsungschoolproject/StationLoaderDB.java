@@ -1,4 +1,7 @@
+/*
 package com.example.samsungschoolproject;
+import android.content.res.AssetManager;
+
 import com.example.samsungschoolproject.model.Station;
 
 import java.sql.*;
@@ -49,3 +52,4 @@ public class StationLoaderDB {
 
 
 }
+*/
