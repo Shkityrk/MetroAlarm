@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.AllStationAdapter;
@@ -56,6 +57,7 @@ public class AddStantionsFragment extends Fragment {
                 false
         ));
 
+
         AllStationAdapter allStationAdapter = new AllStationAdapter(new AllStationAdapter.StationDiff());
         mStationViewModel.getAllWords().observe(getViewLifecycleOwner(), stationsList -> {
             allStationAdapter.submitList(stationsList);
@@ -82,7 +84,7 @@ public class AddStantionsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Просто для теста. Добавится один раз, так как описана проверка по содержимому и политика игнорирования одинаковых
-                mStationViewModel.insert(new Station(13,"test","1", "0.0","0.0"));
+//                mStationViewModel.insert(new Station(13,"test","1", "0.0","0.0"));
 
 
                 MainMenuFragment mainMenuFragment = new MainMenuFragment();

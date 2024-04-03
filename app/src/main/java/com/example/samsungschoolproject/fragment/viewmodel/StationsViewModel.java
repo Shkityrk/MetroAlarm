@@ -22,7 +22,11 @@ public class StationsViewModel extends AndroidViewModel {
         mAllStation = mRepository.getAllStations();
     }
 
-    public LiveData<List<Station>> getAllWords() { return mAllStation; }
+    public LiveData<List<Station>> getAllWords() {
+        return mAllStation;
+    }
 
-    public void insert(Station station) { mRepository.insert(station); }
+    public void insert(Station station) {
+        mRepository.insert(station);
+    }
 }

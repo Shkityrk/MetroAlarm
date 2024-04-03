@@ -30,7 +30,7 @@ public abstract class StationDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     StationDatabase.class, "stations")
-                            //.createFromAsset("database/stations.db")
+                            .createFromAsset("database/stations.db")
                             .build();
                 }
             }
