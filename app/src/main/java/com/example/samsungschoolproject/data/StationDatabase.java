@@ -15,7 +15,7 @@ import com.example.samsungschoolproject.model.Station;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Station.class}, version = 1, exportSchema = false)
+@Database(entities = {Station.class}, version = 2, exportSchema = false)
 public abstract class StationDatabase extends RoomDatabase {
     public abstract StationDAO stationDAO();
 
@@ -29,7 +29,7 @@ public abstract class StationDatabase extends RoomDatabase {
             synchronized (StationDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    StationDatabase.class, "stations")
+                                    StationDatabase.class, "station_neighbors")
                             .createFromAsset("database/stations.db")
                             .build();
                 }

@@ -40,10 +40,10 @@ public class StationsListFragment extends Fragment {
         ));
 
         FavouriteStationAdapter favouriteStationAdapter = new FavouriteStationAdapter();
-        favouriteStationAdapter.Add(new Station(1,"Юго-западная", "Сокольническая линия","null","null" ));
-        favouriteStationAdapter.Add(new Station(2,"Коптево", "МЦК","null","null" ));
-        favouriteStationAdapter.Add(new Station(3,"Проспект Вернадского", "МЦК-Сокольническая линия","null","null" ));
-        favouriteStationAdapter.Add(new Station(4,"Киевская", "Кольцевая линия-Арбатско-покровская линия-Филевская линия","null","null" ));
+        favouriteStationAdapter.Add(new Station(1,"Юго-западная", "Сокольническая линия","null","null","null","null","null","null","null","null"));
+        favouriteStationAdapter.Add(new Station(2,"Коптево", "МЦК","null","null" ,"null","null","null","null","null","null"));
+        favouriteStationAdapter.Add(new Station(3,"Проспект Вернадского", "МЦК-Сокольническая линия","null","null","null","null","null","null","null","null"));
+        favouriteStationAdapter.Add(new Station(4,"Киевская", "Кольцевая линия-Арбатско-покровская линия-Филевская линия","null","null" ,"null","null","null","null","null","null"));
 
 
         rv.setAdapter(favouriteStationAdapter);

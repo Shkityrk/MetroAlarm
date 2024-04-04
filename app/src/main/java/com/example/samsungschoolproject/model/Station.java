@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
-@Entity(tableName = "stations")
+@Entity(tableName = "station_neighbors")
 public class Station {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_station")
@@ -16,15 +16,39 @@ public class Station {
     private String name;
     private String line;
     private String longitude;
-    @ColumnInfo(name = "width")
     private String latitude;
+    private String width_neighbour1;
+    private String longitude_neighbour1;
+    private String width_neighbour2;
+    private String longitude_neighbour2;
+    private String is_favourite;
+    private String alarm;
 
-    public Station(int id, String name, String line, String longitude, String latitude){
+
+
+    public Station(int id,
+                   String name,
+                   String line,
+                   String latitude,
+                   String longitude,
+                   String width_neighbour1,
+                   String longitude_neighbour1,
+                   String width_neighbour2,
+                   String longitude_neighbour2,
+                   String is_favourite,
+                   String alarm){
         this.id = id;
         this.name = name;
         this.line = line;
         this.longitude=longitude;
         this.latitude=latitude;
+        this.width_neighbour1=width_neighbour1;
+        this.longitude_neighbour1=longitude_neighbour1;
+        this.width_neighbour2=width_neighbour2;
+        this.longitude_neighbour2=longitude_neighbour2;
+        this.is_favourite=is_favourite;
+        this.alarm=alarm;
+
 
     }
 
@@ -68,5 +92,30 @@ public class Station {
 
     public String getLatitude() {
         return latitude;
+    }
+
+
+    public String getLongitude_neighbour1() {
+        return longitude_neighbour1;
+    }
+
+    public String getWidth_neighbour2() {
+        return width_neighbour2;
+    }
+
+    public String getLongitude_neighbour2() {
+        return longitude_neighbour2;
+    }
+
+    public String getIs_favourite() {
+        return is_favourite;
+    }
+
+    public String getAlarm() {
+        return alarm;
+    }
+
+    public String getWidth_neighbour1() {
+        return width_neighbour1;
     }
 }

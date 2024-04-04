@@ -60,6 +60,7 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
 
         public void bind(Station station) {
             addStationItemBinding.addStation.setText(station.getName());
+
             addStationItemBinding.lineAdd.setText(station.getLine()+" линия");
             System.out.println(station.getNumLine());
             if (Objects.equals(station.getNumLine(), "1")){ addStationItemBinding.iconStationAdd.setImageResource(R.drawable.img_1);}

@@ -14,7 +14,8 @@ public interface StationDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Station station);
 
-    @Query("SELECT * FROM stations")
+    @Query("SELECT * FROM station_neighbors")
     LiveData<List<Station>> getAllStations();
+
 
 }
