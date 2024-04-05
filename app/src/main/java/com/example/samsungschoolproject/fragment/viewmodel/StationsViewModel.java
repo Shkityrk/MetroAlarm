@@ -29,4 +29,8 @@ public class StationsViewModel extends AndroidViewModel {
     public void insert(Station station) {
         mRepository.insert(station);
     }
+//    public void update(Station station) { mRepository.update(station); }
+
+    public void updateStations(List<Station> stations) { mRepository.updateStations(stations); }
+
 }

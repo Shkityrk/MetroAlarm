@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 @Entity(tableName = "station_neighbors")
 public class Station {
@@ -115,7 +116,19 @@ public class Station {
         return alarm;
     }
 
+    public boolean getBoolAlarm() {
+        return Objects.equals(alarm, "true");
+    }
+
     public String getWidth_neighbour1() {
         return width_neighbour1;
+    }
+
+    public void setAlarm(boolean isChecked) {
+        if (isChecked) {
+            this.alarm = "true";
+        } else {
+            this.alarm = "false";
+        }
     }
 }

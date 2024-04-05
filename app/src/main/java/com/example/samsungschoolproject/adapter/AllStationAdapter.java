@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
@@ -25,10 +26,28 @@ import java.util.Objects;
 public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.AllStationViewHolder> {
     private static final String DATABASE_NAME = "database/stations.db";
     private String url;
+    private OnSwitchChangeListener switchChangeListener;
+
+    public interface OnSwitchChangeListener {
+        void onSwitchChanged(int position, boolean isChecked);
+    }
+
+    public void setSwitchChangeListener(OnSwitchChangeListener listener) {
+        this.switchChangeListener = listener;
+    }
 
     public AllStationAdapter(@NonNull DiffUtil.ItemCallback<Station> diffCallback) {
         super(diffCallback);
     }
+
+    public void setSwitchState(boolean state, int position) {
+        getItem(position).setAlarm(state);
+        notifyItemChanged(position);
+    }
+    public void setStations(List<Station> stations) {
+        submitList(stations);
+    }
+
 
 
     @NonNull
@@ -52,9 +71,23 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
     public class AllStationViewHolder extends RecyclerView.ViewHolder {
         private AddStationItemBinding addStationItemBinding;
 
+        private Switch switchAlarm;
+
+
+
         public AllStationViewHolder(@NonNull View itemView) {
             super(itemView);
             addStationItemBinding = AddStationItemBinding.bind(itemView);
+
+            switchAlarm = itemView.findViewById(R.id.switch1);
+            switchAlarm.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (switchChangeListener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        switchChangeListener.onSwitchChanged(position, isChecked);
+                    }
+                }
+            });
         }
 
 
@@ -87,6 +120,8 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
             else{
                 addStationItemBinding.iconStationAdd.setImageResource(R.drawable.img);
             }
+
+            switchAlarm.setChecked(station.getBoolAlarm());
             
 
         }

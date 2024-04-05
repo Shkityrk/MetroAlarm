@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.AllStationAdapter;
@@ -61,8 +62,23 @@ public class AddStantionsFragment extends Fragment {
         AllStationAdapter allStationAdapter = new AllStationAdapter(new AllStationAdapter.StationDiff());
         mStationViewModel.getAllWords().observe(getViewLifecycleOwner(), stationsList -> {
             allStationAdapter.submitList(stationsList);
+
+            for (int i = 0; i < stationsList.size(); i++) {
+                Station station = stationsList.get(i);
+                boolean alarmState = station.getBoolAlarm();
+                allStationAdapter.setSwitchState(alarmState, i);
+            }
         });
 
+        allStationAdapter.setSwitchChangeListener(new AllStationAdapter.OnSwitchChangeListener() {
+            @Override
+            public void onSwitchChanged(int position, boolean isChecked) {
+                // Обновите значение в базе данных при изменении переключателя
+                Station station = allStationAdapter.getCurrentList().get(position);
+                station.setAlarm(isChecked);
+
+            }
+        });
         //----------------------------------------------
 
         rv_add_station.setAdapter(allStationAdapter);
@@ -75,6 +91,10 @@ public class AddStantionsFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, stationsListFragment);
+
+//                mStationViewModel.update(station);
+                List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
+                mStationViewModel.updateStations(stationsToUpdate);
 
                 transaction.commit();
             }
@@ -92,6 +112,8 @@ public class AddStantionsFragment extends Fragment {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, mainMenuFragment);
 
+                List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
+                mStationViewModel.updateStations(stationsToUpdate);
                 transaction.commit();
             }
         });

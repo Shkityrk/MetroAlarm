@@ -28,6 +28,19 @@ public class StationRepository {
         public void insert(Station station) {
             StationDatabase.databaseWriteExecutor.execute(() -> {
                 mStationDAO.insert(station);
+
+            });
+        }
+
+//        public void update(Station station) {
+//            StationDatabase.databaseWriteExecutor.execute(() -> {
+//                mStationDAO.update(station);
+//            });
+//        }
+
+        public void updateStations(List<Station> stations) {
+            StationDatabase.databaseWriteExecutor.execute(() -> {
+                mStationDAO.updateStations(stations);
             });
         }
 }
