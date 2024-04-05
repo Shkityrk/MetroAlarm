@@ -29,7 +29,7 @@ public class FavouriteViewModel extends AndroidViewModel {
     public FavouriteViewModel (Application application) {
         super(application);
         mRepository = new StationRepository(application);
-        mAllStation = mRepository.getAlarmStations();//-------------------
+        mAllStation = mRepository.getFavouriteStations();//-------------------
     }
 
     public LiveData<List<Station>> getAllWords() {

@@ -148,7 +148,7 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
             addStationItemBinding.addStation.setText(station.getName());  // добавление названия станции
             addStationItemBinding.lineAdd.setText(setNameItem(station.getNumLine()));  // добавление названия линии
             addStationItemBinding.iconStationAdd.setImageResource(IconManager.getIconResource(station.getNumLine()));  // добавление иконки линии
-            switchAlarm.setChecked(station.getBoolAlarm());  // добавление состояния переключателя
+            switchAlarm.setChecked(station.getBoolFavourite());  // добавление состояния переключателя
         }
     }
 

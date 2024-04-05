@@ -80,7 +80,7 @@ public class AddStantionsFragment extends Fragment {
             public void onSwitchChanged(int position, boolean isChecked) {
                 // Обновите значение в базе данных при изменении переключателя
                 Station station = allStationAdapter.getCurrentList().get(position);
-                station.setAlarm(isChecked);
+                station.setFavourite(isChecked);
 
             }
         });
