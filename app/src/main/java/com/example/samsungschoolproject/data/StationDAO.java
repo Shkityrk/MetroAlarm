@@ -21,6 +21,12 @@ public interface StationDAO {
     @Query("UPDATE station_neighbors SET alarm = :alarm, is_favourite= :alarm WHERE id_station = :id")
     void updateAlarm(int id, String alarm);
 
+    @Query("SELECT * FROM station_neighbors WHERE is_favourite = 'true'")
+    LiveData<List<Station>> getFavouriteStations();
+
+    @Query("SELECT * FROM station_neighbors WHERE alarm = 'true'")
+    LiveData<List<Station>> getAlarmStations();
+
 //    @Update
 //    void update(Station station);
 
