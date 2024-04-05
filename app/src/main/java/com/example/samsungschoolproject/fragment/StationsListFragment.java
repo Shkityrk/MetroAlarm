@@ -48,17 +48,20 @@ public class StationsListFragment extends Fragment {
         ));
 
         FavouriteStationAdapter favouriteStationAdapter = new FavouriteStationAdapter(new FavouriteStationAdapter.StationDiff());
+
+        //мусор, нужен был для теста :)
 //        favouriteStationAdapter.Add(new Station(1,"Юго-западная", "Сокольническая линия","null","null","null","null","null","null","null","null"));
 //        favouriteStationAdapter.Add(new Station(2,"Коптево", "МЦК","null","null" ,"null","null","null","null","null","null"));
 //        favouriteStationAdapter.Add(new Station(3,"Проспект Вернадского", "МЦК-Сокольническая линия","null","null","null","null","null","null","null","null"));
 //        favouriteStationAdapter.Add(new Station(4,"Киевская", "Кольцевая линия-Арбатско-покровская линия-Филевская линия","null","null" ,"null","null","null","null","null","null"));
+
         mStationViewModel.getAllWords().observe(getViewLifecycleOwner(), stationsList -> {
             favouriteStationAdapter.submitList(stationsList);
 
             for (int i = 0; i < stationsList.size(); i++) {
                 Station station = stationsList.get(i);
-                boolean alarmState = station.getBoolAlarm();
-                favouriteStationAdapter.setSwitchState(alarmState, i);
+                boolean favourState = station.getBoolAlarm();
+                favouriteStationAdapter.setSwitchState(favourState, i);
             }
         });
 //        favouriteStationAdapter.setSwitchChangeListener(new AllStationAdapter.OnSwitchChangeListener() {
