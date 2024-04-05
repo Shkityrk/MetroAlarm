@@ -70,8 +70,8 @@ public class AddStantionsFragment extends Fragment {
 
             for (int i = 0; i < stationsList.size(); i++) {
                 Station station = stationsList.get(i);
-                boolean alarmState = station.getBoolAlarm();
-                allStationAdapter.setSwitchState(alarmState, i);
+                boolean favourState = station.getBoolFavourite();
+                allStationAdapter.setSwitchState(favourState, i);
             }
         });
 
