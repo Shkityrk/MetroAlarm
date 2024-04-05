@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,14 +16,21 @@ import android.widget.Button;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.FavouriteStationAdapter;
+import com.example.samsungschoolproject.fragment.viewmodel.FavouriteViewModel;
 import com.example.samsungschoolproject.model.Station;
 
+import java.util.List;
+
 public class StationsListFragment extends Fragment {
-
-
+    private FavouriteViewModel mStationViewModel;
+    public FavouriteViewModel getStationViewModel() {
+        return mStationViewModel;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mStationViewModel = new ViewModelProvider(this).get(FavouriteViewModel.class);
     }
 
     @Override
@@ -39,12 +47,29 @@ public class StationsListFragment extends Fragment {
                 false
         ));
 
-        FavouriteStationAdapter favouriteStationAdapter = new FavouriteStationAdapter();
-        favouriteStationAdapter.Add(new Station(1,"Юго-западная", "Сокольническая линия","null","null","null","null","null","null","null","null"));
-        favouriteStationAdapter.Add(new Station(2,"Коптево", "МЦК","null","null" ,"null","null","null","null","null","null"));
-        favouriteStationAdapter.Add(new Station(3,"Проспект Вернадского", "МЦК-Сокольническая линия","null","null","null","null","null","null","null","null"));
-        favouriteStationAdapter.Add(new Station(4,"Киевская", "Кольцевая линия-Арбатско-покровская линия-Филевская линия","null","null" ,"null","null","null","null","null","null"));
+        FavouriteStationAdapter favouriteStationAdapter = new FavouriteStationAdapter(new FavouriteStationAdapter.StationDiff());
+//        favouriteStationAdapter.Add(new Station(1,"Юго-западная", "Сокольническая линия","null","null","null","null","null","null","null","null"));
+//        favouriteStationAdapter.Add(new Station(2,"Коптево", "МЦК","null","null" ,"null","null","null","null","null","null"));
+//        favouriteStationAdapter.Add(new Station(3,"Проспект Вернадского", "МЦК-Сокольническая линия","null","null","null","null","null","null","null","null"));
+//        favouriteStationAdapter.Add(new Station(4,"Киевская", "Кольцевая линия-Арбатско-покровская линия-Филевская линия","null","null" ,"null","null","null","null","null","null"));
+        mStationViewModel.getAllWords().observe(getViewLifecycleOwner(), stationsList -> {
+            favouriteStationAdapter.submitList(stationsList);
 
+            for (int i = 0; i < stationsList.size(); i++) {
+                Station station = stationsList.get(i);
+                boolean alarmState = station.getBoolAlarm();
+                favouriteStationAdapter.setSwitchState(alarmState, i);
+            }
+        });
+//        favouriteStationAdapter.setSwitchChangeListener(new AllStationAdapter.OnSwitchChangeListener() {
+//        @Override
+//        public void onSwitchChanged(int position, boolean isChecked) {
+//            // Обновите значение в базе данных при изменении переключателя
+//            Station station = favouriteStationAdapter.getCurrentList().get(position);
+//            station.setAlarm(isChecked);
+//
+//        }
+//    });
 
         rv.setAdapter(favouriteStationAdapter);
 
@@ -59,6 +84,8 @@ public class StationsListFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, mainMenuFragment);
+
+
 
                 transaction.commit();
             }
