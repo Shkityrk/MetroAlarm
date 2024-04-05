@@ -45,7 +45,7 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
     }
 
     public void setSwitchState(boolean state, int position) {
-        getItem(position).setAlarm(state);
+        getItem(position).setFavourite(state);
         notifyItemChanged(position);
     }
     public void setStations(List<Station> stations) {
