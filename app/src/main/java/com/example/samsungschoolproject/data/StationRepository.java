@@ -48,4 +48,18 @@ public class StationRepository {
                 mStationDAO.updateStations(stations);
             });
         }
+
+        public LiveData<List<Station>> getFavouriteStations() {
+            StationDatabase.databaseWriteExecutor.execute(() -> {
+                mStationDAO.getFavouriteStations();
+            });
+            return mStationDAO.getFavouriteStations();
+        }
+
+        public LiveData<List<Station>> getAlarmStations() {
+            StationDatabase.databaseWriteExecutor.execute(() -> {
+                mStationDAO.getAlarmStations();
+            });
+            return mStationDAO.getAlarmStations();
+        }
 }
