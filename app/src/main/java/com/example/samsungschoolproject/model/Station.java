@@ -92,6 +92,9 @@ public class Station {
     public String getIs_favourite() {
         return is_favourite;
     }
+    public boolean getBoolFavourite() {
+        return Objects.equals(is_favourite, "true");
+    }
 
     public String getAlarm() {
         return alarm;
