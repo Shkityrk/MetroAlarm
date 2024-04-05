@@ -65,9 +65,6 @@ public class FavouriteStationAdapter extends ListAdapter<Station, FavouriteStati
 
     }
 
-
-
-
     public class AllStationViewHolder extends RecyclerView.ViewHolder {
         private AddStationItemBinding addStationItemBinding;
 
