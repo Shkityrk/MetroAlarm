@@ -13,11 +13,16 @@ public class StationRepository {
 
         private StationDAO mStationDAO;
         private LiveData<List<Station>> mAllStations;
+        private List<Station> allStations;
 
         public StationRepository(Application application) {
             StationDatabase db = StationDatabase.getDatabase(application);
             mStationDAO = db.stationDAO();
             mAllStations = mStationDAO.getAllStations();
+        }
+
+        public List<Station> getAllStationsList() {
+            return allStations;
         }
 
 

@@ -66,26 +66,7 @@ public class Station {
         return line;
     }
 
-    public String getLine() {
-        HashMap lines = new HashMap();
-        lines.put("1", "Сокольническая");
-        lines.put("2", "Замоскворецкая");
-        lines.put("3", "Арбатско-Покровская");
-        lines.put("4", "Филевская");
-        lines.put("5", "Кольцевая");
-        lines.put("6", "Калужско-Рижская");
-        lines.put("7", "Таганско-Краснопресненская");
-        lines.put("8", "Калининско-Солнцевская");
-        lines.put("9", "Серпуховско-Тимирязевская");
-        lines.put("10", "Люблинско-Дмитровская");
-        lines.put("11", "БКЛ");
-        lines.put("12", "Бутовская");
-        lines.put("13", "Монорельс");
-        lines.put("МЦК", "МЦК");
-        lines.put("15", "Некрасовская линия");
-        lines.put("МЦД", "МЦД");
-        return (String) lines.get(line);
-    }
+    public String getLine() { return line; }
 
     public String getLongitude() {
         return longitude;

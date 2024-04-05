@@ -14,4 +14,5 @@
     <string name="line">Сокольническая линия</string>
     <string name="new_alarm">+</string>
     <string name="done">Ok</string>
+    <string name="search">Search...</string>
 </resources>
