@@ -95,6 +95,13 @@ public class Station {
     public boolean getBoolFavourite() {
         return Objects.equals(is_favourite, "true");
     }
+    public void setFavourite(boolean isChecked) {
+        if (isChecked) {
+            this.is_favourite = "true";
+        } else {
+            this.is_favourite = "false";
+        }
+    }
 
     public String getAlarm() {
         return alarm;
