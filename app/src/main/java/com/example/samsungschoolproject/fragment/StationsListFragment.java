@@ -60,19 +60,19 @@ public class StationsListFragment extends Fragment {
 
             for (int i = 0; i < stationsList.size(); i++) {
                 Station station = stationsList.get(i);
-                boolean favourState = station.getBoolAlarm();
-                favouriteStationAdapter.setSwitchState(favourState, i);
+                boolean alarmState = station.getBoolAlarm();
+                favouriteStationAdapter.setSwitchState(alarmState, i);
             }
         });
-//        favouriteStationAdapter.setSwitchChangeListener(new AllStationAdapter.OnSwitchChangeListener() {
-//        @Override
-//        public void onSwitchChanged(int position, boolean isChecked) {
-//            // Обновите значение в базе данных при изменении переключателя
-//            Station station = favouriteStationAdapter.getCurrentList().get(position);
-//            station.setAlarm(isChecked);
-//
-//        }
-//    });
+        favouriteStationAdapter.setSwitchChangeListener(new FavouriteStationAdapter.OnSwitchChangeListener(){
+        @Override
+        public void onSwitchChanged(int position, boolean isChecked) {
+            // Обновите значение в базе данных при изменении переключателя
+            Station station = favouriteStationAdapter.getCurrentList().get(position);
+            station.setAlarm(isChecked);
+
+        }
+    });
 
         rv.setAdapter(favouriteStationAdapter);
 
@@ -88,7 +88,8 @@ public class StationsListFragment extends Fragment {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, mainMenuFragment);
 
-
+                List<Station> stationsToUpdate =favouriteStationAdapter.getCurrentList(); // Получить список станций для обновления
+                mStationViewModel.updateStations(stationsToUpdate);
 
                 transaction.commit();
             }
@@ -101,6 +102,9 @@ public class StationsListFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, addStantionsFragment);
+
+                List<Station> stationsToUpdate =favouriteStationAdapter.getCurrentList(); // Получить список станций для обновления
+                mStationViewModel.updateStations(stationsToUpdate);
 
                 transaction.commit();
             }
