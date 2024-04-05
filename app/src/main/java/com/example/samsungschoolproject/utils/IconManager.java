@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.adapter;
+package com.example.samsungschoolproject.utils;
 
 import com.example.samsungschoolproject.R;
 

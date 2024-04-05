@@ -21,7 +21,7 @@ import com.example.samsungschoolproject.model.Station;
 
 import java.util.List;
 
-public class StationsListFragment extends Fragment {
+public class FavouriteStationsListFragment extends Fragment {
     private FavouriteViewModel mStationViewModel;
     public FavouriteViewModel getStationViewModel() {
         return mStationViewModel;
@@ -36,7 +36,7 @@ public class StationsListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_stantions_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_stations_list, container, false);
         Button back_to_main_menu_button= (Button) view.findViewById(R.id.back_to_main_menu_button);
 
         Button create_new_alarm = (Button) view.findViewById(R.id.create_new_alarm);
@@ -98,10 +98,10 @@ public class StationsListFragment extends Fragment {
         create_new_alarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddStantionsFragment addStantionsFragment = new AddStantionsFragment();
+                AddFavouriteStationsFragment addFavouriteStationsFragment = new AddFavouriteStationsFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.container, addStantionsFragment);
+                transaction.replace(R.id.container, addFavouriteStationsFragment);
 
                 List<Station> stationsToUpdate =favouriteStationAdapter.getCurrentList(); // Получить список станций для обновления
                 mStationViewModel.updateStations(stationsToUpdate);

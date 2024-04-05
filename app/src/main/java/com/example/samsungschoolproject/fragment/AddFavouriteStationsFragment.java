@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,34 +15,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.AllStationAdapter;
-import com.example.samsungschoolproject.databinding.AddStationItemBinding;
-import com.example.samsungschoolproject.databinding.FragmentAddStantionsBinding;
-import com.example.samsungschoolproject.fragment.viewmodel.StationsViewModel;
+import com.example.samsungschoolproject.databinding.FragmentAddStationsBinding;
+import com.example.samsungschoolproject.fragment.viewmodel.AllStationsViewModel;
 import com.example.samsungschoolproject.model.Station;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class AddStantionsFragment extends Fragment {
-    public FragmentAddStantionsBinding binding;
-    private StationsViewModel mStationViewModel;
+public class AddFavouriteStationsFragment extends Fragment {
+    public FragmentAddStationsBinding binding;
+    private AllStationsViewModel mStationViewModel;
 
-    public StationsViewModel getStationViewModel() {
+    public AllStationsViewModel getStationViewModel() {
         return mStationViewModel;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = FragmentAddStantionsBinding.inflate(getLayoutInflater());
-        mStationViewModel = new ViewModelProvider(this).get(StationsViewModel.class);
+        binding = FragmentAddStationsBinding.inflate(getLayoutInflater());
+        mStationViewModel = new ViewModelProvider(this).get(AllStationsViewModel.class);
     }
 
 
@@ -52,7 +46,7 @@ public class AddStantionsFragment extends Fragment {
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_add_stantions, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_stations, container, false);
         Button back_to_stations = (Button) view.findViewById(R.id.back_to_stations);
         Button done = (Button) view.findViewById(R.id.done);
 
@@ -92,10 +86,10 @@ public class AddStantionsFragment extends Fragment {
         back_to_stations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StationsListFragment stationsListFragment = new StationsListFragment();
+                FavouriteStationsListFragment favouriteStationsListFragment = new FavouriteStationsListFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.container, stationsListFragment);
+                transaction.replace(R.id.container, favouriteStationsListFragment);
 
 //                mStationViewModel.update(station);
                 List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления

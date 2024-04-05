@@ -10,13 +10,13 @@ import com.example.samsungschoolproject.model.Station;
 
 import java.util.List;
 
-public class StationsViewModel extends AndroidViewModel {
+public class AllStationsViewModel extends AndroidViewModel {
 
     private StationRepository mRepository;
 
     private final LiveData<List<Station>> mAllStation;
 
-    public StationsViewModel (Application application) {
+    public AllStationsViewModel(Application application) {
         super(application);
         mRepository = new StationRepository(application);
         mAllStation = mRepository.getAllStations();

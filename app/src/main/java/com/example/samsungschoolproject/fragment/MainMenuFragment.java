@@ -49,11 +49,11 @@ public class MainMenuFragment extends Fragment {
         chooseStationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StationsListFragment stationsListFragment = new StationsListFragment();
+                FavouriteStationsListFragment favouriteStationsListFragment = new FavouriteStationsListFragment();
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.container, stationsListFragment);
+                transaction.replace(R.id.container, favouriteStationsListFragment);
 
 
                 transaction.commit();

@@ -3,23 +3,20 @@ package com.example.samsungschoolproject.adapter;
 import static android.app.PendingIntent.getActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.databinding.AddStationItemBinding;
-import com.example.samsungschoolproject.fragment.viewmodel.StationsViewModel;
 import com.example.samsungschoolproject.model.Station;
+import com.example.samsungschoolproject.utils.IconManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;

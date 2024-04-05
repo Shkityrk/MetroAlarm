@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.databinding.AddStationItemBinding;
-import com.example.samsungschoolproject.databinding.StantionItemBinding;
 import com.example.samsungschoolproject.model.Station;
+import com.example.samsungschoolproject.utils.IconManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
