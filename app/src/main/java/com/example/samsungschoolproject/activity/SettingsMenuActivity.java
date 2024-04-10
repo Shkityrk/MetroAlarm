@@ -1,5 +1,4 @@
 package com.example.samsungschoolproject.activity;
-import android.content.ContentProvider;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
@@ -15,15 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.samsungschoolproject.R;
 
-import java.io.File;
 import java.io.IOException;
 
 public class SettingsMenuActivity extends AppCompatActivity {
     private static final int PICK_RINGTONE_REQUEST = 1;
     private MediaPlayer mediaPlayer;
-    private SeekBar seekBarVolume;
     private boolean isMusicPlaying = false;
-    SharedPreferences sharedPreferences;
     Uri content_uri = Uri.parse("android.resource://com.example.samsungschoolproject/" + R.raw.song);
 
 
@@ -34,10 +30,16 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
         Button goBackButton = findViewById(R.id.back_to_main_menu);
         Button buttonSelectRingtone = findViewById(R.id.buttonSelectRingtone);  // Кнопка выбора рингтона
-        seekBarVolume = findViewById(R.id.seekBarVolume);  // Ползунок громкости
+        SeekBar seekBarVolume = findViewById(R.id.seekBarVolume);  // Ползунок громкости
         Button buttonSaveSettings = findViewById(R.id.buttonSaveSettings);  // Кнопка сохранения настроек
 
         Log.d("ringtonePath", "Start Media: " + content_uri);
+
+        if (getRingtonePath()!=null){
+            content_uri=Uri.parse(getRingtonePath());
+
+        }
+        Log.d("ringtonePath", content_uri.toString());
 
         goBackButton.setOnClickListener(new View.OnClickListener() {// Листенер для кнопки выхода в главное меню
             @Override
@@ -76,7 +78,6 @@ public class SettingsMenuActivity extends AppCompatActivity {
         buttonSaveSettings.setOnClickListener(new View.OnClickListener() {  // Листенер для кнопки сохранения настроек
             @Override
             public void onClick(View v) {
-
                 if (v.getId() == R.id.buttonSaveSettings) {
                     // Проверяем, играет ли музыка
                     if (!isMusicPlaying) {
@@ -99,6 +100,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
             if (data != null) {
                 Uri uri = data.getData();
                 if (uri != null) {
+                    saveRingtonePath(uri);
                     content_uri= uri;
 
                     Toast.makeText(this, "Выбран рингтон: " + uri.getPath(), Toast.LENGTH_LONG).show();
@@ -114,23 +116,23 @@ public class SettingsMenuActivity extends AppCompatActivity {
         intent.setType("*/*");
         startActivityForResult(intent, PICK_RINGTONE_REQUEST);
     }
-//    private void saveSettings(Uri uri) {
-//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString("ringtonePath", uri.toString());
-//        editor.apply();
-//
-//        Log.d("ringtonePath", "saveSettings: " + sharedPreferences.getString("ringtonePath", null));
-//        Toast.makeText(this, "Настройки сохранены", Toast.LENGTH_LONG).show();
-//    }
-//
-//    private String getRingtonePath() {
-//        String selectedRingtonePath;
-//        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-//        selectedRingtonePath = sharedPreferences.getString("ringtonePath", null);
-//        Log.d("ringtonePath", "getRingtonePath: " + selectedRingtonePath);
-//        return selectedRingtonePath;
-//    }
+    private void saveRingtonePath(Uri uri) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("ringtonePath", uri.toString());
+        editor.apply();
+
+        Log.d("ringtonePath", "saveSettings: " + sharedPreferences.getString("ringtonePath", null));
+        Toast.makeText(this, "Настройки сохранены", Toast.LENGTH_LONG).show();
+    }
+
+    private String getRingtonePath() {
+        String selectedRingtonePath;
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        selectedRingtonePath = sharedPreferences.getString("ringtonePath", null);
+        Log.d("ringtonePath", "getRingtonePath: " + selectedRingtonePath);
+        return selectedRingtonePath;
+    }
 
     private void setMediaPlayer(Uri uri_song) {
         mediaPlayer = new MediaPlayer();
