@@ -21,7 +21,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private boolean isMusicPlaying = false;
     Uri content_uri = Uri.parse("android.resource://com.example.samsungschoolproject/" + R.raw.song);
-    private int volume = 20;
+    private int volume;
 
 
     @Override
@@ -41,15 +41,15 @@ public class SettingsMenuActivity extends AppCompatActivity {
         }
         Log.d("ringtonePath", content_uri.toString());
 
-
-        if (getVolume()!=0 && (getVolume()>=0 && getVolume()<=100)){
-            volume=getVolume();
-
-        }
+        volume=getVolume();
         seekBarVolume.setProgress(volume);
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+        mediaPlayer.setVolume( volume / 100f,volume / 100f );
+
         Log.d("volume", String.valueOf(volume));
 
-//        mediaPlayer.setVolume(20 / 100f, volume / 100f);
 
         goBackButton.setOnClickListener(new View.OnClickListener() {// Листенер для кнопки выхода в главное меню
             @Override
@@ -76,7 +76,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Log.d("volume", "onProgressChanged: " + progress);
                 saveVolume(progress);
-                mediaPlayer.setVolume( (float)volume ,(float)volume );
+                mediaPlayer.setVolume( progress / 100f,progress / 100f );
 
             }
             @Override
@@ -152,10 +152,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
     }
 
     private void setMediaPlayer(Uri uri_song) {
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
         try {
-
             mediaPlayer.setDataSource(getApplicationContext(), uri_song);
             mediaPlayer.prepare();
         } catch (IOException e) {
