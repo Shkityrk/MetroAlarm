@@ -1,4 +1,5 @@
 package com.example.samsungschoolproject.activity;
+import android.content.ContentProvider;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.samsungschoolproject.R;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SettingsMenuActivity extends AppCompatActivity {
@@ -21,6 +23,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private SeekBar seekBarVolume;
     private boolean isMusicPlaying = false;
+    SharedPreferences sharedPreferences;
     Uri content_uri = Uri.parse("android.resource://com.example.samsungschoolproject/" + R.raw.song);
 
 
@@ -33,6 +36,8 @@ public class SettingsMenuActivity extends AppCompatActivity {
         Button buttonSelectRingtone = findViewById(R.id.buttonSelectRingtone);  // Кнопка выбора рингтона
         seekBarVolume = findViewById(R.id.seekBarVolume);  // Ползунок громкости
         Button buttonSaveSettings = findViewById(R.id.buttonSaveSettings);  // Кнопка сохранения настроек
+
+        Log.d("ringtonePath", "Start Media: " + content_uri);
 
         goBackButton.setOnClickListener(new View.OnClickListener() {// Листенер для кнопки выхода в главное меню
             @Override
@@ -94,7 +99,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
             if (data != null) {
                 Uri uri = data.getData();
                 if (uri != null) {
-                    content_uri= Uri.parse(uri.getPath());
+                    content_uri= uri;
 
                     Toast.makeText(this, "Выбран рингтон: " + uri.getPath(), Toast.LENGTH_LONG).show();
 //                    saveSettings(uri);
