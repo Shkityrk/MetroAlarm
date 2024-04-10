@@ -21,6 +21,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private boolean isMusicPlaying = false;
     Uri content_uri = Uri.parse("android.resource://com.example.samsungschoolproject/" + R.raw.song);
+    private int volume = 20;
 
 
     @Override
@@ -37,9 +38,18 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
         if (getRingtonePath()!=null){
             content_uri=Uri.parse(getRingtonePath());
-
         }
         Log.d("ringtonePath", content_uri.toString());
+
+
+        if (getVolume()!=0 && (getVolume()>=0 && getVolume()<=100)){
+            volume=getVolume();
+
+        }
+        seekBarVolume.setProgress(volume);
+        Log.d("volume", String.valueOf(volume));
+
+//        mediaPlayer.setVolume(20 / 100f, volume / 100f);
 
         goBackButton.setOnClickListener(new View.OnClickListener() {// Листенер для кнопки выхода в главное меню
             @Override
@@ -64,9 +74,10 @@ public class SettingsMenuActivity extends AppCompatActivity {
         seekBarVolume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {  // Листенер для ползунка громкости
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (mediaPlayer != null && fromUser) {
-                    mediaPlayer.setVolume(progress / 100f, progress / 100f);
-                }
+                Log.d("volume", "onProgressChanged: " + progress);
+                saveVolume(progress);
+                mediaPlayer.setVolume( (float)volume ,(float)volume );
+
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
@@ -78,6 +89,12 @@ public class SettingsMenuActivity extends AppCompatActivity {
         buttonSaveSettings.setOnClickListener(new View.OnClickListener() {  // Листенер для кнопки сохранения настроек
             @Override
             public void onClick(View v) {
+                volume = seekBarVolume.getProgress();
+                Log.d("volume", "DONE");
+                Log.d("volume", "volume: " + volume);
+
+
+
                 if (v.getId() == R.id.buttonSaveSettings) {
                     // Проверяем, играет ли музыка
                     if (!isMusicPlaying) {
@@ -145,6 +162,24 @@ public class SettingsMenuActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         mediaPlayer.setLooping(true);
+    }
+
+    private void saveVolume(int volume) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("volume", volume);
+        editor.apply();
+
+        Log.d("volume", "saveVolume: " + sharedPreferences.getInt("volume", 0));
+        Toast.makeText(this, "Настройки сохранены", Toast.LENGTH_LONG).show();
+    }
+
+    private int getVolume() {
+        int volume;
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        volume = sharedPreferences.getInt("volume", 0);
+        Log.d("volume", "getVolume: " + volume);
+        return volume;
     }
 
     @Override
