@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +15,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.samsungschoolproject.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class SettingsMenuActivity extends AppCompatActivity {
     private static final int PICK_RINGTONE_REQUEST = 1;
@@ -22,6 +33,10 @@ public class SettingsMenuActivity extends AppCompatActivity {
     private boolean isMusicPlaying = false;
     Uri content_uri = Uri.parse("android.resource://com.example.samsungschoolproject/" + R.raw.song);
     private int volume;
+//    Dotenv dotenv = Dotenv.load();
+//    private final String SERVER_CHECK_VERSION = dotenv.get("SERVER_CHECK_VERSION");
+
+    private static final String SERVER_URL_CHECK_VERSION = "http://79.137.197.216:8000/get_version/";
 
 
     @Override
@@ -33,6 +48,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         Button buttonSelectRingtone = findViewById(R.id.buttonSelectRingtone);  // Кнопка выбора рингтона
         SeekBar seekBarVolume = findViewById(R.id.seekBarVolume);  // Ползунок громкости
         Button buttonSaveSettings = findViewById(R.id.buttonSaveSettings);  // Кнопка сохранения настроек
+        Button getServerVersion = findViewById(R.id.getServerVersion);
 
         Log.d("ringtonePath", "Start Media: " + content_uri);
 
@@ -106,6 +122,13 @@ public class SettingsMenuActivity extends AppCompatActivity {
                         isMusicPlaying = false;
                     }
                 }
+            }
+        });
+
+        getServerVersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FetchVersionTask().execute(SERVER_URL_CHECK_VERSION);
             }
         });
     }
@@ -190,5 +213,50 @@ public class SettingsMenuActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         finish();
+    }
+
+
+    private class FetchVersionTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            String urlString = params[0];
+            try {
+                URL url = new URL(urlString);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    InputStream in = urlConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                } finally {
+                    urlConnection.disconnect();
+                }
+            } catch (IOException e) {
+                Log.e("Error", "Error fetching data", e);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            if (response != null) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String versionName = jsonObject.getString("version");
+                    Toast.makeText(getApplicationContext(), "Версия: " + versionName, Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    Log.e("Error", "Error parsing JSON", e);
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Ошибка при получении данных", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

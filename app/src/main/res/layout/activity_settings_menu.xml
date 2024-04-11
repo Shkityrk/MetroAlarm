@@ -52,6 +52,13 @@
         android:layout_marginBottom="40dp"
         android:text="@string/back_to_main_menu"/>
 
+    <Button
+        android:id="@+id/getServerVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Проверка версии базы данных" />
+
+
 </LinearLayout>
 
 

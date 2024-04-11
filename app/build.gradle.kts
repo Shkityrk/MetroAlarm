@@ -57,4 +57,8 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata:$lifecycleVersion")
     implementation ("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
 
+    //dotenv
+
+    implementation ("io.github.cdimascio:java-dotenv:5.2.2")
+
 }
