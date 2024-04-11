@@ -1,4 +1,6 @@
 package com.example.samsungschoolproject.activity;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
@@ -14,14 +16,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.samsungschoolproject.R;
+//import com.example.samsungschoolproject.utils.FileUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -33,10 +40,14 @@ public class SettingsMenuActivity extends AppCompatActivity {
     private boolean isMusicPlaying = false;
     Uri content_uri = Uri.parse("android.resource://com.example.samsungschoolproject/" + R.raw.song);
     private int volume;
-//    Dotenv dotenv = Dotenv.load();
+    private String version;
+    private Context mContext;
+    String database;
+
 //    private final String SERVER_CHECK_VERSION = dotenv.get("SERVER_CHECK_VERSION");
 
     private static final String SERVER_URL_CHECK_VERSION = "http://79.137.197.216:8000/get_version/";
+
 
 
     @Override
@@ -56,6 +67,11 @@ public class SettingsMenuActivity extends AppCompatActivity {
             content_uri=Uri.parse(getRingtonePath());
         }
         Log.d("ringtonePath", content_uri.toString());
+
+        if(getVersion()!=null){
+            version = getVersion();
+        }
+
 
         volume=getVolume();
         seekBarVolume.setProgress(volume);
@@ -202,6 +218,20 @@ public class SettingsMenuActivity extends AppCompatActivity {
         return volume;
     }
 
+    private void saveVersion(String version) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("version", version);
+        editor.apply();
+    }
+
+    private String getVersion() {
+        String version;
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        version = sharedPreferences.getString("version", null);
+        return version;
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -250,6 +280,15 @@ public class SettingsMenuActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String versionName = jsonObject.getString("version");
+
+                    if (versionName.equals(version)) {
+                        Toast.makeText(getApplicationContext(), "У вас последняя версия", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Доступна новая версия: " + versionName, Toast.LENGTH_SHORT).show();
+                        new DownloadDataTask().execute();  // Загрузка данных с сервера
+                        //------------------------------------------------------
+                    }
+                    saveVersion(versionName);
                     Toast.makeText(getApplicationContext(), "Версия: " + versionName, Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     Log.e("Error", "Error parsing JSON", e);
@@ -259,4 +298,46 @@ public class SettingsMenuActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    public class DownloadDataTask extends AsyncTask<Void, Void, String> {
+        private static final String TAG = "DownloadDataTask";
+        @Override
+        protected String doInBackground(Void... voids) {
+            String result = "";
+            HttpURLConnection urlConnection = null;
+            try {
+                URL url = new URL("http://79.137.197.216:8000/get_database/");
+                urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream inputStream = urlConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+                bufferedReader.close();
+                result = stringBuilder.toString();
+                Log.d("database", "downl");
+
+
+
+            } catch (Exception e) {
+                Log.e(TAG, "Error downloading data", e);
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+            database = result;
+            return result;
+        }
+
+//        @Override
+//        protected void onPostExecute(String result) {
+//            FileUtils.replaceFile(database);
+//        }
+    }
+
+
 }
