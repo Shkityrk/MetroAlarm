@@ -15,24 +15,21 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.samsungschoolproject.utils.DatabaseHelper;
+
 import com.example.samsungschoolproject.R;
-//import com.example.samsungschoolproject.utils.FileUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import io.github.cdimascio.dotenv.Dotenv;
 
 public class SettingsMenuActivity extends AppCompatActivity {
     private static final int PICK_RINGTONE_REQUEST = 1;
@@ -71,7 +68,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         if(getVersion()!=null){
             version = getVersion();
         }
-
+        version="1.1";
 
         volume=getVolume();
         seekBarVolume.setProgress(volume);
@@ -300,6 +297,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     public class DownloadDataTask extends AsyncTask<Void, Void, String> {
         private static final String TAG = "DownloadDataTask";
         @Override
@@ -329,14 +327,56 @@ public class SettingsMenuActivity extends AppCompatActivity {
                     urlConnection.disconnect();
                 }
             }
-            database = result;
+
+
+
             return result;
         }
 
-//        @Override
-//        protected void onPostExecute(String result) {
-//            FileUtils.replaceFile(database);
-//        }
+        @Override
+        protected void onPostExecute(String result) {
+
+            String path = getDatabasePath("station_neighbors").toString();
+            replaceDatabase(path, result);
+            System.exit(0);
+//            File fileToDelete = new File((getDatabasePath("stations.db")).getPath());
+//            Log.d("db", getFilesDir().toString() + "../" + "databases/stations.db");
+//            if(fileToDelete.exists()){
+//                if (fileToDelete.delete()){
+//                    System.out.println("Файл успешно удален");
+//                }else{
+//                    System.out.println("Не удалось удалить файл.");
+//                }
+//            }else {
+//                System.out.println("Файл не существует.");
+//            }
+//
+
+        }
+        public void replaceDatabase(String path, String newData) {
+            File databaseFile = new File(path);
+
+            try {
+                // Читаем содержимое базы данных из переменной result
+                byte[] newDataBytes = newData.getBytes();
+
+                // Создаем поток для записи данных в базу данных
+                FileOutputStream outputStream = new FileOutputStream(databaseFile);
+                outputStream.write(newDataBytes);
+
+                // Закрываем поток
+                outputStream.close();
+
+                // Все успешно выполнено
+                System.out.println("База данных успешно заменена");
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Ошибка при замене базы данных: " + e.getMessage());
+            }
+        }
+
+
+
     }
 
 
