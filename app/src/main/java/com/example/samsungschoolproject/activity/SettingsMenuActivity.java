@@ -11,11 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.samsungschoolproject.utils.DatabaseHelper;
 
 import com.example.samsungschoolproject.R;
 
@@ -38,6 +37,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
     Uri content_uri = Uri.parse("android.resource://com.example.samsungschoolproject/" + R.raw.song);
     private int volume;
     private String version;
+    private boolean vibration;
     private Context mContext;
     String database;
 
@@ -57,6 +57,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         SeekBar seekBarVolume = findViewById(R.id.seekBarVolume);  // Ползунок громкости
         Button buttonSaveSettings = findViewById(R.id.buttonSaveSettings);  // Кнопка сохранения настроек
         Button getServerVersion = findViewById(R.id.getServerVersion);
+        CheckBox vibration = findViewById(R.id.checkBoxVibration);
 
         Log.d("ringtonePath", "Start Media: " + content_uri);
 
@@ -68,7 +69,10 @@ public class SettingsMenuActivity extends AppCompatActivity {
         if(getVersion()!=null){
             version = getVersion();
         }
-        version="1.1";
+//        version="1.1";
+
+        vibration.setChecked(getVibration());
+
 
         volume=getVolume();
         seekBarVolume.setProgress(volume);
@@ -138,12 +142,27 @@ public class SettingsMenuActivity extends AppCompatActivity {
             }
         });
 
+        vibration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (vibration.isChecked()){
+                    Toast.makeText(getApplicationContext(), "Вибрация включена", Toast.LENGTH_SHORT).show();
+                    saveVibration(true);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Вибрация выключена", Toast.LENGTH_SHORT).show();
+                    saveVibration(false);
+                }
+            }
+        });
+
         getServerVersion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new FetchVersionTask().execute(SERVER_URL_CHECK_VERSION);
             }
         });
+
+
     }
 
     @Override
@@ -227,6 +246,20 @@ public class SettingsMenuActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         version = sharedPreferences.getString("version", null);
         return version;
+    }
+
+    private void saveVibration(boolean vibration) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("vibration", vibration);
+        editor.apply();
+    }
+
+    private boolean getVibration() {
+        boolean vibration;
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        vibration = sharedPreferences.getBoolean("vibration", false);
+        return vibration;
     }
 
     @Override
