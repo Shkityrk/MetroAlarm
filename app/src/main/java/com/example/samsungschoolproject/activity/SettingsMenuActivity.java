@@ -58,6 +58,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         Button buttonSaveSettings = findViewById(R.id.buttonSaveSettings);  // Кнопка сохранения настроек
         Button getServerVersion = findViewById(R.id.getServerVersion);
         CheckBox vibration = findViewById(R.id.checkBoxVibration);
+        SeekBar seekBarRadius = findViewById(R.id.seekBarRadius);
 
         Log.d("ringtonePath", "Start Media: " + content_uri);
 
@@ -72,6 +73,8 @@ public class SettingsMenuActivity extends AppCompatActivity {
 //        version="1.1";
 
         vibration.setChecked(getVibration());
+
+        seekBarRadius.setProgress(getRadius());
 
 
         volume=getVolume();
@@ -160,6 +163,21 @@ public class SettingsMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new FetchVersionTask().execute(SERVER_URL_CHECK_VERSION);
             }
+        });
+
+        seekBarRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {  // Листенер для ползунков радиуса
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d("raduius", "onProgressChanged: " + progress);
+
+
+
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
 
@@ -260,6 +278,20 @@ public class SettingsMenuActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         vibration = sharedPreferences.getBoolean("vibration", false);
         return vibration;
+    }
+
+    private void saveRadius(int radius) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("radius", radius);
+        editor.apply();
+    }
+
+    private int getRadius() {
+        int radius;
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        radius = sharedPreferences.getInt("radius", 0);
+        return radius;
     }
 
     @Override
