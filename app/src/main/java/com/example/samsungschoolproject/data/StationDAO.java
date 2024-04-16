@@ -2,6 +2,7 @@ package com.example.samsungschoolproject.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -32,4 +33,10 @@ public interface StationDAO {
 
     @Update
     public void updateStations(List<Station> stations); // Метод для обновления списка станций
+
+    @Update
+    void updateStation(Station station);
+
+    @Delete
+    void deleteStation(Station station);
 }

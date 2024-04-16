@@ -62,4 +62,16 @@ public class StationRepository {
             });
             return mStationDAO.getAlarmStations();
         }
+
+    public void updateStation(Station station) {
+        StationDatabase.databaseWriteExecutor.execute(() -> {
+            mStationDAO.updateStation(station);
+        });
+    }
+
+    public void deleteStation(Station station) {
+        StationDatabase.databaseWriteExecutor.execute(() -> {
+            mStationDAO.deleteStation(station);
+        });
+    }
 }

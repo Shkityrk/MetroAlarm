@@ -38,6 +38,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.3.0")
+    implementation("androidx.activity:activity:1.8.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -60,5 +61,7 @@ dependencies {
     //dotenv
 
     implementation ("io.github.cdimascio:java-dotenv:5.2.2")
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
 }

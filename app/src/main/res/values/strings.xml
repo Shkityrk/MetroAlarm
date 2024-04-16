@@ -18,4 +18,7 @@
     <string name="getFavourite">Добавить станции в избранное</string>
     <string name="SetAlarm">Установить будильник</string>
     <string name="update_DB">Обновить базу данных</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
