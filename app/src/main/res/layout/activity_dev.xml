@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editText_stationName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter station name"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/button_deleteStation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText_stationName"
+        android:layout_centerHorizontal="true"
+        android:text="Delete Station"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/editText_add_stationName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="350dp"
+        android:hint="Enter station name" />
+
+    <EditText
+        android:id="@+id/editText_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter line"
+        android:layout_below="@id/editText_add_stationName"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/id_station"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter id_station(UNIQUE)"
+        android:layout_below="@id/editText_line"
+        android:layout_margin="16dp"/>
+
+    <!-- Add other EditText fields for latitude, longitude, width_neighbour1, longitude_neighbour1, width_neighbour2, and longitude_neighbour2 -->
+
+    <Button
+        android:id="@+id/button_addStation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/id_station"
+        android:layout_centerHorizontal="true"
+        android:text="Add Station"
+        android:layout_marginTop="16dp"/>
+
+</RelativeLayout>
