@@ -15,8 +15,12 @@ import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.samsungschoolproject.R;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +63,8 @@ public class SettingsMenuActivity extends AppCompatActivity {
         Button getServerVersion = findViewById(R.id.getServerVersion);
         CheckBox vibration = findViewById(R.id.checkBoxVibration);
         SeekBar seekBarRadius = findViewById(R.id.seekBarRadius);
+
+        Button buttonDewMode = findViewById(R.id.button_devMenu);
 
         Log.d("ringtonePath", "Start Media: " + content_uri);
 
@@ -180,6 +186,13 @@ public class SettingsMenuActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
+        buttonDewMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DevActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
