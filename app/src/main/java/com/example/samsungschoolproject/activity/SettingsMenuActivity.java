@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.samsungschoolproject.R;
+import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 
 import org.json.JSONException;
@@ -44,7 +45,6 @@ public class SettingsMenuActivity extends AppCompatActivity {
     private boolean vibration;
     private Context mContext;
     String database;
-
 //    private final String SERVER_CHECK_VERSION = dotenv.get("SERVER_CHECK_VERSION");
 
     private static final String SERVER_URL_CHECK_VERSION = "http://79.137.197.216:8000/get_version/";
@@ -68,22 +68,24 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
         Log.d("ringtonePath", "Start Media: " + content_uri);
 
-        if (getRingtonePath()!=null){
-            content_uri=Uri.parse(getRingtonePath());
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+
+        if (sharedPreferencesUtils.getRingtonePath()!=null){
+            content_uri=Uri.parse(sharedPreferencesUtils.getRingtonePath());
         }
         Log.d("ringtonePath", content_uri.toString());
 
-        if(getVersion()!=null){
-            version = getVersion();
+        if(sharedPreferencesUtils.getVersion()!=null){
+            version = sharedPreferencesUtils.getVersion();
         }
 //        version="1.1";
 
-        vibration.setChecked(getVibration());
+        vibration.setChecked(sharedPreferencesUtils.getVibration());
 
-        seekBarRadius.setProgress(getRadius());
+        seekBarRadius.setProgress(sharedPreferencesUtils.getRadius());
 
 
-        volume=getVolume();
+        volume=sharedPreferencesUtils.getVolume();
         seekBarVolume.setProgress(volume);
 
         mediaPlayer = new MediaPlayer();
@@ -117,7 +119,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Log.d("volume", "onProgressChanged: " + progress);
-                saveVolume(progress);
+                sharedPreferencesUtils.saveVolume(progress);
                 mediaPlayer.setVolume( progress / 100f,progress / 100f );
 
             }
@@ -156,10 +158,10 @@ public class SettingsMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (vibration.isChecked()){
                     Toast.makeText(getApplicationContext(), "Вибрация включена", Toast.LENGTH_SHORT).show();
-                    saveVibration(true);
+                    sharedPreferencesUtils.saveVibration(true);
                 } else {
                     Toast.makeText(getApplicationContext(), "Вибрация выключена", Toast.LENGTH_SHORT).show();
-                    saveVibration(false);
+                    sharedPreferencesUtils.saveVibration(false);
                 }
             }
         });
@@ -203,7 +205,8 @@ public class SettingsMenuActivity extends AppCompatActivity {
             if (data != null) {
                 Uri uri = data.getData();
                 if (uri != null) {
-                    saveRingtonePath(uri);
+                    SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+                    sharedPreferencesUtils.saveRingtonePath(uri);
                     content_uri= uri;
 
                     Toast.makeText(this, "Выбран рингтон: " + uri.getPath(), Toast.LENGTH_LONG).show();
@@ -219,23 +222,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         intent.setType("*/*");
         startActivityForResult(intent, PICK_RINGTONE_REQUEST);
     }
-    private void saveRingtonePath(Uri uri) {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("ringtonePath", uri.toString());
-        editor.apply();
 
-        Log.d("ringtonePath", "saveSettings: " + sharedPreferences.getString("ringtonePath", null));
-        Toast.makeText(this, "Настройки сохранены", Toast.LENGTH_LONG).show();
-    }
-
-    private String getRingtonePath() {
-        String selectedRingtonePath;
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        selectedRingtonePath = sharedPreferences.getString("ringtonePath", null);
-        Log.d("ringtonePath", "getRingtonePath: " + selectedRingtonePath);
-        return selectedRingtonePath;
-    }
 
     private void setMediaPlayer(Uri uri_song) {
         try {
@@ -245,66 +232,6 @@ public class SettingsMenuActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         mediaPlayer.setLooping(true);
-    }
-
-    private void saveVolume(int volume) {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("volume", volume);
-        editor.apply();
-
-        Log.d("volume", "saveVolume: " + sharedPreferences.getInt("volume", 0));
-        Toast.makeText(this, "Настройки сохранены", Toast.LENGTH_LONG).show();
-    }
-
-    private int getVolume() {
-        int volume;
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        volume = sharedPreferences.getInt("volume", 0);
-        Log.d("volume", "getVolume: " + volume);
-        return volume;
-    }
-
-    private void saveVersion(String version) {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("version", version);
-        editor.apply();
-    }
-
-    private String getVersion() {
-        String version;
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        version = sharedPreferences.getString("version", null);
-        return version;
-    }
-
-    private void saveVibration(boolean vibration) {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("vibration", vibration);
-        editor.apply();
-    }
-
-    private boolean getVibration() {
-        boolean vibration;
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        vibration = sharedPreferences.getBoolean("vibration", false);
-        return vibration;
-    }
-
-    private void saveRadius(int radius) {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("radius", radius);
-        editor.apply();
-    }
-
-    private int getRadius() {
-        int radius;
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        radius = sharedPreferences.getInt("radius", 0);
-        return radius;
     }
 
     @Override
@@ -363,7 +290,8 @@ public class SettingsMenuActivity extends AppCompatActivity {
                         new DownloadDataTask().execute();  // Загрузка данных с сервера
                         //------------------------------------------------------
                     }
-                    saveVersion(versionName);
+                    SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+                    sharedPreferencesUtils.saveVersion(versionName);
                     Toast.makeText(getApplicationContext(), "Версия: " + versionName, Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     Log.e("Error", "Error parsing JSON", e);
