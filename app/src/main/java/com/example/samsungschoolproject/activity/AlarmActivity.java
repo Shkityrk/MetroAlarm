@@ -1,43 +1,36 @@
 package com.example.samsungschoolproject.activity;
 
-import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PixelFormat;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.samsungschoolproject.R;
+import com.example.samsungschoolproject.service.MusicService;
+import com.example.samsungschoolproject.utils.NotificationHelper;
+
+import android.media.MediaPlayer;
 
 public class AlarmActivity extends AppCompatActivity {
+    private static final int NOTIFICATION_ID = 1;
     private WindowManager windowManager;
     private TextView textView;
     private Button dismissButton;
+    private MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +43,24 @@ public class AlarmActivity extends AppCompatActivity {
         dismissButton = new Button(this);
         dismissButton.setText("Dismiss");
 
+        Intent musicServiceIntent = new Intent(this, MusicService.class);
+        startService(musicServiceIntent);
+
+        Notification notification = NotificationHelper.createNotification(this);
+
+        // Отображение уведомления
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID, notification);
+
         // Set up the window layout parameters
         WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                WindowManager.LayoutParams.TYPE_APPLICATION,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
                         | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
                         | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-                PixelFormat.TRANSLUCENT);
+                android.graphics.PixelFormat.TRANSLUCENT);
         params.gravity = Gravity.CENTER;
 
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
@@ -68,9 +70,9 @@ public class AlarmActivity extends AppCompatActivity {
         WindowManager.LayoutParams buttonParams = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                WindowManager.LayoutParams.TYPE_APPLICATION,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT);
+                android.graphics.PixelFormat.TRANSLUCENT);
         buttonParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
 
         windowManager.addView(dismissButton, buttonParams);
@@ -78,7 +80,16 @@ public class AlarmActivity extends AppCompatActivity {
         dismissButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopAlarm();
+                // Удаление уведомления
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(NOTIFICATION_ID);
+
+                // Остановка музыкального сервиса
+                Intent stopServiceIntent = new Intent(AlarmActivity.this, MusicService.class);
+                stopService(stopServiceIntent);
+
+                // Закрытие активности
+                finish();
             }
         });
 
@@ -95,24 +106,19 @@ public class AlarmActivity extends AppCompatActivity {
         }
     }
 
-    private void stopAlarm() {
-        // Dismiss the alarm
-        windowManager.removeViewImmediate(textView);
-        windowManager.removeViewImmediate(dismissButton);
-        finish();
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (windowManager != null) {
-            if (textView != null && textView.isAttachedToWindow()) {
+            if (textView != null) {
                 windowManager.removeViewImmediate(textView);
             }
-            if (dismissButton != null && dismissButton.isAttachedToWindow()) {
+            if (dismissButton != null) {
                 windowManager.removeViewImmediate(dismissButton);
             }
         }
+        // Stop music service
+        Intent stopServiceIntent = new Intent(this, MusicService.class);
+        stopService(stopServiceIntent);
     }
-
 }
