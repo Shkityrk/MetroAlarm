@@ -146,6 +146,7 @@ import androidx.core.content.ContextCompat;
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.activity.MainActivity;
 import com.example.samsungschoolproject.fragment.MainMenuFragment;
+import com.example.samsungschoolproject.utils.CoordinateUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -168,7 +169,13 @@ public class LocationService extends IntentService {
 
     @Override
     public void onCreate() {
+
         super.onCreate();
+
+        double targetLatitude = 55.8360472; // Здесь задайте целевые координаты
+        double targetLongitude = 37.5060672; // Здесь задайте целевые координаты
+        double radius = 300.0; // Задайте радиус погрешности в метрах
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         locationCallback = new LocationCallback() {
             @Override
@@ -178,6 +185,7 @@ public class LocationService extends IntentService {
                 }
                 for (Location location : locationResult.getLocations()) {
                     Log.d(TAG, "Location: " + location.getLatitude() + ", " + location.getLongitude());
+                    CoordinateUtils.checkCoordinatesInRadius(getApplicationContext(), location.getLatitude(), location.getLongitude(), targetLatitude, targetLongitude, radius);
                     // Handle location updates here
                 }
             }
