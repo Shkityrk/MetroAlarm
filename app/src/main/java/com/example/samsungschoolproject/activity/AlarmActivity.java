@@ -12,7 +12,7 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
+
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,7 +27,7 @@ import android.media.MediaPlayer;
 
 public class AlarmActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 1;
-    private WindowManager windowManager;
+
     private TextView textView;
     private Button dismissButton;
     private MediaPlayer mediaPlayer;
@@ -38,10 +38,8 @@ public class AlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_alarm);
 
         // Initialize UI components
-        textView = new TextView(this);
-        textView.setText("Your alarm message here");
-        dismissButton = new Button(this);
-        dismissButton.setText("Dismiss");
+        textView = findViewById(R.id.textView);
+        dismissButton = findViewById(R.id.dismissButton);
 
         Intent musicServiceIntent = new Intent(this, MusicService.class);
         startService(musicServiceIntent);
@@ -52,30 +50,6 @@ public class AlarmActivity extends AppCompatActivity {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, notification);
 
-        // Set up the window layout parameters
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.TYPE_APPLICATION,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-                        | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                        | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-                android.graphics.PixelFormat.TRANSLUCENT);
-        params.gravity = Gravity.CENTER;
-
-        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        windowManager.addView(textView, params);
-
-        // Add button to dismiss the alarm
-        WindowManager.LayoutParams buttonParams = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_APPLICATION,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                android.graphics.PixelFormat.TRANSLUCENT);
-        buttonParams.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-
-        windowManager.addView(dismissButton, buttonParams);
 
         dismissButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,14 +83,7 @@ public class AlarmActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (windowManager != null) {
-            if (textView != null) {
-                windowManager.removeViewImmediate(textView);
-            }
-            if (dismissButton != null) {
-                windowManager.removeViewImmediate(dismissButton);
-            }
-        }
+
         // Stop music service
         Intent stopServiceIntent = new Intent(this, MusicService.class);
         stopService(stopServiceIntent);
