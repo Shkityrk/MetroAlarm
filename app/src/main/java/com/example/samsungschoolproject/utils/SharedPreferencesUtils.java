@@ -108,4 +108,14 @@ public class SharedPreferencesUtils {
         editor.putString(stationName, value);
         editor.apply();
     }
+
+    public void setServiceRunning(boolean isRunning) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("serviceRunning", isRunning);
+        editor.apply();
+    }
+
+    public boolean isServiceRunning() {
+        return preferences.getBoolean("serviceRunning", false);
+    }
 }
