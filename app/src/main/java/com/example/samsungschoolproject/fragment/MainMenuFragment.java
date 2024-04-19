@@ -1,5 +1,6 @@
 package com.example.samsungschoolproject.fragment;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -18,9 +19,11 @@ import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.activity.SettingsMenuActivity;
+import com.example.samsungschoolproject.service.LocationService;
 
 
 public class MainMenuFragment extends Fragment {
+    private boolean isServiceRunning = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,11 +68,28 @@ public class MainMenuFragment extends Fragment {
             public void onClick(View v) {
                 String name = getString(R.string.main_button_push);
                 Toast.makeText(v.getContext(), name, Toast.LENGTH_SHORT).show();
+                if (isServiceRunning) {
+                    stopLocationService();
+                } else {
+                    startLocationService();
+                }
             }
         });
 
 
 
         return view;
+    }
+
+    private void startLocationService() {
+        Intent serviceIntent = new Intent(getActivity(), LocationService.class);
+        ContextCompat.startForegroundService(getActivity(), serviceIntent);
+        isServiceRunning = true;
+    }
+
+    private void stopLocationService() {
+        Intent serviceIntent = new Intent(getActivity(), LocationService.class);
+        getActivity().stopService(serviceIntent);
+        isServiceRunning = false;
     }
 }

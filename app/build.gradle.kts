@@ -64,4 +64,6 @@ dependencies {
 
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+    implementation ("com.google.android.gms:play-services-location:18.0.0")
+
 }
