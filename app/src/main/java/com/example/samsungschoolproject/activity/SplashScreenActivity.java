@@ -1,5 +1,7 @@
 package com.example.samsungschoolproject.activity;
 
+import static java.security.AccessController.getContext;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.samsungschoolproject.R;
+import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 import com.example.samsungschoolproject.utils.ThemeUtils;
 
 @SuppressLint("CustomSplashScreen")
@@ -23,6 +26,9 @@ public class SplashScreenActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        sharedPreferencesUtils.setServiceRunning(false);
 
         ImageView imageView = findViewById(R.id.splashImageView);
 

@@ -115,7 +115,7 @@ public class SharedPreferencesUtils {
         editor.apply();
     }
 
-    public boolean isServiceRunning() {
+    public boolean getServiceRunning() {
         return preferences.getBoolean("serviceRunning", false);
     }
 }

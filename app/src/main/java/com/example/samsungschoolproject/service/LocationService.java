@@ -123,11 +123,13 @@ package com.example.samsungschoolproject.service;
 
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ServiceInfo;
@@ -135,6 +137,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -142,11 +145,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.activity.MainActivity;
 import com.example.samsungschoolproject.fragment.MainMenuFragment;
+import com.example.samsungschoolproject.utils.AlarmReceiver;
 import com.example.samsungschoolproject.utils.CoordinateUtils;
+import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -167,6 +173,9 @@ public class LocationService extends IntentService {
         super("BACK_LOCATION");
     }
 
+
+
+
     @Override
     public void onCreate() {
 
@@ -185,8 +194,10 @@ public class LocationService extends IntentService {
                 }
                 for (Location location : locationResult.getLocations()) {
                     Log.d(TAG, "Location: " + location.getLatitude() + ", " + location.getLongitude());
-                    CoordinateUtils.checkCoordinatesInRadius(getApplicationContext(), location.getLatitude(), location.getLongitude(), targetLatitude, targetLongitude, radius);
-                    // Handle location updates here
+                    checkCoordinatesInRadius(getApplicationContext(), location.getLatitude(), location.getLongitude(), targetLatitude, targetLongitude, radius);
+
+
+
                 }
             }
         };
@@ -247,6 +258,48 @@ public class LocationService extends IntentService {
         }
 
         return builder.build();
+    }
+
+    private void setAlarm() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        // Создаем интент для передачи в AlarmReceiver
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Устанавливаем будильник
+        // В данном примере будильник запускается через 10 секунд
+        long futureInMillis = System.currentTimeMillis() + 10000; // 10 seconds
+        alarmManager.set(AlarmManager.RTC_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+
+    public void checkCoordinatesInRadius(Context context, double latitude, double longitude, double targetLatitude, double targetLongitude, double radius) {
+        double earthRadius = 6371000; // Радиус Земли в метрах
+        double dLat = Math.toRadians(targetLatitude - latitude);
+        double dLon = Math.toRadians(targetLongitude - longitude);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(latitude)) * Math.cos(Math.toRadians(targetLatitude)) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = earthRadius * c;
+
+        if (distance <= radius) {
+            Toast.makeText(context, "Координаты в пределах радиуса погрешности", Toast.LENGTH_SHORT).show();
+
+            if (fusedLocationClient != null && locationCallback != null) {
+                fusedLocationClient.removeLocationUpdates(locationCallback);
+            }
+
+            setAlarm();
+            SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(context);
+            sharedPreferencesUtils.setServiceRunning(false);
+
+
+            stopSelf();
+
+        }
+        Log.d("LocationService" , "Distance: " + distance + " meters");
     }
 
 }

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,10 @@ import android.widget.Toast;
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.activity.SettingsMenuActivity;
 import com.example.samsungschoolproject.service.LocationService;
+import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 
 public class MainMenuFragment extends Fragment {
-    private boolean isServiceRunning = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,9 @@ public class MainMenuFragment extends Fragment {
             public void onClick(View v) {
                 String name = getString(R.string.main_button_push);
                 Toast.makeText(v.getContext(), name, Toast.LENGTH_SHORT).show();
-                if (isServiceRunning) {
+                SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
+                Log.d("Service", "onClick: " + sharedPreferencesUtils.getServiceRunning());
+                if (sharedPreferencesUtils.getServiceRunning()){
                     stopLocationService();
                 } else {
                     startLocationService();
@@ -84,12 +87,14 @@ public class MainMenuFragment extends Fragment {
     private void startLocationService() {
         Intent serviceIntent = new Intent(getActivity(), LocationService.class);
         ContextCompat.startForegroundService(getActivity(), serviceIntent);
-        isServiceRunning = true;
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
+        sharedPreferencesUtils.setServiceRunning(true);
     }
 
     private void stopLocationService() {
         Intent serviceIntent = new Intent(getActivity(), LocationService.class);
         getActivity().stopService(serviceIntent);
-        isServiceRunning = false;
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
+        sharedPreferencesUtils.setServiceRunning(false);
     }
 }
