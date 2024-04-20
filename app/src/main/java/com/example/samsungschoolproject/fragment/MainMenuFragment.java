@@ -23,6 +23,8 @@ import com.example.samsungschoolproject.activity.SettingsMenuActivity;
 import com.example.samsungschoolproject.service.LocationService;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
+import java.util.Objects;
+
 
 public class MainMenuFragment extends Fragment {
 
@@ -70,30 +72,29 @@ public class MainMenuFragment extends Fragment {
                 String name = getString(R.string.main_button_push);
                 Toast.makeText(v.getContext(), name, Toast.LENGTH_SHORT).show();
                 SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
-                Log.d("Service", "onClick: " + sharedPreferencesUtils.getServiceRunning());
+
                 if (sharedPreferencesUtils.getServiceRunning()){
+                    Log.d("Service", "onClick: " + sharedPreferencesUtils.getServiceRunning() + " so, stop");
                     stopLocationService();
                 } else {
+                    Log.d("Service", "onClick: " + sharedPreferencesUtils.getServiceRunning() + " so, start");
                     startLocationService();
                 }
             }
         });
-
-
-
         return view;
     }
 
     private void startLocationService() {
         Intent serviceIntent = new Intent(getActivity(), LocationService.class);
-        ContextCompat.startForegroundService(getActivity(), serviceIntent);
+        ContextCompat.startForegroundService(requireActivity(), serviceIntent);
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
         sharedPreferencesUtils.setServiceRunning(true);
     }
 
     private void stopLocationService() {
         Intent serviceIntent = new Intent(getActivity(), LocationService.class);
-        getActivity().stopService(serviceIntent);
+        requireActivity().stopService(serviceIntent);
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
         sharedPreferencesUtils.setServiceRunning(false);
     }

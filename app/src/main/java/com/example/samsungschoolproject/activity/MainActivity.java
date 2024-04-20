@@ -1,5 +1,7 @@
 package com.example.samsungschoolproject.activity;
 
+import static java.security.AccessController.getContext;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.util.Log;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.fragment.MainMenuFragment;
+import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 import java.io.InputStream;
 import java.util.Map;

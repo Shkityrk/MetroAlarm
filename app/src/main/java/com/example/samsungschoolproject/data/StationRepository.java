@@ -9,8 +9,6 @@ import com.example.samsungschoolproject.model.Station;
 import java.util.List;
 
 public class StationRepository {
-
-
         private StationDAO mStationDAO;
         private LiveData<List<Station>> mAllStations;
         private List<Station> allStations;
@@ -63,15 +61,15 @@ public class StationRepository {
             return mStationDAO.getAlarmStations();
         }
 
-    public void updateStation(Station station) {
-        StationDatabase.databaseWriteExecutor.execute(() -> {
-            mStationDAO.updateStation(station);
-        });
-    }
+        public void updateStation(Station station) {
+            StationDatabase.databaseWriteExecutor.execute(() -> {
+                mStationDAO.updateStation(station);
+            });
+        }
 
-    public void deleteStation(Station station) {
-        StationDatabase.databaseWriteExecutor.execute(() -> {
-            mStationDAO.deleteStation(station);
-        });
-    }
+        public void deleteStation(Station station) {
+            StationDatabase.databaseWriteExecutor.execute(() -> {
+                mStationDAO.deleteStation(station);
+            });
+        }
 }
