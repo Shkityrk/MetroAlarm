@@ -181,8 +181,10 @@ public class LocationService extends IntentService {
 
         super.onCreate();
 
-        double targetLatitude = 55.8360472; // Здесь задайте целевые координаты
-        double targetLongitude = 37.5060672; // Здесь задайте целевые координаты
+//        double targetLatitude = 55.8360472; // Здесь задайте целевые координаты
+//        double targetLongitude = 37.5060672; // Здесь задайте целевые координаты
+        double targetLatitude = 55.669905;
+        double targetLongitude = 37.480797;
         double radius = 300.0; // Задайте радиус погрешности в метрах
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
