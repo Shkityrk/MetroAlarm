@@ -1,6 +1,7 @@
 package com.example.samsungschoolproject.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,16 +51,19 @@ public class DevActivity extends AppCompatActivity {
         buttonAddStation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stationName = editTextStationName.getText().toString();
-                String line = editTextLine.getText().toString();
-                int id = Integer.parseInt(idStation.getText().toString());
-                // Get values from other EditText fields for latitude, longitude, width_neighbour1, longitude_neighbour1, width_neighbour2, and longitude_neighbour2
-
-                // Create a new Station object
-                Station station = new Station(id, stationName, line, "latitude", "longitude", "width_neighbour1", "longitude_neighbour1", "width_neighbour2", "longitude_neighbour2", "false", "false");
-
-                // Insert the station into the database
+//
+//
+              //                Log.d("DevActivity", "onClick: " + station.getName());
+//
+//                // Insert the station into the database
+//                addStation(station);
+                String a = editTextAddStationName.getText().toString();
+                Station station = new Station(a, "1", "latitude", "longitude", "width_neighbour1", "longitude_neighbour1", "width_neighbour2", "longitude_neighbour2", "false", "false");
+                Log.d("DevActivity", "onClick: " + station.getName());
                 addStation(station);
+
+
+
             }
         });
     }

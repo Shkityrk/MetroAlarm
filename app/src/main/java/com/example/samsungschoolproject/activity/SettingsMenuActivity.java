@@ -176,7 +176,10 @@ public class SettingsMenuActivity extends AppCompatActivity {
         seekBarRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {  // Листенер для ползунков радиуса
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.d("raduius", "onProgressChanged: " + progress);
+                Log.d("raduius", "onProgressChanged: " + progress*15);
+                sharedPreferencesUtils.saveRadius(progress);
+                Toast.makeText(getApplicationContext(), "Радиус: " + progress*15 + " метров", Toast.LENGTH_LONG).show();
+
 
 
 

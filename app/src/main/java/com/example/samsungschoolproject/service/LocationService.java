@@ -204,9 +204,16 @@ public class LocationService extends IntentService {
                     Log.d(TAG, "Location: " + location.getLatitude() + ", " + location.getLongitude());
                     // Проверяем каждую станцию из списка
                     for (Station station : alarmStations) {
-                        if(station.getLatitude()!=null && station.getLongitude()!=null){
-                        checkCoordinatesInRadius(getApplicationContext(), location.getLatitude(), location.getLongitude(), Double.parseDouble(station.getLongitude()), Double.parseDouble(station.getLatitude()));
+                        if(station.getLongitude_neighbour1()!=null && station.getWidth_neighbour1()!=null){
+                            checkCoordinatesInRadius(getApplicationContext(), location.getLatitude(), location.getLongitude(), Double.parseDouble(station.getLongitude_neighbour1()), Double.parseDouble(station.getWidth_neighbour1()));
+//
                         }
+                        if(station.getLongitude_neighbour2()!=null && station.getWidth_neighbour2()!=null){
+                            checkCoordinatesInRadius(getApplicationContext(), location.getLatitude(), location.getLongitude(), Double.parseDouble(station.getLongitude_neighbour2()), Double.parseDouble(station.getWidth_neighbour2()));
+//
+                        }
+
+
                     }
                 }
             }
@@ -285,7 +292,12 @@ public class LocationService extends IntentService {
 
 
     public void checkCoordinatesInRadius(Context context, double latitude, double longitude, double targetLatitude, double targetLongitude) {
-        double radius = 1500.0; // Задайте радиус погрешности в метрах
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(context);
+
+        double radius; // Задайте радиус погрешности в метрах
+        radius = sharedPreferencesUtils.getRadius()*15;
+        Log.d(TAG, "checkCoordinatesInRadius: "+radius);
+
         double earthRadius = 6371000; // Радиус Земли в метрах
         double dLat = Math.toRadians(targetLatitude - latitude);
         double dLon = Math.toRadians(targetLongitude - longitude);
@@ -303,7 +315,7 @@ public class LocationService extends IntentService {
             }
 
             setAlarm();
-            SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(context);
+
             sharedPreferencesUtils.setServiceRunning(false);
 
 

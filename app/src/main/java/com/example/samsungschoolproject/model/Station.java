@@ -27,8 +27,7 @@ public class Station {
 
 
 
-    public Station(int id,
-                   String name,
+    public Station(String name,
                    String line,
                    String latitude,
                    String longitude,
@@ -38,7 +37,7 @@ public class Station {
                    String longitude_neighbour2,
                    String is_favourite,
                    String alarm){
-        this.id = id;
+
         this.name = name;
         this.line = line;
         this.longitude=longitude;
@@ -57,6 +56,9 @@ public class Station {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
