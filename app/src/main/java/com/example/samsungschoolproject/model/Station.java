@@ -14,6 +14,11 @@ public class Station {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id_station")
     private int id;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String name;
     private String line;
     private String longitude;
@@ -37,7 +42,6 @@ public class Station {
                    String longitude_neighbour2,
                    String is_favourite,
                    String alarm){
-
         this.name = name;
         this.line = line;
         this.longitude=longitude;
@@ -56,9 +60,6 @@ public class Station {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

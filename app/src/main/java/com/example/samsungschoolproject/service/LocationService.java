@@ -285,8 +285,8 @@ public class LocationService extends IntentService {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Устанавливаем будильник
-        // В данном примере будильник запускается через 10 секунд
-        long futureInMillis = System.currentTimeMillis() + 10000; // 10 seconds
+        // В данном примере будильник запускается через 1 секунду
+        long futureInMillis = System.currentTimeMillis() + 1000; // 1 second
         alarmManager.set(AlarmManager.RTC_WAKEUP, futureInMillis, pendingIntent);
     }
 

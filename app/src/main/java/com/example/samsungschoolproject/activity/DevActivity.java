@@ -53,7 +53,7 @@ public class DevActivity extends AppCompatActivity {
             public void onClick(View v) {
 //
 //
-              //                Log.d("DevActivity", "onClick: " + station.getName());
+                //                Log.d("DevActivity", "onClick: " + station.getName());
 //
 //                // Insert the station into the database
 //                addStation(station);
