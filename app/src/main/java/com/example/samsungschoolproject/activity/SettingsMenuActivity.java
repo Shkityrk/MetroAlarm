@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -44,6 +45,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
     private String version;
     private boolean vibration;
     private Context mContext;
+
     String database;
 //    private final String SERVER_CHECK_VERSION = dotenv.get("SERVER_CHECK_VERSION");
 
@@ -55,6 +57,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_menu);
+        mContext = getApplicationContext();
 
         Button goBackButton = findViewById(R.id.back_to_main_menu);
         Button buttonSelectRingtone = findViewById(R.id.buttonSelectRingtone);  // Кнопка выбора рингтона
@@ -63,6 +66,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         Button getServerVersion = findViewById(R.id.getServerVersion);
         CheckBox vibration = findViewById(R.id.checkBoxVibration);
         SeekBar seekBarRadius = findViewById(R.id.seekBarRadius);
+        TextView textViewRadiusValue = findViewById(R.id.textViewRadiusValue);
 
         Button buttonDewMode = findViewById(R.id.button_devMenu);
 
@@ -93,6 +97,8 @@ public class SettingsMenuActivity extends AppCompatActivity {
         mediaPlayer.setVolume( volume / 100f,volume / 100f );
 
         Log.d("volume", String.valueOf(volume));
+
+        textViewRadiusValue.setText("Радиус: " + sharedPreferencesUtils.getRadius()*15 + " метров");
 
 
         goBackButton.setOnClickListener(new View.OnClickListener() {// Листенер для кнопки выхода в главное меню
@@ -173,17 +179,17 @@ public class SettingsMenuActivity extends AppCompatActivity {
             }
         });
 
-        seekBarRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {  // Листенер для ползунков радиуса
+
+        seekBarRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.d("raduius", "onProgressChanged: " + progress*15);
+                int radiusValue = progress * 15;
+                textViewRadiusValue.setText("Радиус: " + radiusValue + " метров");
                 sharedPreferencesUtils.saveRadius(progress);
-                Toast.makeText(getApplicationContext(), "Радиус: " + progress*15 + " метров", Toast.LENGTH_LONG).show();
-
-
-
-
+                // Опционально: показать уведомление Toast
+//                Toast.makeText(getApplicationContext(), "Радиус: " + radiusValue + " метров", Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
 

@@ -3,11 +3,16 @@ package com.example.samsungschoolproject.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.os.Vibrator;
 
 import com.example.samsungschoolproject.R;
+import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
+
+import java.io.IOException;
 
 public class MusicService extends Service {
 
@@ -17,7 +22,20 @@ public class MusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mediaPlayer = MediaPlayer.create(this, R.raw.song); // Замените "your_audio_file" на название вашего аудиофайла
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+        SharedPreferencesUtils sharedPreferencesUtils =new SharedPreferencesUtils(getApplicationContext());
+        mediaPlayer.setVolume( sharedPreferencesUtils.getVolume() / 100f,sharedPreferencesUtils.getVolume() / 100f );// Установка аудиопотока
+
+        try {
+            AssetFileDescriptor afd = getResources().openRawResourceFd(R.raw.song);
+            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         mediaPlayer.setLooping(true); // Для повторного воспроизведения мелодии
     }
 
