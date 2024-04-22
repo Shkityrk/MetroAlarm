@@ -3,21 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- Текстовое поле для отображения сообщения будильника -->
+
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="53dp"
+        android:text="Следующая станция"
+        android:textSize="32sp" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Сработал будильник!"
-        android:textSize="24sp" />
+        android:textSize="28sp" />
 
     <!-- Кнопка для выключения будильника -->
+    <TextView
+        android:id="@+id/toStopAlarm"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="270dp"
+        android:gravity="center"
+        android:text="нажмите на экран, чтобы отключить будильник"
+        android:textSize="14sp" />
+
     <Button
         android:id="@+id/dismissButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Dismiss" />
+        android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:background="@android:color/transparent"
+
+     />
 
 </RelativeLayout>

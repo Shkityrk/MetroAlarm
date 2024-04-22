@@ -51,7 +51,7 @@ public class NotificationHelper {
                 .setVibrate(new long[] {100, 200, 300, 500, 100, 200, 300, 500});
 
 
-
+        builder.setDeleteIntent(stopPendingIntent);
         builder.setDeleteIntent(swipePendingIntent);
         return builder.build();
     }

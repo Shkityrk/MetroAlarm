@@ -1,5 +1,6 @@
 package com.example.samsungschoolproject.activity;
 
+import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -16,12 +17,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.service.MusicService;
 import com.example.samsungschoolproject.utils.NotificationHelper;
+import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 import android.media.MediaPlayer;
 
@@ -32,14 +35,22 @@ public class AlarmActivity extends AppCompatActivity {
     private Button dismissButton;
     private MediaPlayer mediaPlayer;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
+        SharedPreferencesUtils sharedPreferencesUtils = new  SharedPreferencesUtils(getApplicationContext());
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
 
         // Initialize UI components
         textView = findViewById(R.id.textView);
         dismissButton = findViewById(R.id.dismissButton);
+
+        textView.setText( sharedPreferencesUtils.getStationTriggeredName());
 
         Intent musicServiceIntent = new Intent(this, MusicService.class);
         startService(musicServiceIntent);

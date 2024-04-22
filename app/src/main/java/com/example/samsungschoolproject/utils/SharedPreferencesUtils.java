@@ -118,4 +118,15 @@ public class SharedPreferencesUtils {
     public boolean getServiceRunning() {
         return preferences.getBoolean("serviceRunning", false);
     }
+
+
+    public void setStationTriggeredName(String name) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("stationTriggeredName", name);
+        editor.apply();
+    }
+
+    public String getStationTriggeredName(){
+        return preferences.getString("stationTriggeredName", "ошибка");
+    }
 }
