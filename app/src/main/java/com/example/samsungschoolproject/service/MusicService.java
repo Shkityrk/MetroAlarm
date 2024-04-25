@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 
 public class MusicService extends Service {
+    private static final String TAG = "MusicService";
     Uri content_uri = Uri.parse("android.resource://com.example.samsungschoolproject/" + R.raw.song);
 
     private MediaPlayer mediaPlayer;
@@ -32,35 +33,34 @@ public class MusicService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("ringtonePath--", "Start Media: " + content_uri);
+        Log.d(TAG, "onCreate, начальная мелодия "+content_uri);
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
         SharedPreferencesUtils sharedPreferencesUtils =new SharedPreferencesUtils(getApplicationContext());
-        mediaPlayer.setVolume( sharedPreferencesUtils.getVolume() / 100f,sharedPreferencesUtils.getVolume() / 100f );// Установка аудиопотока
+        mediaPlayer.setVolume( sharedPreferencesUtils.getVolume() / 100f,sharedPreferencesUtils.getVolume() / 100f );
 
         if (sharedPreferencesUtils.getRingtonePath()!=null){
             content_uri=Uri.parse(sharedPreferencesUtils.getRingtonePath());
             try {
-//                AssetFileDescriptor afd = getContentResolver().openAssetFileDescriptor(content_uri, "r");
-                Log.d("ringtonePath--", "create alarm");
+                Log.d(TAG, "измнение мелодии на "+content_uri);
+
+
 
                 Context context = getApplicationContext();
-
                 ContentResolver contentResolver = context.getContentResolver();
                 try {
-                    // Пытаемся получить информацию о файле
                     Cursor cursor = contentResolver.query(content_uri, null, null, null, null);
                     if (cursor != null) {
                         cursor.close();
-                        Log.d("ringtonePath--", "cursor доступен");
+                        Log.d(TAG, "проверка на доступность файла:cursor доступен");
                     }
                 } catch (SecurityException e) {
-                    Log.d("ringtonePath--", "cursor не доступен");
+                    Log.d(TAG, "cursor не доступен");
                     e.printStackTrace();
                 }
 
-
+                Log.d(TAG, "установка DataSource");
                 mediaPlayer.setDataSource(this, content_uri);
                 mediaPlayer.prepare();
             } catch (IOException e) {
@@ -70,14 +70,13 @@ public class MusicService extends Service {
 
         else {
             try {
-                AssetFileDescriptor afd = getResources().openRawResourceFd(R.raw.song);
-                mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                mediaPlayer.setDataSource(this, content_uri);
                 mediaPlayer.prepare();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        mediaPlayer.setLooping(true); // Для повторного воспроизведения мелодии
+        mediaPlayer.setLooping(true);
     }
 
     @Override

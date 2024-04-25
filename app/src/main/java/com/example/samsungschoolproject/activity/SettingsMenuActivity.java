@@ -38,6 +38,7 @@ import java.net.URL;
 
 public class SettingsMenuActivity extends AppCompatActivity {
     private static final int PICK_RINGTONE_REQUEST = 1;
+    private static final String TAG = "SettingsMenuActivity";
     private MediaPlayer mediaPlayer;
     private boolean isMusicPlaying = false;
     Uri content_uri = Uri.parse("android.resource://com.example.samsungschoolproject/" + R.raw.song);
@@ -70,15 +71,17 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
         Button buttonDewMode = findViewById(R.id.button_devMenu);
 
-        Log.d("ringtonePath", "Start Media: " + content_uri);
+        Log.d(TAG, "начальный путь к файлу: " + content_uri);
 
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
 
         if (sharedPreferencesUtils.getRingtonePath()!=null){
             content_uri=Uri.parse(sharedPreferencesUtils.getRingtonePath());
-            Log.d("www-Settings-sharedPreg", content_uri.toString());
+            Log.d(TAG, "путь изменяется на" +content_uri);
         }
-        Log.d("www-Settings", content_uri.toString());
+        Log.d(TAG, "Итоговый путь" + content_uri.toString());
+        Log.d(TAG, "Итоговый путь в строке" + content_uri);
+        Log.d(TAG, "Основной путь" + content_uri.getPath());
 
         if(sharedPreferencesUtils.getVersion()!=null){
             version = sharedPreferencesUtils.getVersion();
@@ -92,7 +95,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
         volume=sharedPreferencesUtils.getVolume();
         seekBarVolume.setProgress(volume);
-
+        Log.d(TAG, "создание медиаплеера");
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
         mediaPlayer.setVolume( volume / 100f,volume / 100f );
@@ -105,6 +108,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         goBackButton.setOnClickListener(new View.OnClickListener() {// Листенер для кнопки выхода в главное меню
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "остановка медиаплеера");
                 if (mediaPlayer != null) {
                     mediaPlayer.release();
                     mediaPlayer = null;
@@ -148,6 +152,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
                 if (v.getId() == R.id.buttonSaveSettings) {
                     // Проверяем, играет ли музыка
+                    Log.d(TAG, "проверяем, играет ли музыка");
                     if (!isMusicPlaying) {
                         setMediaPlayer(content_uri);
                         mediaPlayer.start();
@@ -235,6 +240,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
 
     private void setMediaPlayer(Uri uri_song) {
+        Log.d(TAG, "setMediaPlayer: Uri for media: " + uri_song.toString());
         try {
             mediaPlayer.reset();
             mediaPlayer.setDataSource(getApplicationContext(), uri_song);
@@ -244,6 +250,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         }
         mediaPlayer.setLooping(true);
     }
+
 
     @Override
     public void onBackPressed() {

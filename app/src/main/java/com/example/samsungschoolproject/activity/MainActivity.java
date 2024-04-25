@@ -6,12 +6,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.example.samsungschoolproject.R;
@@ -22,6 +26,8 @@ import java.io.InputStream;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CODE_PERMISSION_SETTINGS = 1001;
 
     ActivityResultLauncher<String> singlePermissionLauncher =
             registerForActivityResult(
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
         getSupportFragmentManager().popBackStack();
         MainMenuFragment mainMenuFragment = new MainMenuFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -63,16 +70,17 @@ public class MainActivity extends AppCompatActivity {
 //            singlePermissionLauncher.launch(Manifest.permission.CAMERA);
         multiPermissionLauncher.launch(
                 new String[]{
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_MEDIA_AUDIO,
+                        Manifest.permission.MANAGE_MEDIA,
                         Manifest.permission.INTERNET,
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.WAKE_LOCK,
-                        Manifest.permission.SYSTEM_ALERT_WINDOW,
 
                 }
         );
 
 
+
+
     }
+
 }
