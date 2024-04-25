@@ -48,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
+
+
+
         getSupportFragmentManager().popBackStack();
         MainMenuFragment mainMenuFragment = new MainMenuFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -58,7 +62,15 @@ public class MainActivity extends AppCompatActivity {
 //        if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
 //            singlePermissionLauncher.launch(Manifest.permission.CAMERA);
         multiPermissionLauncher.launch(
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET}
+                new String[]{
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.WAKE_LOCK,
+                        Manifest.permission.SYSTEM_ALERT_WINDOW,
+
+                }
         );
 
 

@@ -76,8 +76,9 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
         if (sharedPreferencesUtils.getRingtonePath()!=null){
             content_uri=Uri.parse(sharedPreferencesUtils.getRingtonePath());
+            Log.d("www-Settings-sharedPreg", content_uri.toString());
         }
-        Log.d("ringtonePath", content_uri.toString());
+        Log.d("www-Settings", content_uri.toString());
 
         if(sharedPreferencesUtils.getVersion()!=null){
             version = sharedPreferencesUtils.getVersion();
@@ -235,6 +236,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
     private void setMediaPlayer(Uri uri_song) {
         try {
+            mediaPlayer.reset();
             mediaPlayer.setDataSource(getApplicationContext(), uri_song);
             mediaPlayer.prepare();
         } catch (IOException e) {

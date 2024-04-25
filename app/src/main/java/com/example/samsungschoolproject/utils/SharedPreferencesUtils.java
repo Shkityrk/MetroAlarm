@@ -35,7 +35,6 @@ public class SharedPreferencesUtils {
         String selectedRingtonePath;
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("MyPrefs", MODE_PRIVATE);
         selectedRingtonePath = sharedPreferences.getString("ringtonePath", null);
-        Log.d("ringtonePath", "getRingtonePath: " + selectedRingtonePath);
         return selectedRingtonePath;
     }
 
