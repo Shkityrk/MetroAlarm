@@ -27,8 +27,13 @@ public class SplashScreenActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
+
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
-        sharedPreferencesUtils.setServiceRunning(false);
+        if (sharedPreferencesUtils.getFirstStart()){
+            sharedPreferencesUtils.setServiceRunning(false);
+            // здесь должен быть фрагмент с обучением
+        }
+
 
         ImageView imageView = findViewById(R.id.splashImageView);
 
@@ -57,7 +62,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private long getSplashScreenDuration() {
-        return 3500; // Время в миллисекундах (в данном случае 2 секунды)
+        return 2500; // Время в миллисекундах (в данном случае 2 секунды)
     }
 
     private void routeToAppropriatePage() {

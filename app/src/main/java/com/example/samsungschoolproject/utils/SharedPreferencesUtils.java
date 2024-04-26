@@ -128,4 +128,15 @@ public class SharedPreferencesUtils {
     public String getStationTriggeredName(){
         return preferences.getString("stationTriggeredName", "ошибка");
     }
+
+
+    public void setFirstStart(boolean isFirstStart){
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("FirstStart", isFirstStart);
+        editor.apply();
+    }
+
+    public boolean getFirstStart(){
+        return preferences.getBoolean("FirstStart", true);
+    }
 }

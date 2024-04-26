@@ -44,6 +44,16 @@ public class MainMenuFragment extends Fragment {
         Button chooseStationButton = (Button) view.findViewById(R.id.choose_station_button) ;
         Button start = (Button) view.findViewById(R.id.start_button);
 
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
+
+        if (sharedPreferencesUtils.getServiceRunning()){
+            start.setText("Выключить оповещения");
+
+        } else {
+            start.setText("Включить оповещения");
+
+        }
+
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,9 +84,11 @@ public class MainMenuFragment extends Fragment {
                 SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
 
                 if (sharedPreferencesUtils.getServiceRunning()){
+                    start.setText("Включить оповещения");
                     Log.d("Service", "onClick: " + sharedPreferencesUtils.getServiceRunning() + " so, stop");
                     stopLocationService();
                 } else {
+                    start.setText("Выключить оповещения");
                     Log.d("Service", "onClick: " + sharedPreferencesUtils.getServiceRunning() + " so, start");
                     startLocationService();
                 }

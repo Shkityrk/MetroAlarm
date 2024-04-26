@@ -27,8 +27,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE_PERMISSION_SETTINGS = 1001;
-
     ActivityResultLauncher<String> singlePermissionLauncher =
             registerForActivityResult(
                     new ActivityResultContracts.RequestPermission(),
