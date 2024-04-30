@@ -21,7 +21,10 @@
         android:layout_marginTop="600dp"
         android:layout_marginLeft="110dp"
         android:text="@string/chose_stations_buttons" />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/dev"/>
     <Button
         android:id="@+id/start_button"
         android:layout_width="wrap_content"
