@@ -202,7 +202,7 @@ public class LocationService extends IntentService {
             stopSelf();
 
         }
-        Log.d("LocationService" , "Distance: " + distance + " meters");
+        Log.d("LocationService" , "Distance: " + distance + " meters" + " "+ name);
     }
 
     public void observeAlarmStations() {
