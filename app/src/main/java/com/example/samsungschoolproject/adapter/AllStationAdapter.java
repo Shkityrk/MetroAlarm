@@ -115,7 +115,7 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
             line_names.put("13", "Монорельс");
             line_names.put("15", "Некрасовская"+ln);
 
-            //TODO убрать, заменить на Dx или MCC
+
             line_names.put("МЦК", "Московское центральное кольцо");
             line_names.put("MCC", "МЦК");
 
