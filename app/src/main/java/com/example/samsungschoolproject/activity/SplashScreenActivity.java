@@ -31,10 +31,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
-        if (sharedPreferencesUtils.getFirstStart()){
-            sharedPreferencesUtils.setServiceRunning(false);
-            // здесь должен быть фрагмент с обучением
-        }
+
+        // поменять
 
 
         ImageView imageView = findViewById(R.id.splashImageView);
@@ -64,8 +62,15 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // После Splash Screen перенаправляем на нужную Activity
-                routeToAppropriatePage();
+
+                SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+                if (sharedPreferencesUtils.getFirstStart()){
+                    routeToIntroPage();
+                    sharedPreferencesUtils.setFirstStart(false);
+                }
+                else {
+                    routeToAppropriatePage();
+                }
                 finish();
             }
         }, splashScreenDuration);
@@ -77,6 +82,11 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void routeToAppropriatePage() {
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void routeToIntroPage(){
+        Intent intent = new Intent(this, IntroActivity.class);
         startActivity(intent);
     }
 

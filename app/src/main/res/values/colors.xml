@@ -21,5 +21,8 @@
     <color name="darkThemeStatusBarColor">#2e2f34</color>
     <color name="lightThemeStatusBarColor">#E5E7ED</color>
 
+    <color name="colorInactiveDot">#CCCCCC</color>
+    <color name="colorActiveDot">#FF0000</color>
+
 
 </resources>
