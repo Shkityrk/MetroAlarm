@@ -30,7 +30,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
 
 
-        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
         ImageView imageView = findViewById(R.id.splashImageView);
 
         int imageResId;
@@ -51,7 +50,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
                 if (sharedPreferencesUtils.getFirstStart()){
                     routeToIntroPage();
-                    sharedPreferencesUtils.setFirstStart(false);
                 }
                 else {
                     routeToAppropriatePage();

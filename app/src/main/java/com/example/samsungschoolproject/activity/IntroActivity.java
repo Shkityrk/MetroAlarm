@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.fragment.viewmodel.IntroViewPagerAdapter;
+import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class IntroActivity extends AppCompatActivity {
     private ImageView[] dots;
     private List<String> dataList;
 
-    private int[] layouts = {R.layout.slide1, R.layout.slide2, R.layout.slide3};
+    private int[] layouts = {R.layout.slide1, R.layout.slide2, R.layout.slide3, R.layout.slidedownload, R.layout.slideerror, R.layout.slidefinish};
 
     public void showToast(View view) {
         Toast.makeText(this, "Привет! Это тост!", Toast.LENGTH_SHORT).show();
@@ -40,7 +42,17 @@ public class IntroActivity extends AppCompatActivity {
     public void openNewActivity(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        introClosed(view);
         finish(); // Закрыть текущую активити
+    }
+
+    public void closeApplication(View view) {
+        finish(); // Закрыть текущую активити
+    }
+
+    private void introClosed(View view) {
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        sharedPreferencesUtils.setFirstStart(false);
     }
 
 
@@ -50,6 +62,11 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
 
         viewPager = findViewById(R.id.viewPager);
         dotsLayout = findViewById(R.id.dotsLayout);
@@ -58,6 +75,9 @@ public class IntroActivity extends AppCompatActivity {
         dataList.add("Слайд 1");
         dataList.add("Слайд 2");
         dataList.add("Слайд 3");
+        dataList.add("Слайд 4");
+        dataList.add("Слайд 5");
+        dataList.add("Слайд 6");
 
         IntroViewPagerAdapter adapter = new IntroViewPagerAdapter(this, layouts);
         viewPager.setAdapter(adapter);
