@@ -1,8 +1,9 @@
 package com.example.samsungschoolproject.activity;
+import static com.example.samsungschoolproject.utils.NetworkUtils.disableSSLCertificateChecking;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -16,25 +17,20 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.samsungschoolproject.R;
+import com.example.samsungschoolproject.data.StationRepository;
+import com.example.samsungschoolproject.model.Station;
+import com.example.samsungschoolproject.utils.JSONParser;
+import com.example.samsungschoolproject.utils.NetworkUtils;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.List;
 
 public class SettingsMenuActivity extends AppCompatActivity {
     private static final int PICK_RINGTONE_REQUEST = 1;
@@ -86,7 +82,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         if(sharedPreferencesUtils.getVersion()!=null){
             version = sharedPreferencesUtils.getVersion();
         }
-//        version="1.1";
+        version="1.1";
 
         vibration.setChecked(sharedPreferencesUtils.getVibration());
 
@@ -181,7 +177,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         getServerVersion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new FetchVersionTask().execute(SERVER_URL_CHECK_VERSION);
+                getVersion();
             }
         });
 
@@ -266,103 +262,103 @@ public class SettingsMenuActivity extends AppCompatActivity {
     }
 
 
-    private class FetchVersionTask extends AsyncTask<String, Void, String> {
+//    private class FetchVersionTask extends AsyncTask<String, Void, String> {
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            String urlString = params[0];
+//            try {
+//                URL url = new URL(urlString);
+//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//                try {
+//                    InputStream in = urlConnection.getInputStream();
+//                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
+//                    StringBuilder stringBuilder = new StringBuilder();
+//                    String line;
+//                    while ((line = bufferedReader.readLine()) != null) {
+//                        stringBuilder.append(line).append("\n");
+//                    }
+//                    bufferedReader.close();
+//                    return stringBuilder.toString();
+//                } finally {
+//                    urlConnection.disconnect();
+//                }
+//            } catch (IOException e) {
+//                Log.e("Error", "Error fetching data", e);
+//                return null;
+//            }
+//        }
 
-        @Override
-        protected String doInBackground(String... params) {
-            String urlString = params[0];
-            try {
-                URL url = new URL(urlString);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                try {
-                    InputStream in = urlConnection.getInputStream();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    return stringBuilder.toString();
-                } finally {
-                    urlConnection.disconnect();
-                }
-            } catch (IOException e) {
-                Log.e("Error", "Error fetching data", e);
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String response) {
-            super.onPostExecute(response);
-            if (response != null) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String versionName = jsonObject.getString("version");
-
-                    if (versionName.equals(version)) {
-                        Toast.makeText(getApplicationContext(), "У вас последняя версия", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Доступна новая версия: " + versionName, Toast.LENGTH_SHORT).show();
-                        new DownloadDataTask().execute();  // Загрузка данных с сервера
-                        //------------------------------------------------------
-                    }
-                    SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
-                    sharedPreferencesUtils.saveVersion(versionName);
-                    Toast.makeText(getApplicationContext(), "Версия: " + versionName, Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    Log.e("Error", "Error parsing JSON", e);
-                }
-            } else {
-                Toast.makeText(getApplicationContext(), "Ошибка при получении данных", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-
-    @SuppressLint("StaticFieldLeak")
-    public class DownloadDataTask extends AsyncTask<Void, Void, String> {
-        private static final String TAG = "DownloadDataTask";
-        @Override
-        protected String doInBackground(Void... voids) {
-            String result = "";
-            HttpURLConnection urlConnection = null;
-            try {
-                URL url = new URL("http://79.137.197.216:8000/get_database/");
-                urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream inputStream = urlConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line).append("\n");
-                }
-                bufferedReader.close();
-                result = stringBuilder.toString();
-                Log.d("database", "downl");
+//        @Override
+//        protected void onPostExecute(String response) {
+//            super.onPostExecute(response);
+//            if (response != null) {
+//                try {
+//                    JSONObject jsonObject = new JSONObject(response);
+//                    String versionName = jsonObject.getString("version");
+//
+//                    if (versionName.equals(version)) {
+//                        Toast.makeText(getApplicationContext(), "У вас последняя версия", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(getApplicationContext(), "Доступна новая версия: " + versionName, Toast.LENGTH_SHORT).show();
+//                        new DownloadDataTask().execute();  // Загрузка данных с сервера
+//                        //------------------------------------------------------
+//                    }
+//                    SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+//                    sharedPreferencesUtils.saveVersion(versionName);
+//                    Toast.makeText(getApplicationContext(), "Версия: " + versionName, Toast.LENGTH_SHORT).show();
+//                } catch (JSONException e) {
+//                    Log.e("Error", "Error parsing JSON", e);
+//                }
+//            } else {
+//                Toast.makeText(getApplicationContext(), "Ошибка при получении данных", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 
 
+//    @SuppressLint("StaticFieldLeak")
+//    public class DownloadDataTask extends AsyncTask<Void, Void, String> {
+//        private static final String TAG = "DownloadDataTask";
+//        @Override
+//        protected String doInBackground(Void... voids) {
+//            String result = "";
+//            HttpURLConnection urlConnection = null;
+//            try {
+//                URL url = new URL("http://79.137.197.216:8000/get_database/");
+//                urlConnection = (HttpURLConnection) url.openConnection();
+//                InputStream inputStream = urlConnection.getInputStream();
+//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+//                StringBuilder stringBuilder = new StringBuilder();
+//                String line;
+//                while ((line = bufferedReader.readLine()) != null) {
+//                    stringBuilder.append(line).append("\n");
+//                }
+//                bufferedReader.close();
+//                result = stringBuilder.toString();
+//                Log.d("database", "downl");
+//
+//
+//
+//            } catch (Exception e) {
+//                Log.e(TAG, "Error downloading data", e);
+//            } finally {
+//                if (urlConnection != null) {
+//                    urlConnection.disconnect();
+//                }
+//            }
+//
+//
+//
+//            return result;
+//        }
 
-            } catch (Exception e) {
-                Log.e(TAG, "Error downloading data", e);
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
-            }
-
-
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            String path = getDatabasePath("station_neighbors").toString();
-            replaceDatabase(path, result);
-            System.exit(0);
+//        @Override
+//        protected void onPostExecute(String result) {
+//
+//            String path = getDatabasePath("station_neighbors").toString();
+//            replaceDatabase(path, result);
+//            System.exit(0);
 //            File fileToDelete = new File((getDatabasePath("stations.db")).getPath());
 //            Log.d("db", getFilesDir().toString() + "../" + "databases/stations.db");
 //            if(fileToDelete.exists()){
@@ -376,31 +372,95 @@ public class SettingsMenuActivity extends AppCompatActivity {
 //            }
 //
 
-        }
-        public void replaceDatabase(String path, String newData) {
-            File databaseFile = new File(path);
+//        }
+//        public void replaceDatabase(String path, String newData) {
+//            File databaseFile = new File(path);
+//
+//            try {
+//                // Читаем содержимое базы данных из переменной result
+//                byte[] newDataBytes = newData.getBytes();
+//
+//                // Создаем поток для записи данных в базу данных
+//                FileOutputStream outputStream = new FileOutputStream(databaseFile);
+//                outputStream.write(newDataBytes);
+//
+//                // Закрываем поток
+//                outputStream.close();
+//
+//                // Все успешно выполнено
+//                System.out.println("База данных успешно заменена");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                System.out.println("Ошибка при замене базы данных: " + e.getMessage());
+//            }
+//        }
 
-            try {
-                // Читаем содержимое базы данных из переменной result
-                byte[] newDataBytes = newData.getBytes();
 
-                // Создаем поток для записи данных в базу данных
-                FileOutputStream outputStream = new FileOutputStream(databaseFile);
-                outputStream.write(newDataBytes);
 
-                // Закрываем поток
-                outputStream.close();
+//    }
 
-                // Все успешно выполнено
-                System.out.println("База данных успешно заменена");
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Ошибка при замене базы данных: " + e.getMessage());
+    public void getVersion() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String url = "https://79.137.197.216/get_version";
+                disableSSLCertificateChecking();
+                String jsonData = NetworkUtils.getJSONFromServer(url);
+                if (jsonData != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(jsonData);
+                        String versionName = jsonObject.getString("version");
+
+                        if (versionName.equals(version)) {
+                            showToast("У вас последняя версия");
+                        } else {
+                            showToast("Доступна новая версия: " + versionName);
+                            updateDataFromJSON();// Загрузка данных с сервера
+                        }
+                        version = versionName;
+                        saveVersion(versionName);
+                        showToast("Версия: " + versionName);
+                    } catch (JSONException e) {
+                        Log.e("Error", "Error parsing JSON", e);
+                    }
+                }
             }
-        }
+        });
+        thread.start();
+    }
+
+    private void showToast(final String message) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void saveVersion(String versionName) {
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        sharedPreferencesUtils.saveVersion(versionName);
+    }
 
 
 
+    public void updateDataFromJSON() {
+
+        // Получите ваш JSON и преобразуйте его в список станций
+        String url = "https://79.137.197.216/get_station_data/?databaseApplication=StationModel&db_name=default";
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                disableSSLCertificateChecking();
+                // Загрузите данные с сервера в фоновом потоке
+                String jsonData = NetworkUtils.getJSONFromServer(url);
+                // Парсинг JSON и обновление базы данных
+                List<Station> stationList = JSONParser.stationsParseJSON(jsonData);
+                StationRepository repository = new StationRepository(getApplication());
+                repository.deleteAndInsertAll(stationList);
+            }
+        }).start();
     }
 
 

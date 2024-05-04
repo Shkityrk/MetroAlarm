@@ -31,6 +31,12 @@ public interface StationDAO {
 //    @Update
 //    void update(Station station);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<Station> stations);
+
+    @Query("DELETE FROM station_neighbors")
+    void deleteAll();
+
     @Update
     public void updateStations(List<Station> stations); // Метод для обновления списка станций
 
