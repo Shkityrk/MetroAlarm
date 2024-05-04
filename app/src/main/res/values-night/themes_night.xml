@@ -7,4 +7,8 @@
         <item name="android:statusBarColor">@color/darkThemeStatusBarColor</item>
 
     </style>
+
+    <style name="AppTheme_Launcher" >
+        <item name="android:windowBackground">@drawable/splash_picture_metro_icon_app_dark</item>
+    </style>
 </resources>

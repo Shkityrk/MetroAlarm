@@ -31,10 +31,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
-
-        // поменять
-
-
         ImageView imageView = findViewById(R.id.splashImageView);
 
         int imageResId;
@@ -44,17 +40,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         } else {
             imageResId = R.drawable.splash_picture_metro_icon_app;
         }
-
         imageView.setImageResource(imageResId);
-
-        if(sharedPreferencesUtils.getServiceRunning()){
-            MainMenuFragment mf = new MainMenuFragment();
-            mf.stopLocationService();
-            Log.d("LocationSerivce", "Stopped via SplashScreen");
-            sharedPreferencesUtils.setServiceRunning(false);
-
-        }
-
         scheduleSplashScreen();
     }
     private void scheduleSplashScreen() {
@@ -62,7 +48,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
                 if (sharedPreferencesUtils.getFirstStart()){
                     routeToIntroPage();
@@ -77,7 +62,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private long getSplashScreenDuration() {
-        return 2500; // Время в миллисекундах (в данном случае 2 секунды)
+        return 1500;
     }
 
     private void routeToAppropriatePage() {

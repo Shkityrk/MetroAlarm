@@ -33,10 +33,6 @@ public class MainMenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
         FrameLayout frameLayout = new FrameLayout(getContext());
         frameLayout.setId(R.id.container_1);
-        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
-        if(sharedPreferencesUtils.getServiceRunning()){
-            stopLocationService();
-        }
     }
 
     @Override
@@ -101,7 +97,7 @@ public class MainMenuFragment extends Fragment {
         return view;
     }
 
-    public void startLocationService() {
+    private void startLocationService() {
         Intent serviceIntent = new Intent(getActivity(), LocationService.class);
         ContextCompat.startForegroundService(requireActivity(), serviceIntent);
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
@@ -109,7 +105,7 @@ public class MainMenuFragment extends Fragment {
         Log.d("IsRunning", "true");
     }
 
-    public void stopLocationService() {
+    private void stopLocationService() {
         Intent serviceIntent = new Intent(getActivity(), LocationService.class);
         requireActivity().stopService(serviceIntent);
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());

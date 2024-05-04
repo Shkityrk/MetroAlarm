@@ -12,6 +12,10 @@
 
     </style>
 
+    <style name="AppTheme_Launcher" >
+        <item name="android:windowBackground">@drawable/splash_picture_metro_icon_app</item>
+    </style>
+
     <style name="PrimaryText">
         <item name="android:textSize">@dimen/primary_text_size</item> <!-- Размер основного текста -->
         <!-- Другие атрибуты, такие как цвет и т.д., могут быть добавлены здесь -->
