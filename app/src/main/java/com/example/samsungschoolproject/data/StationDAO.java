@@ -45,4 +45,7 @@ public interface StationDAO {
 
     @Delete
     void deleteStation(Station station);
+
+    @Query("SELECT * FROM station_neighbors")
+    List<Station> getAllStationsSync();
 }

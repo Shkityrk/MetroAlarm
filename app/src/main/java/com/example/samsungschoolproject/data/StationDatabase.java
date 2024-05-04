@@ -19,12 +19,13 @@ import java.util.concurrent.Executors;
 public abstract class StationDatabase extends RoomDatabase {
     public abstract StationDAO stationDAO();
 
+
     private static volatile StationDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static StationDatabase getDatabase(final Context context) {
+    public static StationDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (StationDatabase.class) {
                 if (INSTANCE == null) {

@@ -30,7 +30,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class SettingsMenuActivity extends AppCompatActivity {
     private static final int PICK_RINGTONE_REQUEST = 1;
@@ -64,6 +67,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         CheckBox vibration = findViewById(R.id.checkBoxVibration);
         SeekBar seekBarRadius = findViewById(R.id.seekBarRadius);
         TextView textViewRadiusValue = findViewById(R.id.textViewRadiusValue);
+
 
         Button buttonDewMode = findViewById(R.id.button_devMenu);
 
@@ -452,13 +456,18 @@ public class SettingsMenuActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+
+
                 disableSSLCertificateChecking();
                 // Загрузите данные с сервера в фоновом потоке
                 String jsonData = NetworkUtils.getJSONFromServer(url);
                 // Парсинг JSON и обновление базы данных
                 List<Station> stationList = JSONParser.stationsParseJSON(jsonData);
                 StationRepository repository = new StationRepository(getApplication());
-                repository.deleteAndInsertAll(stationList);
+                repository.deleteAndInsertAll(stationList, getApplicationContext());
+
+
             }
         }).start();
     }
