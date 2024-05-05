@@ -16,7 +16,7 @@ public class JSONParser {
             JSONArray jsonArray = new JSONArray(jsonString);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                int stationId = jsonObject.getInt("station_id");
+                int stationId = jsonObject.getInt("id_station");
                 String name = jsonObject.getString("name");
                 String line = jsonObject.getString("line");
                 String latitude = jsonObject.getString("latitude");

@@ -452,7 +452,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
     public void updateDataFromJSON() {
 
         // Получите ваш JSON и преобразуйте его в список станций
-        String url = "https://79.137.197.216/get_station_data/?databaseApplication=StationModel&db_name=default";
+        String url = "https://79.137.197.216/get_station_data/?databaseApplication=StationModel&db_name=MoscowMetro";
         new Thread(new Runnable() {
             @Override
             public void run() {

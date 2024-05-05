@@ -1,5 +1,6 @@
 package com.example.samsungschoolproject.utils;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -92,5 +93,26 @@ public class NetworkUtils {
         } catch (NoSuchAlgorithmException | KeyManagementException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static String getListJSONFromServer(URL url) {
+        StringBuilder result = new StringBuilder();
+        try {
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            InputStream inputStream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+            reader.close();
+            inputStream.close();
+            connection.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result.toString();
     }
 }

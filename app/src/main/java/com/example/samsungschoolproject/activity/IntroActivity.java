@@ -57,6 +57,8 @@ public class IntroActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,5 +132,12 @@ public class IntroActivity extends AppCompatActivity {
             // Применим анимацию к изображению на slide1
             imageView.startAnimation(scaleAnimation);
         }
+    }
+
+    public void downloadDatabase(View view) {
+        Intent intent = new Intent(this, ChoseUploadingDatabaseActivity.class);
+        startActivity(intent);
+        introClosed(view);
+        finish(); // Закрыть текущую активити
     }
 }
