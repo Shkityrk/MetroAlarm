@@ -1,7 +1,11 @@
 package com.example.samsungschoolproject.utils;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+
+import com.example.samsungschoolproject.data.StationRepository;
+import com.example.samsungschoolproject.model.Station;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -114,5 +119,25 @@ public class NetworkUtils {
             e.printStackTrace();
         }
         return result.toString();
+    }
+
+    public void updateDataFromJSON(String url, Application application, Context context) {
+
+        // Получите ваш JSON и преобразуйте его в список станций
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                disableSSLCertificateChecking();
+                // Загрузите данные с сервера в фоновом потоке
+                String jsonData = NetworkUtils.getJSONFromServer(url);
+                // Парсинг JSON и обновление базы данных
+                List<Station> stationList = JSONParser.stationsParseJSON(jsonData);
+                StationRepository repository = new StationRepository(application);
+                repository.deleteAndInsertAll(stationList, context);
+
+
+            }
+        }).start();
     }
 }

@@ -42,7 +42,7 @@ public class ChoseUploadingDatabaseActivity extends AppCompatActivity {
 
             recyclerView = findViewById(R.id.recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new DatabaseAdapter(databaseList);
+            adapter = new DatabaseAdapter(databaseList, getApplication(), getApplicationContext());
             recyclerView.setAdapter(adapter);
 
             new FetchDataTask().execute();

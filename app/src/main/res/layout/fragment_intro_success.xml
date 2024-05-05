@@ -13,11 +13,10 @@
 
 
     <Button
-        android:id="@+id/buttonOpenNewActivity"
+        android:id="@+id/buttonOpenMainActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Начать использование"
-        android:onClick="openNewActivity" />
+        android:text="Начать использование"/>
 
     <TextView
         android:id="@+id/textView5"
@@ -25,5 +24,6 @@
         android:layout_height="wrap_content"
         android:text="в разработке"
         android:textColor="@color/startAlarmButtonColor"/>
+
 
 </LinearLayout>

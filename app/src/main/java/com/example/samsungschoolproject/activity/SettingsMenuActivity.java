@@ -408,6 +408,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
             @Override
             public void run() {
                 String url = "https://79.137.197.216/get_version";
+                String urlDB = "https://79.137.197.216/get_station_data/?databaseApplication=StationModel&db_name=MoscowMetro";
                 disableSSLCertificateChecking();
                 String jsonData = NetworkUtils.getJSONFromServer(url);
                 if (jsonData != null) {
@@ -419,7 +420,9 @@ public class SettingsMenuActivity extends AppCompatActivity {
                             showToast("У вас последняя версия");
                         } else {
                             showToast("Доступна новая версия: " + versionName);
-                            updateDataFromJSON();// Загрузка данных с сервера
+                            NetworkUtils networkUtils = new NetworkUtils();
+
+                            networkUtils.updateDataFromJSON(urlDB, getApplication(), getApplicationContext());// Загрузка данных с сервера
                         }
                         version = versionName;
                         saveVersion(versionName);
@@ -449,28 +452,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
 
 
-    public void updateDataFromJSON() {
 
-        // Получите ваш JSON и преобразуйте его в список станций
-        String url = "https://79.137.197.216/get_station_data/?databaseApplication=StationModel&db_name=MoscowMetro";
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-
-
-                disableSSLCertificateChecking();
-                // Загрузите данные с сервера в фоновом потоке
-                String jsonData = NetworkUtils.getJSONFromServer(url);
-                // Парсинг JSON и обновление базы данных
-                List<Station> stationList = JSONParser.stationsParseJSON(jsonData);
-                StationRepository repository = new StationRepository(getApplication());
-                repository.deleteAndInsertAll(stationList, getApplicationContext());
-
-
-            }
-        }).start();
-    }
 
 
 }

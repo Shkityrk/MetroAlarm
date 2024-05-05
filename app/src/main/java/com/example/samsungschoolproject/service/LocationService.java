@@ -84,13 +84,17 @@ public class LocationService extends IntentService {
                     Log.d(TAG, "Location: " + location.getLatitude() + ", " + location.getLongitude());
                     // Проверяем каждую станцию из списка
                     for (Station station : alarmStations) {
-                        if(station.getLongitude_neighbour1()!=null && station.getWidth_neighbour1()!=null){
+                        if (station.getLongitude_neighbour1() != null && !station.getLongitude_neighbour1().equals("null") &&
+                                station.getWidth_neighbour1() != null && !station.getWidth_neighbour1().equals("null")) {
+                            Log.d(TAG, "Neigh1: "+ location.getLatitude()+" "+ location.getLongitude() +" "+ station.getLongitude_neighbour1() +" "+ station.getWidth_neighbour1() + " "+ station.getName());
                             checkCoordinatesInRadius(getApplicationContext(), location.getLatitude(), location.getLongitude(), Double.parseDouble(station.getLongitude_neighbour1()), Double.parseDouble(station.getWidth_neighbour1()), station.getName());
-//
                         }
-                        if(station.getLongitude_neighbour2()!=null && station.getWidth_neighbour2()!=null){
+
+
+                        if (station.getLongitude_neighbour2() != null && !station.getLongitude_neighbour2().equals("null") &&
+                                station.getWidth_neighbour2() != null && !station.getWidth_neighbour2().equals("null")) {
+                            Log.d(TAG, "Neigh2: "+ location.getLatitude()+" "+ location.getLongitude() +" "+ station.getLongitude_neighbour2() +" "+ station.getWidth_neighbour2() + " "+ station.getName());
                             checkCoordinatesInRadius(getApplicationContext(), location.getLatitude(), location.getLongitude(), Double.parseDouble(station.getLongitude_neighbour2()), Double.parseDouble(station.getWidth_neighbour2()), station.getName());
-//
                         }
 
 

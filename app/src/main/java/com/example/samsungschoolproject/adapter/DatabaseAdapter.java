@@ -1,5 +1,10 @@
 package com.example.samsungschoolproject.adapter;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +15,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.samsungschoolproject.R;
+import com.example.samsungschoolproject.activity.MainActivity;
+import com.example.samsungschoolproject.fragment.IntroSuccess;
 import com.example.samsungschoolproject.model.DatabaseModel;
+import com.example.samsungschoolproject.utils.NetworkUtils;
 
 import java.util.List;
 
 public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHolder> {
     private List<DatabaseModel> databaseList;
+    private Application application;
+    private Context context;
 
-    public DatabaseAdapter(List<DatabaseModel> databaseList) {
+
+
+    public DatabaseAdapter(List<DatabaseModel> databaseList, Application application, Context context) {
         this.databaseList = databaseList;
+        this.application = application;
+        this.context = context;
     }
 
     @NonNull
@@ -35,7 +49,28 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
 
         holder.itemView.setOnClickListener(v -> {
             Toast.makeText(v.getContext(), "Database: " + database.getDatabase(), Toast.LENGTH_SHORT).show();
+            try {
+                NetworkUtils networkUtils = new NetworkUtils();
+                networkUtils.updateDataFromJSON("https://79.137.197.216/get_station_data/?databaseApplication=StationModel&db_name="+database.getName(), application, context);
+
+                Toast.makeText(v.getContext(), "Setup: " + database.getDatabase(), Toast.LENGTH_SHORT).show();
+                Log.d("DatabaseAdapter", "Database: " + database.getDatabase()+ " done");
+
+                startNewActivity(v);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
+    }
+
+    private void startNewActivity(View v) {
+        Intent intent = new Intent(v.getContext(), MainActivity.class);
+
+        // Запускаем MainActivity
+        v.getContext().startActivity(intent);
+
     }
 
     @Override
