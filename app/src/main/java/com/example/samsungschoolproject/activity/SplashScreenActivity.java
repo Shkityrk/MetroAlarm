@@ -64,7 +64,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void routeToAppropriatePage() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, IntroActivity.class);//ПОМЕНЯТЬ
         startActivity(intent);
     }
 

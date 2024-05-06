@@ -2,8 +2,11 @@ package com.example.samsungschoolproject.utils;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
+import com.example.samsungschoolproject.activity.IntroErrorActivity;
 import com.example.samsungschoolproject.data.StationRepository;
 import com.example.samsungschoolproject.model.Station;
 
@@ -122,22 +125,33 @@ public class NetworkUtils {
     }
 
     public void updateDataFromJSON(String url, Application application, Context context) {
+        Boolean state = false;
 
         // Получите ваш JSON и преобразуйте его в список станций
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                disableSSLCertificateChecking();
-                // Загрузите данные с сервера в фоновом потоке
-                String jsonData = NetworkUtils.getJSONFromServer(url);
-                // Парсинг JSON и обновление базы данных
-                List<Station> stationList = JSONParser.stationsParseJSON(jsonData);
-                StationRepository repository = new StationRepository(application);
-                repository.deleteAndInsertAll(stationList, context);
 
+                try {
+                    disableSSLCertificateChecking();
+                    // Загрузите данные с сервера в фоновом потоке
+                    String jsonData = NetworkUtils.getJSONFromServer(url);
+                    // Парсинг JSON и обновление базы данных
+                    List<Station> stationList = JSONParser.stationsParseJSON(jsonData);
+                    StationRepository repository = new StationRepository(application);
+                    repository.deleteAndInsertAll(stationList, context);
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
 
             }
         }).start();
+    }
+
+    private void startErrorActivity(View v) {
+        Intent intent = new Intent(v.getContext(), IntroErrorActivity.class);
+        v.getContext().startActivity(intent);
     }
 }

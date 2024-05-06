@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.AllStationAdapter;
@@ -92,8 +93,10 @@ public class AddFavouriteStationsFragment extends Fragment {
                 transaction.replace(R.id.container, favouriteStationsListFragment);
 
 //                mStationViewModel.update(station);
-                List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
-                mStationViewModel.updateStations(stationsToUpdate);
+//                List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
+//                mStationViewModel.updateStations(stationsToUpdate);
+
+                Toast.makeText(getContext(), "Вы не сохранили изменения", Toast.LENGTH_SHORT).show();
 
                 transaction.commit();
             }
@@ -110,6 +113,7 @@ public class AddFavouriteStationsFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, mainMenuFragment);
+                transaction.addToBackStack(null); // Добавить текущий фрагмент в стек возврата
 
                 List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
                 mStationViewModel.updateStations(stationsToUpdate);

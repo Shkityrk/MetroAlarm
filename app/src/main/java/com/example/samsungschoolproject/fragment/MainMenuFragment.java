@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
@@ -40,9 +41,10 @@ public class MainMenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_menu, container, false);
 
-        Button settingsButton = (Button) view.findViewById(R.id.settings_button);
+//        Button settingsButton = (Button) view.findViewById(R.id.settings_button);
         Button chooseStationButton = (Button) view.findViewById(R.id.choose_station_button) ;
         Button start = (Button) view.findViewById(R.id.start_button);
+        ImageView settingImageView = (ImageView) view.findViewById(R.id.settingsImageView);
 
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
 
@@ -54,13 +56,13 @@ public class MainMenuFragment extends Fragment {
 
         }
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SettingsMenuActivity.class);
-                startActivity(intent);
-            }
-        });
+//        settingsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(), SettingsMenuActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         chooseStationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +75,13 @@ public class MainMenuFragment extends Fragment {
 
 
                 transaction.commit();
+            }
+        });
+
+        settingImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSettingsClick(v);
             }
         });
 
@@ -112,4 +121,11 @@ public class MainMenuFragment extends Fragment {
         sharedPreferencesUtils.setServiceRunning(false);
         Log.d("IsRunning", "false");
     }
+
+    public void onSettingsClick(View view) {
+        Intent intent = new Intent(getContext(), SettingsMenuActivity.class);
+        startActivity(intent);
+    }
+
+
 }

@@ -1,6 +1,5 @@
 package com.example.samsungschoolproject.adapter;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.samsungschoolproject.R;
+import com.example.samsungschoolproject.activity.IntroErrorActivity;
+import com.example.samsungschoolproject.activity.IntroSuccessActivity;
 import com.example.samsungschoolproject.activity.MainActivity;
-import com.example.samsungschoolproject.fragment.IntroSuccess;
 import com.example.samsungschoolproject.model.DatabaseModel;
 import com.example.samsungschoolproject.utils.NetworkUtils;
 
@@ -56,7 +56,7 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
                 Toast.makeText(v.getContext(), "Setup: " + database.getDatabase(), Toast.LENGTH_SHORT).show();
                 Log.d("DatabaseAdapter", "Database: " + database.getDatabase()+ " done");
 
-                startNewActivity(v);
+                startSuccessActivity(v);
 
 
             } catch (Exception e) {
@@ -65,13 +65,12 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
         });
     }
 
-    private void startNewActivity(View v) {
-        Intent intent = new Intent(v.getContext(), MainActivity.class);
-
-        // Запускаем MainActivity
+    private void startSuccessActivity(View v) {
+        Intent intent = new Intent(v.getContext(), IntroSuccessActivity.class);
         v.getContext().startActivity(intent);
-
     }
+
+
 
     @Override
     public int getItemCount() {

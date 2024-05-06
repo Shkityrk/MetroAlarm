@@ -33,18 +33,12 @@ public class IntroActivity extends AppCompatActivity {
     private ImageView[] dots;
     private List<String> dataList;
 
-    private int[] layouts = {R.layout.slide1, R.layout.slide2, R.layout.slide3, R.layout.slidedownload, R.layout.slideerror, R.layout.slidefinish};
+    private int[] layouts = {R.layout.slide1, R.layout.slide2, R.layout.slide3, R.layout.slidedownload};
 
     public void showToast(View view) {
         Toast.makeText(this, "Привет! Это тост!", Toast.LENGTH_SHORT).show();
     }
 
-    public void openNewActivity(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        introClosed(view);
-        finish(); // Закрыть текущую активити
-    }
 
     public void closeApplication(View view) {
         finish(); // Закрыть текущую активити
@@ -78,8 +72,7 @@ public class IntroActivity extends AppCompatActivity {
         dataList.add("Слайд 2");
         dataList.add("Слайд 3");
         dataList.add("Слайд 4");
-        dataList.add("Слайд 5");
-        dataList.add("Слайд 6");
+
 
         IntroViewPagerAdapter adapter = new IntroViewPagerAdapter(this, layouts);
         viewPager.setAdapter(adapter);
