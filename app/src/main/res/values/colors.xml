@@ -6,6 +6,9 @@
 
     <color name="darkTextColor">#FFFFFFFF</color>
     <color name="lightTextColor">#FF000000</color>
+    
+    <color name="darkSecondText">#FFFFFFFF</color>
+    <color name="lightSecondText">#FFFFFFFF</color>
 
     <color name="darkThemeBackgroundColor">#2e2f34</color>
     <color name="lightThemeBackgroundColor">#F5F5F5</color>

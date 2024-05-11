@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //        DatabaseHelper.copyDatabaseFromAssets(this);
         transaction.add(R.id.container, mainMenuFragment);
+        transaction.addToBackStack(null);
         transaction.commit();
 
 //        if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
@@ -78,6 +80,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Получить текущий фрагмент
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.container);
+
+        // Проверить, есть ли в стеке фрагментов больше одного фрагмента
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            // Если есть, вернуться к предыдущему фрагменту
+            getSupportFragmentManager().popBackStack();
+        } else {
+            // Иначе, вызвать стандартное поведение кнопки "назад" для закрытия активити
+            super.onBackPressed();
+        }
     }
 
 }

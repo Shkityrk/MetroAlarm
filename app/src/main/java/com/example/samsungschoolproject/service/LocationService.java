@@ -76,8 +76,6 @@ public class LocationService extends IntentService {
 //                    Log.d(TAG, "Location: " + location.getLatitude() + ", " + location.getLongitude());
 //                    checkCoordinatesInRadius(getApplicationContext(), location.getLatitude(), location.getLongitude(), targetLatitude, targetLongitude, radius);
 //
-//
-//
 //                }
 
                 for (Location location : locationResult.getLocations()) {
@@ -96,8 +94,6 @@ public class LocationService extends IntentService {
                             Log.d(TAG, "Neigh2: "+ location.getLatitude()+" "+ location.getLongitude() +" "+ station.getLongitude_neighbour2() +" "+ station.getWidth_neighbour2() + " "+ station.getName());
                             checkCoordinatesInRadius(getApplicationContext(), location.getLatitude(), location.getLongitude(), Double.parseDouble(station.getLongitude_neighbour2()), Double.parseDouble(station.getWidth_neighbour2()), station.getName());
                         }
-
-
                     }
                 }
             }
@@ -146,9 +142,9 @@ public class LocationService extends IntentService {
                 PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
-                .setContentTitle("Aboba Service")
-                .setContentText("Running in background")
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Сервис локации запущен")
+                .setContentText("Местоположение определяется")
+                .setSmallIcon(R.drawable.picture_metro_icon_app)
                 .setContentIntent(pendingIntent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
