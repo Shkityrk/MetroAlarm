@@ -24,11 +24,13 @@ import com.example.samsungschoolproject.databinding.FragmentAddStationsBinding;
 import com.example.samsungschoolproject.fragment.viewmodel.AllStationsViewModel;
 import com.example.samsungschoolproject.model.Station;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddFavouriteStationsFragment extends Fragment {
     public FragmentAddStationsBinding binding;
     private AllStationsViewModel mStationViewModel;
+    private List<Station> fullStationList;
 
     public AllStationsViewModel getStationViewModel() {
         return mStationViewModel;
@@ -62,7 +64,7 @@ public class AddFavouriteStationsFragment extends Fragment {
         AllStationAdapter allStationAdapter = new AllStationAdapter(new AllStationAdapter.StationDiff());
         mStationViewModel.getAllWords().observe(getViewLifecycleOwner(), stationsList -> {
             allStationAdapter.submitList(stationsList);
-
+            fullStationList = stationsList; // Сохраняем полный список станций
             for (int i = 0; i < stationsList.size(); i++) {
                 Station station = stationsList.get(i);
                 boolean favourState = station.getBoolFavourite();
@@ -128,8 +130,16 @@ public class AddFavouriteStationsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                allStationAdapter.filterById(s.toString(), mStationViewModel.getAllWords().getValue());
+                // Создаем копию полного списка станций
+                List<Station> copyFullStationList = new ArrayList<>(fullStationList);
+
+                if (s.toString().isEmpty()) {
+                    allStationAdapter.submitList(fullStationList);
+                } else {
+                    allStationAdapter.filterById(s.toString(), copyFullStationList);
+                }
             }
+
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -139,7 +149,7 @@ public class AddFavouriteStationsFragment extends Fragment {
 
 
 
-        
+
         return view;
 
     }

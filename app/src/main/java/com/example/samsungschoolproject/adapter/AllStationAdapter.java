@@ -178,16 +178,16 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
 
     public void filterById(String text, List<Station> stations) {
         List<Station> filteredList = new ArrayList<>();
-
         if (text.isEmpty()) {
             filteredList.addAll(stations);
         } else {
-            String searchText = text.toLowerCase().trim(); // Приводим текст к нижнему регистру и удаляем пробелы в начале и конце
-            for (Station station : getCurrentList()) {
-                if (String.valueOf(station.getId()).contains(searchText)) {
-                    filteredList.add(station);
-                } else if (station.getName().toLowerCase().startsWith(searchText)) {
-                    filteredList.add(station);
+            String searchText = text.toLowerCase().trim();
+            for (Station station : stations) {
+                if (station.getName().toLowerCase().contains(searchText) && station.getName().toLowerCase().charAt(0)==searchText.toLowerCase().charAt(0)) {
+
+
+                        filteredList.add(station);
+
                 }
             }
         }
