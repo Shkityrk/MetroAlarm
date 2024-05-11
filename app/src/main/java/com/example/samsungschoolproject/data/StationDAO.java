@@ -25,11 +25,11 @@ public interface StationDAO {
     @Query("SELECT * FROM station_neighbors WHERE is_favourite = 'true'")
     LiveData<List<Station>> getFavouriteStations();
 
-    @Query("SELECT * FROM station_neighbors WHERE alarm = 'true'")
+    @Query("SELECT * FROM station_neighbors WHERE alarm = 'true' AND is_favourite = 'true'")
     LiveData<List<Station>> getAlarmStations();
 
-//    @Update
-//    void update(Station station);
+    @Update
+    void update(Station station);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Station> stations);

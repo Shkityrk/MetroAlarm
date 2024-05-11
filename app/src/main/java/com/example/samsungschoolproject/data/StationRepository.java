@@ -42,11 +42,11 @@ public class StationRepository {
         });
     }
 
-//    public void update(Station station) {
-//        StationDatabase.databaseWriteExecutor.execute(() -> {
-//            mStationDAO.update(station);
-//        });
-//    }
+    public void update(Station station) {
+        StationDatabase.databaseWriteExecutor.execute(() -> {
+            mStationDAO.update(station);
+        });
+    }
 
     public void updateStations(List<Station> stations) {
         StationDatabase.databaseWriteExecutor.execute(() -> {

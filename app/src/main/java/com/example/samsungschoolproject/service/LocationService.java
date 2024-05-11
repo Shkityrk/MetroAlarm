@@ -223,22 +223,6 @@ public class LocationService extends IntentService {
         });
     }
 
-//    public List<Station> getAlarmStationsList() {
-//        final List<Station> alarmStationsList = new ArrayList<>();
-//        StationRepository stationRepository = new StationRepository(getApplication());
-//        stationRepository.getAlarmStations().observeForever(new Observer<List<Station>>() {
-//            @Override
-//            public void onChanged(List<Station> stations) {
-//                if (stations != null) {
-//                    alarmStationsList.clear();
-//                    alarmStationsList.addAll(stations);
-//                }
-//            }
-//        });
-//        return alarmStationsList;
-//    }
-
-
 
 
 

@@ -2,6 +2,7 @@ package com.example.samsungschoolproject.fragment;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,6 +30,7 @@ public class FavouriteStationsListFragment extends Fragment {
     public FavouriteViewModel getStationViewModel() {
         return mStationViewModel;
     }
+    FavouriteStationAdapter favouriteStationAdapter = new FavouriteStationAdapter(new FavouriteStationAdapter.StationDiff());
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,7 @@ public class FavouriteStationsListFragment extends Fragment {
                 false
         ));
 
-        FavouriteStationAdapter favouriteStationAdapter = new FavouriteStationAdapter(new FavouriteStationAdapter.StationDiff());
+
 
         //мусор, нужен был зоядля теста :)
 //        favouriteStationAdapter.Add(new Station(1,"Юго-западная", "Сокольническая линия","null","null","null","null","null","null","null","null"));
@@ -93,6 +95,7 @@ public class FavouriteStationsListFragment extends Fragment {
 
                 List<Station> stationsToUpdate =favouriteStationAdapter.getCurrentList(); // Получить список станций для обновления
                 mStationViewModel.updateStations(stationsToUpdate);
+                requireActivity().getSupportFragmentManager().popBackStack();
 
                 transaction.commit();
             }
@@ -106,9 +109,10 @@ public class FavouriteStationsListFragment extends Fragment {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, addFavouriteStationsFragment);
 
+
                 List<Station> stationsToUpdate =favouriteStationAdapter.getCurrentList(); // Получить список станций для обновления
                 mStationViewModel.updateStations(stationsToUpdate);
-
+                requireActivity().getSupportFragmentManager().popBackStack();
                 transaction.commit();
             }
         });
@@ -118,23 +122,27 @@ public class FavouriteStationsListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        MainMenuFragment mainMenuFragment = new MainMenuFragment();
-//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        transaction.replace(R.id.container, mainMenuFragment);
-//
-//
-//        List<Station> stationsToUpdate =favouriteStationAdapter.getCurrentList(); // Получить список станций для обновления
-//        mStationViewModel.updateStations(stationsToUpdate);
-//
-//        transaction.commit();
-//    }
+        // Создаем обратный вызов для нажатия кнопки "назад"
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                MainMenuFragment mainMenuFragment = new MainMenuFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.container, mainMenuFragment);
 
 
+                List<Station> stationsToUpdate =favouriteStationAdapter.getCurrentList(); // Получить список станций для обновления
+                mStationViewModel.updateStations(stationsToUpdate);
 
+                transaction.commit();
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+    }
 
 }

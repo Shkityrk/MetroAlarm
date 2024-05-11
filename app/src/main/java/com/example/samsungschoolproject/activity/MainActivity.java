@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -57,44 +58,38 @@ public class MainActivity extends AppCompatActivity {
             actionBar.hide();
         }
 
-        getSupportFragmentManager().popBackStack();
         MainMenuFragment mainMenuFragment = new MainMenuFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        DatabaseHelper.copyDatabaseFromAssets(this);
         transaction.add(R.id.container, mainMenuFragment);
-        transaction.addToBackStack(null);
         transaction.commit();
 
-//        if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
-//            singlePermissionLauncher.launch(Manifest.permission.CAMERA);
         multiPermissionLauncher.launch(
                 new String[]{
                         Manifest.permission.READ_MEDIA_AUDIO,
                         Manifest.permission.MANAGE_MEDIA,
                         Manifest.permission.INTERNET,
                         Manifest.permission.ACCESS_FINE_LOCATION,
-
                 }
         );
-
-
-
-
     }
+//    @SuppressLint("MissingSuperCall")
+//    @Override
+//    public void onBackPressed() {
+//        Log.d("MainActivity", "onBackPressed() called");
+//        // Проверяем, есть ли фрагменты в стеке
+//        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+//            Log.d("MainActivity", "Popping back stack");
+//            // Если есть, возвращаемся к предыдущему фрагменту
+//            getSupportFragmentManager().popBackStack();
+//        } else {
+//            Log.d("MainActivity", "No fragments in back stack, calling finish()");
+//            // Если стек фрагментов пуст, закрываем активность
+//            finish();
+//        }
+//    }
 
-    @Override
-    public void onBackPressed() {
-        // Получить текущий фрагмент
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.container);
 
-        // Проверить, есть ли в стеке фрагментов больше одного фрагмента
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-            // Если есть, вернуться к предыдущему фрагменту
-            getSupportFragmentManager().popBackStack();
-        } else {
-            // Иначе, вызвать стандартное поведение кнопки "назад" для закрытия активити
-            super.onBackPressed();
-        }
-    }
+
+
 
 }

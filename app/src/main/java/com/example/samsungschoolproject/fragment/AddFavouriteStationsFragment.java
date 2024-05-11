@@ -2,6 +2,9 @@ package com.example.samsungschoolproject.fragment;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -66,9 +69,11 @@ public class AddFavouriteStationsFragment extends Fragment {
             allStationAdapter.submitList(stationsList);
             fullStationList = stationsList; // Сохраняем полный список станций
             for (int i = 0; i < stationsList.size(); i++) {
-                Station station = stationsList.get(i);
-                boolean favourState = station.getBoolFavourite();
-                allStationAdapter.setSwitchState(favourState, i);
+                if (i < stationsList.size()) {
+                    Station station = stationsList.get(i);
+                    boolean favourState = station.getBoolFavourite();
+                    allStationAdapter.setSwitchState(favourState, i);
+                }
             }
         });
 
@@ -93,12 +98,13 @@ public class AddFavouriteStationsFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, favouriteStationsListFragment);
+                requireActivity().getSupportFragmentManager().popBackStack();
 
 //                mStationViewModel.update(station);
-//                List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
-//                mStationViewModel.updateStations(stationsToUpdate);
+                List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
+                mStationViewModel.updateStations(stationsToUpdate);
 
-                Toast.makeText(getContext(), "Вы не сохранили изменения", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Вы не сохранили изменения", Toast.LENGTH_SHORT).show();
 
                 transaction.commit();
             }
@@ -115,7 +121,8 @@ public class AddFavouriteStationsFragment extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 transaction.replace(R.id.container, mainMenuFragment);
-                transaction.addToBackStack(null); // Добавить текущий фрагмент в стек возврата
+
+                requireActivity().getSupportFragmentManager().popBackStack();
 
                 List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
                 mStationViewModel.updateStations(stationsToUpdate);
@@ -153,7 +160,30 @@ public class AddFavouriteStationsFragment extends Fragment {
         return view;
 
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        // Создаем обратный вызов для нажатия кнопки "назад"
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                FavouriteStationsListFragment favouriteStationsListFragment = new FavouriteStationsListFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.container, favouriteStationsListFragment);
+                requireActivity().getSupportFragmentManager().popBackStack();
+
+//                mStationViewModel.update(station);
+//                List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
+//                mStationViewModel.updateStations(stationsToUpdate);
+
+                Toast.makeText(getContext(), "Вы не сохранили изменения", Toast.LENGTH_SHORT).show();
+
+                transaction.commit();
+            }
+        });
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.samsungschoolproject.adapter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,14 @@ public class FavouriteStationAdapter extends ListAdapter<Station, FavouriteStati
     }
 
     public void setSwitchState(boolean state, int position) {
-        getItem(position).setAlarm(state);
-        notifyItemChanged(position);
+        if (position >= 0 && position < getItemCount()) {
+            getItem(position).setAlarm(state);
+            notifyItemChanged(position);
+        } else {
+            // Вывести сообщение об ошибке или выполнить какие-то другие действия, если индекс выходит за границы списка
+            // Например:
+            Log.e("ERROR", "Index out of bounds: " + position);
+        }
     }
     public void setStations(List<Station> stations) {
         submitList(stations);
