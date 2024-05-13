@@ -53,7 +53,7 @@ public class AddFavouriteStationsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_add_stations, container, false);
-        Button back_to_stations = (Button) view.findViewById(R.id.back_to_stations);
+
         Button done = (Button) view.findViewById(R.id.done);
 
         RecyclerView rv_add_station = view.findViewById(R.id.rv_add_stantion);
@@ -90,25 +90,6 @@ public class AddFavouriteStationsFragment extends Fragment {
 
         rv_add_station.setAdapter(allStationAdapter);
 
-
-        back_to_stations.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FavouriteStationsListFragment favouriteStationsListFragment = new FavouriteStationsListFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.container, favouriteStationsListFragment);
-                requireActivity().getSupportFragmentManager().popBackStack();
-
-//                mStationViewModel.update(station);
-                List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
-                mStationViewModel.updateStations(stationsToUpdate);
-
-//                Toast.makeText(getContext(), "Вы не сохранили изменения", Toast.LENGTH_SHORT).show();
-
-                transaction.commit();
-            }
-        });
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,11 +155,24 @@ public class AddFavouriteStationsFragment extends Fragment {
                 transaction.replace(R.id.container, favouriteStationsListFragment);
                 requireActivity().getSupportFragmentManager().popBackStack();
 
-//                mStationViewModel.update(station);
-//                List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
-//                mStationViewModel.updateStations(stationsToUpdate);
+                AllStationAdapter allStationAdapter = new AllStationAdapter(new AllStationAdapter.StationDiff());
+                mStationViewModel.getAllWords().observe(getViewLifecycleOwner(), stationsList -> {
+                    allStationAdapter.submitList(stationsList);
+                    fullStationList = stationsList; // Сохраняем полный список станций
+                    for (int i = 0; i < stationsList.size(); i++) {
+                        if (i < stationsList.size()) {
+                            Station station = stationsList.get(i);
+                            boolean favourState = station.getBoolFavourite();
+                            allStationAdapter.setSwitchState(favourState, i);
+                        }
+                    }
+                });
 
-                Toast.makeText(getContext(), "Вы не сохранили изменения", Toast.LENGTH_SHORT).show();
+//                mStationViewModel.update(station);
+                List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
+                mStationViewModel.updateStations(stationsToUpdate);
+
+//                Toast.makeText(getContext(), "Вы не сохранили изменения", Toast.LENGTH_SHORT).show();
 
                 transaction.commit();
             }

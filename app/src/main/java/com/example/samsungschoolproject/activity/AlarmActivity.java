@@ -22,11 +22,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.samsungschoolproject.R;
+import com.example.samsungschoolproject.fragment.MainMenuFragment;
 import com.example.samsungschoolproject.service.MusicService;
 import com.example.samsungschoolproject.utils.NotificationHelper;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 import android.media.MediaPlayer;
+
+import java.lang.ref.WeakReference;
 
 public class AlarmActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 1;
@@ -34,6 +37,7 @@ public class AlarmActivity extends AppCompatActivity {
     private TextView textView;
     private Button dismissButton;
     private MediaPlayer mediaPlayer;
+    private WeakReference<MainMenuFragment> reference;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -98,5 +102,14 @@ public class AlarmActivity extends AppCompatActivity {
         // Stop music service
         Intent stopServiceIntent = new Intent(this, MusicService.class);
         stopService(stopServiceIntent);
+    }
+
+
+    public void setReference(MainMenuFragment fragment){
+        reference = new WeakReference<>(fragment);
+    }
+
+    private WeakReference<MainMenuFragment> getReference() {
+        return reference;
     }
 }

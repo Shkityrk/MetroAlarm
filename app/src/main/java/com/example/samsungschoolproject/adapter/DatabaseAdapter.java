@@ -19,6 +19,7 @@ import com.example.samsungschoolproject.activity.IntroSuccessActivity;
 import com.example.samsungschoolproject.activity.MainActivity;
 import com.example.samsungschoolproject.model.DatabaseModel;
 import com.example.samsungschoolproject.utils.NetworkUtils;
+import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
 
         holder.itemView.setOnClickListener(v -> {
             Toast.makeText(v.getContext(), "Database: " + database.getDatabase(), Toast.LENGTH_SHORT).show();
+            SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(v.getContext());
+            sharedPreferencesUtils.setDataMap(database.getDatabase());
             try {
                 NetworkUtils networkUtils = new NetworkUtils();
                 networkUtils.updateDataFromJSON("https://79.137.197.216/get_station_data/?databaseApplication=StationModel&db_name="+database.getName(), application, context);

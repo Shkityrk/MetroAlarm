@@ -1,5 +1,6 @@
 package com.example.samsungschoolproject.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.fragment.viewmodel.IntroViewPagerAdapter;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
+import com.example.samsungschoolproject.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;

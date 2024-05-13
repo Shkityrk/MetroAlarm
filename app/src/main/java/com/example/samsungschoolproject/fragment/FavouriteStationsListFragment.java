@@ -42,7 +42,6 @@ public class FavouriteStationsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stations_list, container, false);
-        Button back_to_main_menu_button= (Button) view.findViewById(R.id.back_to_main_menu_button);
 
         Button create_new_alarm = (Button) view.findViewById(R.id.create_new_alarm);
         RecyclerView rv = view.findViewById(R.id.rv);
@@ -81,25 +80,6 @@ public class FavouriteStationsListFragment extends Fragment {
 
         rv.setAdapter(favouriteStationAdapter);
 
-
-
-
-
-        back_to_main_menu_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainMenuFragment mainMenuFragment = new MainMenuFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.container, mainMenuFragment);
-
-                List<Station> stationsToUpdate =favouriteStationAdapter.getCurrentList(); // Получить список станций для обновления
-                mStationViewModel.updateStations(stationsToUpdate);
-                requireActivity().getSupportFragmentManager().popBackStack();
-
-                transaction.commit();
-            }
-        });
 
         create_new_alarm.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,15 +6,15 @@
     <string name="line_plug">Station line</string>
     <string name="color_plug">Station color</string>
     <string name="settings_button">Настройки</string>
-    <string name="chose_stations_buttons">Выбрать станцию</string>
+    <string name="chose_stations_buttons">Выбрать станции</string>
     <string name="back_to_main_menu">Назад</string>
     <string name="start">ON</string>
     <string name="main_button_push">start/stop button pushed</string>
     <string name="name">Юго-западная</string>
     <string name="line">Сокольническая линия</string>
-    <string name="new_alarm">+</string>
-    <string name="done">Ok</string>
-    <string name="search">Поиск...</string>
+    <string name="new_alarm">Добавить станции</string>
+    <string name="done">Готово</string>
+    <string name="search">Поиск станции...</string>
     <string name="getFavourite">Добавить станции в избранное</string>
     <string name="SetAlarm">Установить будильник</string>
     <string name="update_DB">Обновить базу данных</string>
@@ -22,4 +22,5 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="dev">DEV</string>
+    <string name="disclaimer">Внимание! Приложение находится в разработке, возможны ошибки. Ввиду плохой работы GPS приложение не может гарантировать 100%-ную точность работы.\nЗначки и иные графические обозначения взяты из отрытых источников.</string>
 </resources>

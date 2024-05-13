@@ -139,4 +139,23 @@ public class SharedPreferencesUtils {
     public boolean getFirstStart(){
         return preferences.getBoolean("FirstStart", true);
     }
+
+    public void setDataMap(String map){
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("databaseMap", map);
+        editor.apply();
+    }
+
+    public String getDataMap(){
+        String M = preferences.getString("databaseMap", "Метро Москвы");
+        String firstThreeChars = M.substring(0, Math.min(M.length(), 3)); // Извлекаем первые три символа
+
+        if (firstThreeChars.equals("msk")) {
+            return "Метро Москвы";
+        } else if (firstThreeChars.equals("spb")) {
+            return "Метро Санкт-Петербурга";
+        } else {
+            return M;
+        }
+    }
 }

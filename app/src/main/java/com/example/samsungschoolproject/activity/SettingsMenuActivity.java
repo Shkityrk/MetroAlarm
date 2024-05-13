@@ -59,17 +59,17 @@ public class SettingsMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings_menu);
         mContext = getApplicationContext();
 
-        Button goBackButton = findViewById(R.id.back_to_main_menu);
+//        Button goBackButton = findViewById(R.id.back_to_main_menu);
         Button buttonSelectRingtone = findViewById(R.id.buttonSelectRingtone);  // Кнопка выбора рингтона
         SeekBar seekBarVolume = findViewById(R.id.seekBarVolume);  // Ползунок громкости
-        Button buttonSaveSettings = findViewById(R.id.buttonSaveSettings);  // Кнопка сохранения настроек
+        Button playStop = findViewById(R.id.buttonSaveSettings);  // Кнопка сохранения настроек
         Button getServerVersion = findViewById(R.id.getServerVersion);
         CheckBox vibration = findViewById(R.id.checkBoxVibration);
         SeekBar seekBarRadius = findViewById(R.id.seekBarRadius);
         TextView textViewRadiusValue = findViewById(R.id.textViewRadiusValue);
 
 
-        Button buttonDewMode = findViewById(R.id.button_devMenu);
+//        Button buttonDewMode = findViewById(R.id.button_devMenu);
 
         Log.d(TAG, "начальный путь к файлу: " + content_uri);
 
@@ -86,7 +86,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         if(sharedPreferencesUtils.getVersion()!=null){
             version = sharedPreferencesUtils.getVersion();
         }
-        version="1.1";
+
 
         vibration.setChecked(sharedPreferencesUtils.getVibration());
 
@@ -105,20 +105,20 @@ public class SettingsMenuActivity extends AppCompatActivity {
         textViewRadiusValue.setText("Радиус: " + sharedPreferencesUtils.getRadius()*15 + " метров");
 
 
-        goBackButton.setOnClickListener(new View.OnClickListener() {// Листенер для кнопки выхода в главное меню
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "остановка медиаплеера");
-                if (mediaPlayer != null) {
-                    mediaPlayer.release();
-                    mediaPlayer = null;
-                }
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // Переместить MainActivity на передний план
-                startActivity(intent);
-                finish(); // Закрыть текущую активность настроек
-            }
-        });
+//        goBackButton.setOnClickListener(new View.OnClickListener() {// Листенер для кнопки выхода в главное меню
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG, "остановка медиаплеера");
+//                if (mediaPlayer != null) {
+//                    mediaPlayer.release();
+//                    mediaPlayer = null;
+//                }
+//                Intent intent = new Intent(v.getContext(), MainActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // Переместить MainActivity на передний план
+//                startActivity(intent);
+//                finish(); // Закрыть текущую активность настроек
+//            }
+//        });
 
         buttonSelectRingtone.setOnClickListener(new View.OnClickListener() {  // Листенер для кнопки выбора рингтона
             @Override
@@ -141,7 +141,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        buttonSaveSettings.setOnClickListener(new View.OnClickListener() {  // Листенер для кнопки сохранения настроек
+        playStop.setOnClickListener(new View.OnClickListener() {  // Листенер для кнопки сохранения настроек
             @Override
             public void onClick(View v) {
                 volume = seekBarVolume.getProgress();
@@ -154,11 +154,13 @@ public class SettingsMenuActivity extends AppCompatActivity {
                     // Проверяем, играет ли музыка
                     Log.d(TAG, "проверяем, играет ли музыка");
                     if (!isMusicPlaying) {
+                        playStop.setText("||");
                         setMediaPlayer(content_uri);
                         mediaPlayer.start();
                         isMusicPlaying = true;
                     } else {
                         mediaPlayer.pause();
+                        playStop.setText("▶");
                         isMusicPlaying = false;
                     }
                 }
@@ -203,13 +205,13 @@ public class SettingsMenuActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-        buttonDewMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), DevActivity.class);
-                startActivity(intent);
-            }
-        });
+//        buttonDewMode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(), DevActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 

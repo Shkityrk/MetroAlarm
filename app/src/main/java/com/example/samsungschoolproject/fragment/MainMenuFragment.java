@@ -17,17 +17,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
+import com.example.samsungschoolproject.activity.AlarmActivity;
+import com.example.samsungschoolproject.activity.ChoseUploadingDatabaseActivity;
 import com.example.samsungschoolproject.activity.SettingsMenuActivity;
 import com.example.samsungschoolproject.service.LocationService;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.Objects;
 
 
 public class MainMenuFragment extends Fragment {
+    AlarmActivity alarmActivity = new AlarmActivity();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class MainMenuFragment extends Fragment {
         Button chooseStationButton = (Button) view.findViewById(R.id.choose_station_button) ;
         Button start = (Button) view.findViewById(R.id.start_button);
         ImageView settingImageView = (ImageView) view.findViewById(R.id.settingsImageView);
+        TextView currentMap = (TextView) view.findViewById(R.id.chosenMap);
 
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
 
@@ -55,6 +61,8 @@ public class MainMenuFragment extends Fragment {
             start.setText("Включить оповещения");
 
         }
+
+        currentMap.setText("Выбрана карта:\n"+sharedPreferencesUtils.getDataMap());
 
 //        settingsButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -103,6 +111,13 @@ public class MainMenuFragment extends Fragment {
                 }
             }
         });
+
+        currentMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadDatabase(v);
+            }
+        });
         return view;
     }
 
@@ -125,6 +140,13 @@ public class MainMenuFragment extends Fragment {
     public void onSettingsClick(View view) {
         Intent intent = new Intent(getContext(), SettingsMenuActivity.class);
         startActivity(intent);
+    }
+
+
+    private void downloadDatabase(View view) {
+        Intent intent = new Intent(getActivity(), ChoseUploadingDatabaseActivity.class);
+        startActivity(intent);
+        requireActivity().finish(); // Завершить текущую активити
     }
 
 

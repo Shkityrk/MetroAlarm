@@ -34,10 +34,12 @@
         android:layout_marginBottom="28dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:text="Внимание! Приложение находится в разработке, возможны ошибки. Ввиду плохой работы GPS приложение не может гарантировать 100%-ную точность работы."
+        android:text="@string/disclaimer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAlignment="center"
+        style="@style/SecondaryText"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
