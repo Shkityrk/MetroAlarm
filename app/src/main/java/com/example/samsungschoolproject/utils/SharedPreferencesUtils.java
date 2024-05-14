@@ -140,15 +140,24 @@ public class SharedPreferencesUtils {
         return preferences.getBoolean("FirstStart", true);
     }
 
-    public void setDataMap(String map){
+    public void setDataName(String map){
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("databaseMap", map);
         editor.apply();
     }
 
-    public String getDataMap(){
+    public String getDataName(){
         return preferences.getString("databaseMap", "Метро");
 
+    }
+
+    public void setDatabaseMap(String map){
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("dbMap", map);
+        editor.apply();
+    }
+    public String getDatabaseMap(){
+        return preferences.getString("dbMap", "MoscowMetro");
 
     }
 }

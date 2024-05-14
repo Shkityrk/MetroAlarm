@@ -6,6 +6,7 @@ import static com.example.samsungschoolproject.utils.NetworkUtils.disableSSLCert
 import android.os.Bundle;
 import android.util.Log;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.DatabaseAdapter;
 import com.example.samsungschoolproject.model.DatabaseModel;
 import com.example.samsungschoolproject.utils.NetworkUtils;
+import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,10 +32,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChoseUploadingDatabaseActivity extends AppCompatActivity {
-
-        private RecyclerView recyclerView;
-        private DatabaseAdapter adapter;
-        private List<DatabaseModel> databaseList = new ArrayList<>();
+   private RecyclerView recyclerView;
+   private DatabaseAdapter adapter;
+   private List<DatabaseModel> databaseList = new ArrayList<>();
+    private String version;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class ChoseUploadingDatabaseActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             adapter = new DatabaseAdapter(databaseList, getApplication(), getApplicationContext());
             recyclerView.setAdapter(adapter);
-
+            getVersion();
             new FetchDataTask().execute();
 
         }
@@ -83,4 +85,30 @@ public class ChoseUploadingDatabaseActivity extends AppCompatActivity {
             }
         }
     }
+    public void getVersion() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String url = "https://79.137.197.216/get_version";
+                disableSSLCertificateChecking();
+                String jsonData = NetworkUtils.getJSONFromServer(url);
+                if (jsonData != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(jsonData);
+                        String versionName = jsonObject.getString("version");
+                        version = versionName;
+                        saveVersion(versionName);
+
+                    } catch (JSONException e) {
+                        Log.e("Error", "Error parsing JSON", e);
+                    }
+                }
+            }
+        });
+        thread.start();
     }
+    private void saveVersion(String versionName) {
+        SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+        sharedPreferencesUtils.saveVersion(versionName);
+    }
+}

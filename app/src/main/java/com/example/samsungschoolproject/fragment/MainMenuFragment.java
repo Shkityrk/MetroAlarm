@@ -62,7 +62,7 @@ public class MainMenuFragment extends Fragment {
 
         }
 
-        currentMap.setText("Выбрана карта:\n"+sharedPreferencesUtils.getDataMap());
+        currentMap.setText("Выбрана карта:\n"+sharedPreferencesUtils.getDataName());
 
 //        settingsButton.setOnClickListener(new View.OnClickListener() {
 //            @Override

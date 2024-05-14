@@ -410,7 +410,9 @@ public class SettingsMenuActivity extends AppCompatActivity {
             @Override
             public void run() {
                 String url = "https://79.137.197.216/get_version";
-                String urlDB = "https://79.137.197.216/get_station_data/?databaseApplication=StationModel&db_name=MoscowMetro";
+                SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
+                String map = sharedPreferencesUtils.getDatabaseMap();
+                String urlDB = "https://79.137.197.216/get_station_data/?databaseApplication=StationModel&db_name="+map;
                 disableSSLCertificateChecking();
                 String jsonData = NetworkUtils.getJSONFromServer(url);
                 if (jsonData != null) {
