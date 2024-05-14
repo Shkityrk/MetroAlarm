@@ -70,8 +70,9 @@ public class ChoseUploadingDatabaseActivity extends AppCompatActivity {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject databaseObject = jsonArray.getJSONObject(i);
                     String name = databaseObject.getString("name");
+                    String nameDev = databaseObject.getString("nameGET");
                     String database = databaseObject.getString("database");
-                    DatabaseModel databaseModel = new DatabaseModel(name, database);
+                    DatabaseModel databaseModel = new DatabaseModel(name, nameDev, database);
                     databaseList.add(databaseModel);
                 }
 

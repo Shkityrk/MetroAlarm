@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        // Проверяем, включены ли уведомления для нашего приложения
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (!notificationManager.areNotificationsEnabled()) {
             Toast.makeText(this, "Необходимо разрешить уведомления!", Toast.LENGTH_SHORT).show();

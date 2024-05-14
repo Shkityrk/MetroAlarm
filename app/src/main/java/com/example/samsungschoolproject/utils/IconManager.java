@@ -41,6 +41,15 @@ public class IconManager {
         iconMap.put("D4", R.drawable.img_d4);
         iconMap.put("D5", R.drawable.img_d5);
 
+        iconMap.put("1Spb", R.drawable.img_1spb);
+        iconMap.put("2Spb", R.drawable.img_2spb);
+        iconMap.put("3Spb", R.drawable.img_3spb);
+        iconMap.put("4Spb", R.drawable.img_4spb);
+        iconMap.put("5Spb", R.drawable.img_5spb);
+        iconMap.put("6Spb", R.drawable.img_6spb);
+
+
+
 
         // Добавьте другие соответствия, если необходимо
     }

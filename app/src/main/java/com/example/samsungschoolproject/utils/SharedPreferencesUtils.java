@@ -147,15 +147,8 @@ public class SharedPreferencesUtils {
     }
 
     public String getDataMap(){
-        String M = preferences.getString("databaseMap", "Метро Москвы");
-        String firstThreeChars = M.substring(0, Math.min(M.length(), 3)); // Извлекаем первые три символа
+        return preferences.getString("databaseMap", "Метро");
 
-        if (firstThreeChars.equals("msk")) {
-            return "Метро Москвы";
-        } else if (firstThreeChars.equals("spb")) {
-            return "Метро Санкт-Петербурга";
-        } else {
-            return M;
-        }
+
     }
 }
