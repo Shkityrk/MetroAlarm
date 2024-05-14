@@ -4,15 +4,20 @@ import static java.security.AccessController.getContext;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -21,6 +26,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.fragment.MainMenuFragment;
@@ -30,6 +36,8 @@ import java.io.InputStream;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 1;
+
 
     ActivityResultLauncher<String> singlePermissionLauncher =
             registerForActivityResult(
@@ -47,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Perm", entry.getKey()+" : "+ entry.getValue());
                     }
                 });
+
 
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
@@ -66,30 +75,29 @@ public class MainActivity extends AppCompatActivity {
         multiPermissionLauncher.launch(
                 new String[]{
                         Manifest.permission.READ_MEDIA_AUDIO,
-                        Manifest.permission.MANAGE_MEDIA,
-                        Manifest.permission.INTERNET,
                         Manifest.permission.ACCESS_FINE_LOCATION,
                 }
         );
+
+        // Проверяем, включены ли уведомления для нашего приложения
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (!notificationManager.areNotificationsEnabled()) {
+            Toast.makeText(this, "Необходимо разрешить уведомления!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent();
+            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            Toast.makeText(this, "Необходимо разрешить использование поверх других приложений!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+            startActivity(intent);
+        }
+
+
     }
-//    @SuppressLint("MissingSuperCall")
-//    @Override
-//    public void onBackPressed() {
-//        Log.d("MainActivity", "onBackPressed() called");
-//        // Проверяем, есть ли фрагменты в стеке
-//        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-//            Log.d("MainActivity", "Popping back stack");
-//            // Если есть, возвращаемся к предыдущему фрагменту
-//            getSupportFragmentManager().popBackStack();
-//        } else {
-//            Log.d("MainActivity", "No fragments in back stack, calling finish()");
-//            // Если стек фрагментов пуст, закрываем активность
-//            finish();
-//        }
-//    }
-
-
-
 
 
 }
