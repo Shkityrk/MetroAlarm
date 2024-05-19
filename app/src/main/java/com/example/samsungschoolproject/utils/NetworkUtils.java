@@ -126,16 +126,12 @@ public class NetworkUtils {
 
     public void updateDataFromJSON(String url, Application application, Context context) {
         Boolean state = false;
-
-        // Получите ваш JSON и преобразуйте его в список станций
-
         new Thread(new Runnable() {
             @Override
             public void run() {
 
                 try {
                     disableSSLCertificateChecking();
-                    // Загрузите данные с сервера в фоновом потоке
                     String jsonData = NetworkUtils.getJSONFromServer(url);
                     // Парсинг JSON и обновление базы данных
                     List<Station> stationList = JSONParser.stationsParseJSON(jsonData);

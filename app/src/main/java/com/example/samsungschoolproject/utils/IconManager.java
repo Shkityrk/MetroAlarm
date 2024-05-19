@@ -48,10 +48,6 @@ public class IconManager {
         iconMap.put("5Spb", R.drawable.img_5spb);
         iconMap.put("6Spb", R.drawable.img_6spb);
 
-
-
-
-        // Добавьте другие соответствия, если необходимо
     }
 
     public static int getIconResource(String numLine) {
@@ -59,7 +55,6 @@ public class IconManager {
         if (iconResId != null) {
             return iconResId;
         } else {
-            // Если нет соответствующего изображения, возвращаем значение по умолчанию
             return R.drawable.img;
         }
     }

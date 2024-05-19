@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (!notificationManager.areNotificationsEnabled()) {
-            Toast.makeText(this, "Необходимо разрешить уведомления!", Toast.LENGTH_SHORT).show();
+            showToast("Необходимо разрешить уведомления!");
             Intent intent = new Intent();
             intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             Uri uri = Uri.fromParts("package", getPackageName(), null);
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
-            Toast.makeText(this, "Необходимо разрешить использование поверх других приложений!", Toast.LENGTH_SHORT).show();
+            showToast("Необходимо разрешить использование поверх других приложений!");
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
             startActivity(intent);
         }

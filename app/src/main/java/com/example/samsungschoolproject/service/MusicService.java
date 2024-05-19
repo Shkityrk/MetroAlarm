@@ -45,8 +45,6 @@ public class MusicService extends Service {
             try {
                 Log.d(TAG, "измнение мелодии на "+content_uri);
 
-
-
                 Context context = getApplicationContext();
                 ContentResolver contentResolver = context.getContentResolver();
                 try {
@@ -108,7 +106,6 @@ public class MusicService extends Service {
         }
         mediaPlayer.release();
 
-        // Останавливаем вибрацию при завершении работы сервиса
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if (vibrator != null) {
             vibrator.cancel();

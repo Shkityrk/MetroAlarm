@@ -194,8 +194,6 @@ public class SettingsMenuActivity extends AppCompatActivity {
                 int radiusValue = progress * 15;
                 textViewRadiusValue.setText("Радиус: " + radiusValue + " метров");
                 sharedPreferencesUtils.saveRadius(progress);
-                // Опционально: показать уведомление Toast
-//                Toast.makeText(getApplicationContext(), "Радиус: " + radiusValue + " метров", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -218,7 +216,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
                     sharedPreferencesUtils.saveRingtonePath(uri);
                     content_uri= uri;
 
-                    Toast.makeText(this, "Выбран рингтон: " + uri.getPath(), Toast.LENGTH_LONG).show();
+                    showToast("Рингтон изменен");
                     Log.d("ringtonePath", "onActivityResult: " + uri.getPath());
                 }
             }
@@ -283,7 +281,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
                         }
                         version = versionName;
                         saveVersion(versionName);
-                        showToast("Версия: " + versionName);
+//                        showToast("Версия: " + versionName);
                     } catch (JSONException e) {
                         Log.e("Error", "Error parsing JSON", e);
                     }

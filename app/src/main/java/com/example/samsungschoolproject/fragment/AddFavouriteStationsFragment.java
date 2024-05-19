@@ -94,10 +94,6 @@ public class AddFavouriteStationsFragment extends Fragment {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Просто для теста. Добавится один раз, так как описана проверка по содержимому и политика игнорирования одинаковых
-//                mStationViewModel.insert(new Station(13,"test","1", "0.0","0.0"));
-
-
                 MainMenuFragment mainMenuFragment = new MainMenuFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -133,11 +129,6 @@ public class AddFavouriteStationsFragment extends Fragment {
             public void afterTextChanged(Editable s) {
             }
         });
-
-
-
-
-
         return view;
 
     }
@@ -168,11 +159,9 @@ public class AddFavouriteStationsFragment extends Fragment {
                     }
                 });
 
-//                mStationViewModel.update(station);
                 List<Station> stationsToUpdate = allStationAdapter.getCurrentList(); // Получить список станций для обновления
                 mStationViewModel.updateStations(stationsToUpdate);
 
-//                Toast.makeText(getContext(), "Вы не сохранили изменения", Toast.LENGTH_SHORT).show();
 
                 transaction.commit();
             }

@@ -99,47 +99,42 @@ public class FavouriteStationAdapter extends ListAdapter<Station, FavouriteStati
 
         public String setNameItem(String numLine){
             HashMap<String, String> line_names = new HashMap<>();
-            line_names.put("1", "Сокольническая"+" линия");
-            line_names.put("2", "Замоскворецкая"+" линия");
-            line_names.put("3", "Арбатско-Покровская"+" линия");
-            line_names.put("4", "Филевская"+" линия");
-            line_names.put("5", "Кольцевая"+" линия");
-            line_names.put("6", "Калужско-Рижская"+" линия");
-            line_names.put("7", "Таганско-Краснопресненская"+" линия");
-            line_names.put("8", "Калининско-Солнцевская"+" линия");
-            line_names.put("9", "Серпуховско-Тимирязевская"+" линия");
-            line_names.put("10", "Люблинско-Дмитровская"+" линия");
-            line_names.put("11", "Большая кольцевая"+" линия");
-            line_names.put("12", "Бутовская"+" линия");
+
+            String ln = " линия";
+            line_names.put("1", "Сокольническая"+ln);
+            line_names.put("2", "Замоскворецкая"+ln);
+            line_names.put("3", "Арбатско-Покровская"+ln);
+            line_names.put("4", "Филевская"+ln);
+            line_names.put("5", "Кольцевая"+ln);
+            line_names.put("6", "Калужско-Рижская"+ln);
+            line_names.put("7", "Таганско-Краснопресненская"+ln);
+            line_names.put("8", "Калининско-Солнцевская"+ln);
+            line_names.put("9", "Серпуховско-Тимирязевская"+ln);
+            line_names.put("10", "Люблинско-Дмитровская"+ln);
+            line_names.put("11", "Большая кольцевая"+ln);
+            line_names.put("12", "Бутовская"+ln);
             line_names.put("13", "Монорельс");
+            line_names.put("15", "Некрасовская"+ln);
+
+
             line_names.put("МЦК", "Московское центральное кольцо");
-            line_names.put("15", "Некрасовская"+" линия");
+            line_names.put("MCC", "МЦК");
+
             line_names.put("МЦД", "Московские центральные диаметры");
+            line_names.put("D1", "МЦД-1");
+            line_names.put("D2", "МЦД-2");
+            line_names.put("D3", "МЦД-3");
+            line_names.put("D4", "МЦД-4");
+
+            line_names.put("1Spb", "Кировско-Выборгская" + ln);
+            line_names.put("2Spb", "Московско-Петроградская" + ln);
+            line_names.put("3Spb", "Невско-Василеостровская" + ln);
+            line_names.put("4Spb", "Правобережная" + ln);
+            line_names.put("5Spb", "Фрунзенско-Приморская" + ln);
 
             return(line_names.get(numLine));
         }
 
-        public String setIconItem(String numLine){
-            HashMap<String, String> line_names = new HashMap<>();
-            line_names.put("1", "img_1");
-            line_names.put("2", "Замоскворецкая"+" линия");
-            line_names.put("3", "Арбатско-Покровская"+" линия");
-            line_names.put("4", "Филевская"+" линия");
-            line_names.put("5", "Кольцевая"+" линия");
-            line_names.put("6", "Калужско-Рижская"+" линия");
-            line_names.put("7", "Таганско-Краснопресненская"+" линия");
-            line_names.put("8", "Калининско-Солнцевская"+" линия");
-            line_names.put("9", "Серпуховско-Тимирязевская"+" линия");
-            line_names.put("10", "Люблинско-Дмитровская"+" линия");
-            line_names.put("11", "Большая кольцевая"+" линия");
-            line_names.put("12", "Бутовская"+" линия");
-            line_names.put("13", "Монорельс");
-            line_names.put("МЦК", "Московское центральное кольцо");
-            line_names.put("15", "Некрасовская"+" линия");
-            line_names.put("МЦД", "Московские центральные диаметры");
-
-            return(line_names.get(numLine));
-        }
 
         @SuppressLint("SetTextI18n")
         public void bind(Station station) {
@@ -183,12 +178,6 @@ public class FavouriteStationAdapter extends ListAdapter<Station, FavouriteStati
             }
         }
         submitList(filteredList);
-    }
-
-
-
-    public void updateStationsList(List<Station> stationsList) {
-        submitList(stationsList);
     }
 
 

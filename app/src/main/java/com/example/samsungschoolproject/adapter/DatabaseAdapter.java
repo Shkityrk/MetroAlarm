@@ -49,7 +49,7 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
         holder.nameTextView.setText(database.getName());
 
         holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Database: " + database.getDatabase(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(v.getContext(), "Database: " + database.getDatabase(), Toast.LENGTH_SHORT).show();
             SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(v.getContext());
             sharedPreferencesUtils.setDataName(database.getName());
             sharedPreferencesUtils.setDatabaseMap(database.getNameGET());
@@ -57,7 +57,7 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
                 NetworkUtils networkUtils = new NetworkUtils();
                 networkUtils.updateDataFromJSON("https://79.137.197.216/get_station_data/?databaseApplication=StationModel&db_name="+database.getNameGET(), application, context);
 
-                Toast.makeText(v.getContext(), "Setup: " + database.getDatabase(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(v.getContext(), "Setup: " + database.getDatabase(), Toast.LENGTH_SHORT).show();
                 Log.d("DatabaseAdapter", "Database: " + database.getDatabase()+ " done");
 
                 startSuccessActivity(v);

@@ -20,7 +20,7 @@ public class IntroErrorActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_intro_success);
 
-        // Assuming 'main' is the root view, use android.R.id.content
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -28,7 +28,6 @@ public class IntroErrorActivity extends AppCompatActivity {
         });
 
 
-        // Find the button and set OnClickListener
         findViewById(R.id.buttonOpenMainActivity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

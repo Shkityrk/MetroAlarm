@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.ActionBar;
@@ -37,11 +36,6 @@ public class IntroActivity extends AppCompatActivity {
 
     private int[] layouts = {R.layout.slide1, R.layout.slide2, R.layout.slide3, R.layout.slidedownload};
 
-    public void showToast(View view) {
-        Toast.makeText(this, "Привет! Это тост!", Toast.LENGTH_SHORT).show();
-    }
-
-
     public void closeApplication(View view) {
         finish(); // Закрыть текущую активити
     }
@@ -50,11 +44,6 @@ public class IntroActivity extends AppCompatActivity {
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
         sharedPreferencesUtils.setFirstStart(false);
     }
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

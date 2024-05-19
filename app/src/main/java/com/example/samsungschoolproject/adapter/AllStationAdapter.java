@@ -57,8 +57,6 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
                 false
         );
 
-
-
         return new AllStationViewHolder(view);
     }
 
@@ -67,8 +65,6 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
         holder.bind(getItem(position));
 
     }
-
-
 
 
     public class AllStationViewHolder extends RecyclerView.ViewHolder {
@@ -91,9 +87,6 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
                     }
                 }
             });
-
-
-
         }
 
         public String setNameItem(String numLine){
@@ -125,30 +118,16 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
             line_names.put("D3", "МЦД-3");
             line_names.put("D4", "МЦД-4");
 
+            //52
+            line_names.put("1Spb", "Кировско-Выборгская" + ln);
+            line_names.put("2Spb", "Московско-Петроградская" + ln);
+            line_names.put("3Spb", "Невско-Василеостровская" + ln);
+            line_names.put("4Spb", "Правобережная" + ln);
+            line_names.put("5Spb", "Фрунзенско-Приморская" + ln);
+
             return(line_names.get(numLine));
         }
 
-//        public String setIconItem(String numLine){
-//            HashMap<String, String> line_names = new HashMap<>();
-//            line_names.put("1", "img_1");
-//            line_names.put("2", "Замоскворецкая"+" линия");
-//            line_names.put("3", "Арбатско-Покровская"+" линия");
-//            line_names.put("4", "Филевская"+" линия");
-//            line_names.put("5", "Кольцевая"+" линия");
-//            line_names.put("6", "Калужско-Рижская"+" линия");
-//            line_names.put("7", "Таганско-Краснопресненская"+" линия");
-//            line_names.put("8", "Калининско-Солнцевская"+" линия");
-//            line_names.put("9", "Серпуховско-Тимирязевская"+" линия");
-//            line_names.put("10", "Люблинско-Дмитровская"+" линия");
-//            line_names.put("11", "Большая кольцевая"+" линия");
-//            line_names.put("12", "Бутовская"+" линия");
-//            line_names.put("13", "Монорельс");
-//            line_names.put("МЦК", "Московское центральное кольцо");
-//            line_names.put("15", "Некрасовская"+" линия");
-//            line_names.put("МЦД", "Московские центральные диаметры");
-//
-//            return(line_names.get(numLine));
-//        }
 
         @SuppressLint("SetTextI18n")
         public void bind(Station station) {
@@ -193,13 +172,6 @@ public class AllStationAdapter extends ListAdapter<Station, AllStationAdapter.Al
         }
         submitList(filteredList);
     }
-
-
-
-    public void updateStationsList(List<Station> stationsList) {
-        submitList(stationsList);
-    }
-
 
 
 }

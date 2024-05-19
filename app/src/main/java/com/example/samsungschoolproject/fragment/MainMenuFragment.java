@@ -64,16 +64,7 @@ public class MainMenuFragment extends Fragment {
             start.setText("Включить оповещения");
 
         }
-
         currentMap.setText("Выбрана карта:\n"+sharedPreferencesUtils.getDataName());
-
-//        settingsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(), SettingsMenuActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
         chooseStationButton.setOnClickListener(new View.OnClickListener() {
             @Override

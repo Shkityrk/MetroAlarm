@@ -10,16 +10,15 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
-public class NotificationHelper {
+import com.example.samsungschoolproject.R;
 
-    private static final int NOTIFICATION_ID = 1;
+public class NotificationHelper {
     private static final String CHANNEL_ID = "MusicChannel";
     private static final String CHANNEL_NAME = "Music Notifications";
 
 
     public static Notification createNotification(Context context) {
         createNotificationChannel(context);
-
 
         Intent swipeIntent = new Intent(context, NotificationReceiver.class);
         swipeIntent.setAction("SWIPE");
@@ -41,9 +40,9 @@ public class NotificationHelper {
         );
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setContentTitle("Playing Music")
-                .setContentText("Tap to stop music")
-                .setSmallIcon(android.R.drawable.ic_media_play)
+                .setContentTitle("Станция!")
+                .setContentText("Будильник сработал!")
+                .setSmallIcon(R.drawable.picture_metro_icon_app)
                 .setContentIntent(stopPendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setFullScreenIntent(stopPendingIntent, true)
