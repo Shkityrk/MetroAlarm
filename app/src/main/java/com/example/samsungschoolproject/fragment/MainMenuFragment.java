@@ -32,6 +32,7 @@ import java.util.Objects;
 
 
 public class MainMenuFragment extends Fragment {
+    private Button start;
     AlarmActivity alarmActivity = new AlarmActivity();
 
     @Override
@@ -39,6 +40,9 @@ public class MainMenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
         FrameLayout frameLayout = new FrameLayout(getContext());
         frameLayout.setId(R.id.container_1);
+
+
+
     }
 
     @Override
@@ -48,12 +52,11 @@ public class MainMenuFragment extends Fragment {
 
 //        Button settingsButton = (Button) view.findViewById(R.id.settings_button);
         Button chooseStationButton = (Button) view.findViewById(R.id.choose_station_button) ;
-        Button start = (Button) view.findViewById(R.id.start_button);
+        start = (Button) view.findViewById(R.id.start_button);
         ImageView settingImageView = (ImageView) view.findViewById(R.id.settingsImageView);
         TextView currentMap = (TextView) view.findViewById(R.id.chosenMap);
 
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getContext());
-
         if (sharedPreferencesUtils.getServiceRunning()){
             start.setText("Выключить оповещения");
 
@@ -150,4 +153,8 @@ public class MainMenuFragment extends Fragment {
     }
 
 
+    public void setStartFalseAfterAlarm() {
+        this.start.setText("Включить оповещения");
+
+    }
 }

@@ -205,14 +205,6 @@ public class SettingsMenuActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-//        buttonDewMode.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(), DevActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
     }
 
     @Override
@@ -227,7 +219,6 @@ public class SettingsMenuActivity extends AppCompatActivity {
                     content_uri= uri;
 
                     Toast.makeText(this, "Выбран рингтон: " + uri.getPath(), Toast.LENGTH_LONG).show();
-//                    saveSettings(uri);
                     Log.d("ringtonePath", "onActivityResult: " + uri.getPath());
                 }
             }
@@ -266,144 +257,6 @@ public class SettingsMenuActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
-//    private class FetchVersionTask extends AsyncTask<String, Void, String> {
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//            String urlString = params[0];
-//            try {
-//                URL url = new URL(urlString);
-//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//                try {
-//                    InputStream in = urlConnection.getInputStream();
-//                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
-//                    StringBuilder stringBuilder = new StringBuilder();
-//                    String line;
-//                    while ((line = bufferedReader.readLine()) != null) {
-//                        stringBuilder.append(line).append("\n");
-//                    }
-//                    bufferedReader.close();
-//                    return stringBuilder.toString();
-//                } finally {
-//                    urlConnection.disconnect();
-//                }
-//            } catch (IOException e) {
-//                Log.e("Error", "Error fetching data", e);
-//                return null;
-//            }
-//        }
-
-//        @Override
-//        protected void onPostExecute(String response) {
-//            super.onPostExecute(response);
-//            if (response != null) {
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    String versionName = jsonObject.getString("version");
-//
-//                    if (versionName.equals(version)) {
-//                        Toast.makeText(getApplicationContext(), "У вас последняя версия", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(getApplicationContext(), "Доступна новая версия: " + versionName, Toast.LENGTH_SHORT).show();
-//                        new DownloadDataTask().execute();  // Загрузка данных с сервера
-//                        //------------------------------------------------------
-//                    }
-//                    SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
-//                    sharedPreferencesUtils.saveVersion(versionName);
-//                    Toast.makeText(getApplicationContext(), "Версия: " + versionName, Toast.LENGTH_SHORT).show();
-//                } catch (JSONException e) {
-//                    Log.e("Error", "Error parsing JSON", e);
-//                }
-//            } else {
-//                Toast.makeText(getApplicationContext(), "Ошибка при получении данных", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
-
-
-//    @SuppressLint("StaticFieldLeak")
-//    public class DownloadDataTask extends AsyncTask<Void, Void, String> {
-//        private static final String TAG = "DownloadDataTask";
-//        @Override
-//        protected String doInBackground(Void... voids) {
-//            String result = "";
-//            HttpURLConnection urlConnection = null;
-//            try {
-//                URL url = new URL("http://79.137.197.216:8000/get_database/");
-//                urlConnection = (HttpURLConnection) url.openConnection();
-//                InputStream inputStream = urlConnection.getInputStream();
-//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-//                StringBuilder stringBuilder = new StringBuilder();
-//                String line;
-//                while ((line = bufferedReader.readLine()) != null) {
-//                    stringBuilder.append(line).append("\n");
-//                }
-//                bufferedReader.close();
-//                result = stringBuilder.toString();
-//                Log.d("database", "downl");
-//
-//
-//
-//            } catch (Exception e) {
-//                Log.e(TAG, "Error downloading data", e);
-//            } finally {
-//                if (urlConnection != null) {
-//                    urlConnection.disconnect();
-//                }
-//            }
-//
-//
-//
-//            return result;
-//        }
-
-//        @Override
-//        protected void onPostExecute(String result) {
-//
-//            String path = getDatabasePath("station_neighbors").toString();
-//            replaceDatabase(path, result);
-//            System.exit(0);
-//            File fileToDelete = new File((getDatabasePath("stations.db")).getPath());
-//            Log.d("db", getFilesDir().toString() + "../" + "databases/stations.db");
-//            if(fileToDelete.exists()){
-//                if (fileToDelete.delete()){
-//                    System.out.println("Файл успешно удален");
-//                }else{
-//                    System.out.println("Не удалось удалить файл.");
-//                }
-//            }else {
-//                System.out.println("Файл не существует.");
-//            }
-//
-
-//        }
-//        public void replaceDatabase(String path, String newData) {
-//            File databaseFile = new File(path);
-//
-//            try {
-//                // Читаем содержимое базы данных из переменной result
-//                byte[] newDataBytes = newData.getBytes();
-//
-//                // Создаем поток для записи данных в базу данных
-//                FileOutputStream outputStream = new FileOutputStream(databaseFile);
-//                outputStream.write(newDataBytes);
-//
-//                // Закрываем поток
-//                outputStream.close();
-//
-//                // Все успешно выполнено
-//                System.out.println("База данных успешно заменена");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                System.out.println("Ошибка при замене базы данных: " + e.getMessage());
-//            }
-//        }
-
-
-
-//    }
 
     public void getVersion() {
         Thread thread = new Thread(new Runnable() {
@@ -453,10 +306,4 @@ public class SettingsMenuActivity extends AppCompatActivity {
         SharedPreferencesUtils sharedPreferencesUtils = new SharedPreferencesUtils(getApplicationContext());
         sharedPreferencesUtils.saveVersion(versionName);
     }
-
-
-
-
-
-
 }

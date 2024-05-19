@@ -77,6 +77,9 @@ public class AlarmActivity extends AppCompatActivity {
                 Intent stopServiceIntent = new Intent(AlarmActivity.this, MusicService.class);
                 stopService(stopServiceIntent);
 
+                MainMenuFragment mainMenuFragment = new MainMenuFragment();
+                mainMenuFragment.setStartFalseAfterAlarm();
+
                 // Закрытие активности
                 finish();
             }

@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.SamsungSchoolProject" parent="Theme.AppCompat.DayNight">
+    <style name="Base.Theme.SamsungSchoolProject" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:textColorPrimary">@color/darkTextColor</item>
         <item name="android:textColorSecondary">@color/darkAdditionalButtonsColor</item>
         <item name="android:windowBackground">@color/darkThemeBackgroundColor</item>

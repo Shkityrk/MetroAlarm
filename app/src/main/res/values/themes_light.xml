@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.SamsungSchoolProject" parent="Theme.AppCompat.DayNight">
+    <style name="Base.Theme.SamsungSchoolProject" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/lightTextColor</item>
         <item name="android:textColorSecondary">@color/lightAdditionalButtonsColor</item>
         <item name="android:windowBackground">@color/lightThemeBackgroundColor</item>
@@ -7,9 +7,6 @@
         <item name="android:statusBarColor">@color/lightThemeStatusBarColor</item>
         <!-- Другие атрибуты для светлой темы -->
         <item name="android:textSize">16sp</item>
-
-
-
     </style>
 
     <style name="AppTheme_Launcher" >
