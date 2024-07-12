@@ -35,3 +35,9 @@ output.json
 #NDK
 obj/
 .externalNativeBuild
+
+#certificates
+.crt
+
+#env files
+.env
