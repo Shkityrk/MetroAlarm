@@ -1,27 +1,18 @@
 package com.example.samsungschoolproject.activity;
 
-import static com.example.samsungschoolproject.utils.NetworkUtils.disableSSLCertificateChecking;
-import static java.security.AccessController.getContext;
+import static com.example.samsungschoolproject.network.NetworkUtils.disableSSLCertificateChecking;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,13 +23,12 @@ import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.fragment.MainMenuFragment;
-import com.example.samsungschoolproject.utils.NetworkUtils;
+import com.example.samsungschoolproject.network.NetworkUtils;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {

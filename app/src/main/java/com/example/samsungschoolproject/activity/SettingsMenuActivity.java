@@ -1,13 +1,11 @@
 package com.example.samsungschoolproject.activity;
-import static com.example.samsungschoolproject.utils.NetworkUtils.disableSSLCertificateChecking;
+import static com.example.samsungschoolproject.network.NetworkUtils.disableSSLCertificateChecking;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,10 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.data.StationRepository;
-import com.example.samsungschoolproject.model.Station;
-import com.example.samsungschoolproject.utils.JSONParser;
-import com.example.samsungschoolproject.utils.NetworkUtils;
+import com.example.samsungschoolproject.network.NetworkUtils;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 
@@ -30,10 +25,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public class SettingsMenuActivity extends AppCompatActivity {
     private static final int PICK_RINGTONE_REQUEST = 1;

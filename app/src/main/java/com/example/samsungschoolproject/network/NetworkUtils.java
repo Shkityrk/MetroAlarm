@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.utils;
+package com.example.samsungschoolproject.network;
 
 import android.app.Application;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.view.View;
 import com.example.samsungschoolproject.activity.IntroErrorActivity;
 import com.example.samsungschoolproject.data.StationRepository;
 import com.example.samsungschoolproject.model.Station;
+import com.example.samsungschoolproject.utils.JSONParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,9 +28,19 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class NetworkUtils {
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
+    /**
+     * Метод для выполнения GET-запроса к серверу и получения JSON-ответа.
+     *
+     * @param urlString URL-адрес для выполнения запроса
+     * @return Строка, содержащая JSON-ответ от сервера, или null в случае ошибки
+     */
     public static String getJSONFromServer(String urlString) {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -72,8 +83,28 @@ public class NetworkUtils {
         }
         return jsonResponse;
     }
+// Метод getJSONFromServer стоит переписать
+//    public static String getJSONFromServer(String urlString) {
+//        ApiService apiService = NetworkClient.getRetrofitClient().create(ApiService.class);
+//        Call<String> call = apiService.getJson(urlString);
+//
+//        try {
+//            Response<String> response = call.execute();
+//            if (response.isSuccessful() && response.body() != null) {
+//                return response.body();
+//            } else {
+//                Log.e(TAG, "Response not successful: " + response.message());
+//            }
+//        } catch (IOException e) {
+//            Log.e(TAG, "Error fetching data: ", e);
+//        }
+//        return null;
+//    }
 
-
+    /**
+     * Метод для отключения проверки SSL-сертификатов.
+     * Используется только в тестовых или доверенных средах.
+     */
     public static void disableSSLCertificateChecking() {
         TrustManager[] trustAllCerts = new TrustManager[] {
                 new X509TrustManager() {
@@ -103,51 +134,35 @@ public class NetworkUtils {
         }
     }
 
+    /**
+     * Метод для обновления данных на основе JSON-ответа от сервера через Retrofit.
+     *
+     * @param url         URL-адрес для выполнения запроса
+     * @param application Объект Application для доступа к репозиторию
+     * @param context     Контекст для запуска операции
+     */
+    public static void updateDataFromJSON(String url, Application application, Context context) {
+        ApiService apiService = NetworkClient.getRetrofitClient(context).create(ApiService.class);
+        Call<List<Station>> call = apiService.getStations(url);
 
-    public static String getListJSONFromServer(URL url) {
-        StringBuilder result = new StringBuilder();
-        try {
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            InputStream inputStream = connection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-            reader.close();
-            inputStream.close();
-            connection.disconnect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result.toString();
-    }
-
-    public void updateDataFromJSON(String url, Application application, Context context) {
-        Boolean state = false;
-        new Thread(new Runnable() {
+        call.enqueue(new Callback<List<Station>>() {
             @Override
-            public void run() {
-
-                try {
-                    disableSSLCertificateChecking();
-                    String jsonData = NetworkUtils.getJSONFromServer(url);
-                    // Парсинг JSON и обновление базы данных
-                    List<Station> stationList = JSONParser.stationsParseJSON(jsonData);
+            public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Station> stationList = response.body();
                     StationRepository repository = new StationRepository(application);
                     repository.deleteAndInsertAll(stationList, context);
-                } catch (Exception e) {
-                    e.printStackTrace();
-
+                } else {
+                    Log.e(TAG, "Response not successful: " + response.message());
                 }
-
             }
-        }).start();
+
+            @Override
+            public void onFailure(Call<List<Station>> call, Throwable t) {
+                Log.e(TAG, "Error fetching data: ", t);
+                // Здесь можно вызвать startErrorActivity или другое действие
+            }
+        });
     }
 
-    private void startErrorActivity(View v) {
-        Intent intent = new Intent(v.getContext(), IntroErrorActivity.class);
-        v.getContext().startActivity(intent);
-    }
 }

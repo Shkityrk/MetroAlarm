@@ -1,31 +1,26 @@
 package com.example.samsungschoolproject.activity;
 
-import static com.example.samsungschoolproject.utils.NetworkUtils.disableSSLCertificateChecking;
+import static com.example.samsungschoolproject.network.NetworkUtils.disableSSLCertificateChecking;
 
 
 import android.os.Bundle;
 import android.util.Log;
 import android.os.AsyncTask;
-import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.DatabaseAdapter;
 import com.example.samsungschoolproject.model.DatabaseModel;
-import com.example.samsungschoolproject.utils.NetworkUtils;
+import com.example.samsungschoolproject.network.NetworkUtils;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 

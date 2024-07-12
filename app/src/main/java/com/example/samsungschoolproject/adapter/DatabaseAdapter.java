@@ -8,17 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.activity.IntroErrorActivity;
 import com.example.samsungschoolproject.activity.IntroSuccessActivity;
-import com.example.samsungschoolproject.activity.MainActivity;
 import com.example.samsungschoolproject.model.DatabaseModel;
-import com.example.samsungschoolproject.utils.NetworkUtils;
+import com.example.samsungschoolproject.network.NetworkUtils;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 import java.util.List;
