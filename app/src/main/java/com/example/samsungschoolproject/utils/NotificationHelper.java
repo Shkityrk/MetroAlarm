@@ -12,11 +12,19 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.samsungschoolproject.R;
 
+/**
+ * Утилитарный класс для создания уведомлений.
+ */
 public class NotificationHelper {
     private static final String CHANNEL_ID = "MusicChannel";
     private static final String CHANNEL_NAME = "Music Notifications";
 
-
+    /**
+     * Создает и возвращает уведомление.
+     *
+     * @param context Контекст приложения.
+     * @return Объект уведомления.
+     */
     public static Notification createNotification(Context context) {
         createNotificationChannel(context);
 
@@ -40,21 +48,25 @@ public class NotificationHelper {
         );
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setContentTitle("Станция!")
-                .setContentText("Будильник сработал!")
-                .setSmallIcon(R.drawable.picture_metro_icon_app)
-                .setContentIntent(stopPendingIntent)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setFullScreenIntent(stopPendingIntent, true)
-                .setDeleteIntent(swipePendingIntent)
-                .setVibrate(new long[] {100, 200, 300, 500, 100, 200, 300, 500});
+                .setContentTitle("Станция!") // Заголовок уведомления
+                .setContentText("Будильник сработал!") // Текст уведомления
+                .setSmallIcon(R.drawable.picture_metro_icon_app) // Иконка уведомления
+                .setContentIntent(stopPendingIntent) // Намерение при нажатии на уведомление
+                .setPriority(NotificationCompat.PRIORITY_HIGH) // Приоритет уведомления
+                .setFullScreenIntent(stopPendingIntent, true) // Показать на весь экран
+                .setDeleteIntent(swipePendingIntent) // Намерение при свайпе уведомления
+                .setVibrate(new long[] {100, 200, 300, 500, 100, 200, 300, 500}); // Вибрация
 
 
         builder.setDeleteIntent(stopPendingIntent);
         builder.setDeleteIntent(swipePendingIntent);
         return builder.build();
     }
-
+    /**
+     * Создает канал уведомлений.
+     *
+     * @param context Контекст приложения.
+     */
     private static void createNotificationChannel(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Music Notification";
