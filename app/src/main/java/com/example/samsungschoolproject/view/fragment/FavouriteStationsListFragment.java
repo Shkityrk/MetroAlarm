@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.fragment;
+package com.example.samsungschoolproject.view.fragment;
 
 import android.os.Bundle;
 
@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import android.widget.Button;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.FavouriteStationAdapter;
-import com.example.samsungschoolproject.fragment.viewmodel.FavouriteViewModel;
+import com.example.samsungschoolproject.view.fragment.viewmodel.FavouriteViewModel;
 import com.example.samsungschoolproject.model.Station;
 
 import java.util.List;

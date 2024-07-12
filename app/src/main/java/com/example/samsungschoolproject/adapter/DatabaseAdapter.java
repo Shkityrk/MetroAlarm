@@ -13,21 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.activity.IntroSuccessActivity;
-import com.example.samsungschoolproject.model.DatabaseModel;
+import com.example.samsungschoolproject.view.activity.IntroSuccessActivity;
+import com.example.samsungschoolproject.model.Database;
 import com.example.samsungschoolproject.network.NetworkUtils;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
 import java.util.List;
 
 public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHolder> {
-    private List<DatabaseModel> databaseList;
+    private List<Database> databaseList;
     private Application application;
     private Context context;
 
 
 
-    public DatabaseAdapter(List<DatabaseModel> databaseList, Application application, Context context) {
+    public DatabaseAdapter(List<Database> databaseList, Application application, Context context) {
         this.databaseList = databaseList;
         this.application = application;
         this.context = context;
@@ -42,7 +42,7 @@ public class DatabaseAdapter extends RecyclerView.Adapter<DatabaseAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DatabaseModel database = databaseList.get(position);
+        Database database = databaseList.get(position);
         holder.nameTextView.setText(database.getName());
 
         holder.itemView.setOnClickListener(v -> {

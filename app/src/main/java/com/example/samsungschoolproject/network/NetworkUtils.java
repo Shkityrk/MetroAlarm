@@ -2,14 +2,9 @@ package com.example.samsungschoolproject.network;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 
-import com.example.samsungschoolproject.activity.IntroErrorActivity;
-import com.example.samsungschoolproject.data.StationRepository;
-import com.example.samsungschoolproject.model.Station;
-import com.example.samsungschoolproject.utils.JSONParser;
+import com.example.samsungschoolproject.database.repository.Station;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -143,14 +138,14 @@ public class NetworkUtils {
      */
     public static void updateDataFromJSON(String url, Application application, Context context) {
         ApiService apiService = NetworkClient.getRetrofitClient(context).create(ApiService.class);
-        Call<List<Station>> call = apiService.getStations(url);
+        Call<List<com.example.samsungschoolproject.model.Station>> call = apiService.getStations(url);
 
-        call.enqueue(new Callback<List<Station>>() {
+        call.enqueue(new Callback<List<com.example.samsungschoolproject.model.Station>>() {
             @Override
-            public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
+            public void onResponse(Call<List<com.example.samsungschoolproject.model.Station>> call, Response<List<com.example.samsungschoolproject.model.Station>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Station> stationList = response.body();
-                    StationRepository repository = new StationRepository(application);
+                    List<com.example.samsungschoolproject.model.Station> stationList = response.body();
+                    Station repository = new Station(application);
                     repository.deleteAndInsertAll(stationList, context);
                 } else {
                     Log.e(TAG, "Response not successful: " + response.message());
@@ -158,7 +153,7 @@ public class NetworkUtils {
             }
 
             @Override
-            public void onFailure(Call<List<Station>> call, Throwable t) {
+            public void onFailure(Call<List<com.example.samsungschoolproject.model.Station>> call, Throwable t) {
                 Log.e(TAG, "Error fetching data: ", t);
                 // Здесь можно вызвать startErrorActivity или другое действие
             }

@@ -1,11 +1,11 @@
 package com.example.samsungschoolproject.model;
 
-public class DatabaseModel {
+public class Database {
     private String name;
     private String database;
     private String nameGET;
 
-    public DatabaseModel(String name, String nameGET, String database) {
+    public Database(String name, String nameGET, String database) {
         this.name = name;
         this.nameGET = nameGET;
         this.database = database;

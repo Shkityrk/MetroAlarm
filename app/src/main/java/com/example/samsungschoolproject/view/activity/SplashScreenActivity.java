@@ -1,12 +1,9 @@
-package com.example.samsungschoolproject.activity;
-
-import static java.security.AccessController.getContext;
+package com.example.samsungschoolproject.view.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
@@ -14,7 +11,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.fragment.MainMenuFragment;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 import com.example.samsungschoolproject.utils.ThemeUtils;
 

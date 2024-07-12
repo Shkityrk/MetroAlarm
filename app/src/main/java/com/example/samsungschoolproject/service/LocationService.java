@@ -25,9 +25,8 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.data.StationRepository;
-import com.example.samsungschoolproject.fragment.MainMenuFragment;
-import com.example.samsungschoolproject.model.Station;
+import com.example.samsungschoolproject.database.repository.Station;
+import com.example.samsungschoolproject.view.fragment.MainMenuFragment;
 import com.example.samsungschoolproject.utils.AlarmReceiver;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -47,7 +46,7 @@ public class LocationService extends IntentService {
 
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
-    private List<Station> alarmStations;
+    private List<com.example.samsungschoolproject.model.Station> alarmStations;
 
     public LocationService() {
         super("BACK_LOCATION");
@@ -81,7 +80,7 @@ public class LocationService extends IntentService {
                 for (Location location : locationResult.getLocations()) {
                     Log.d(TAG, "Location: " + location.getLatitude() + ", " + location.getLongitude());
                     // Проверяем каждую станцию из списка
-                    for (Station station : alarmStations) {
+                    for (com.example.samsungschoolproject.model.Station station : alarmStations) {
                         if (station.getLongitude_neighbour1() != null && !station.getLongitude_neighbour1().equals("null") &&
                                 station.getWidth_neighbour1() != null && !station.getWidth_neighbour1().equals("null")) {
                             Log.d(TAG, "Neigh1: "+ location.getLatitude()+" "+ location.getLongitude() +" "+ station.getLongitude_neighbour1() +" "+ station.getWidth_neighbour1() + " "+ station.getName());
@@ -207,14 +206,14 @@ public class LocationService extends IntentService {
 
     public void observeAlarmStations() {
 
-        StationRepository stationRepository = new StationRepository(getApplication());
-        stationRepository.getAlarmStations().observeForever(new Observer<List<Station>>() {
+        Station stationRepository = new Station(getApplication());
+        stationRepository.getAlarmStations().observeForever(new Observer<List<com.example.samsungschoolproject.model.Station>>() {
             @Override
-            public void onChanged(List<Station> stations) {
+            public void onChanged(List<com.example.samsungschoolproject.model.Station> stations) {
                 Log.d(TAG, "Start printing alarmed stations");
                 if (stations != null) {
                     alarmStations = stations;
-                    for (Station station : stations) {
+                    for (com.example.samsungschoolproject.model.Station station : stations) {
                         Log.d("StationInfo", "Название: " + station.getName() + ", width_neighbour1: " + station.getWidth_neighbour1());
                     }
                 }

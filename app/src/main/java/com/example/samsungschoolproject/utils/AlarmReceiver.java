@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.samsungschoolproject.activity.AlarmActivity;
+import com.example.samsungschoolproject.view.activity.AlarmActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {
     @Override

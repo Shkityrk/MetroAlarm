@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.activity;
+package com.example.samsungschoolproject.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

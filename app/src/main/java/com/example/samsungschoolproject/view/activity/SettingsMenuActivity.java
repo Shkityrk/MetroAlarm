@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.activity;
+package com.example.samsungschoolproject.view.activity;
 import static com.example.samsungschoolproject.network.NetworkUtils.disableSSLCertificateChecking;
 
 import android.content.Context;

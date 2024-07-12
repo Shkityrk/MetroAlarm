@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.activity;
+package com.example.samsungschoolproject.view.activity;
 
 import static com.example.samsungschoolproject.network.NetworkUtils.disableSSLCertificateChecking;
 
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.DatabaseAdapter;
-import com.example.samsungschoolproject.model.DatabaseModel;
+import com.example.samsungschoolproject.model.Database;
 import com.example.samsungschoolproject.network.NetworkUtils;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 
@@ -27,7 +27,7 @@ import java.util.List;
 public class ChoseUploadingDatabaseActivity extends AppCompatActivity {
    private RecyclerView recyclerView;
    private DatabaseAdapter adapter;
-   private List<DatabaseModel> databaseList = new ArrayList<>();
+   private List<Database> databaseList = new ArrayList<>();
     private String version;
 
         @Override
@@ -67,7 +67,7 @@ public class ChoseUploadingDatabaseActivity extends AppCompatActivity {
                     String name = databaseObject.getString("name");
                     String nameDev = databaseObject.getString("nameGET");
                     String database = databaseObject.getString("database");
-                    DatabaseModel databaseModel = new DatabaseModel(name, nameDev, database);
+                    Database databaseModel = new Database(name, nameDev, database);
                     databaseList.add(databaseModel);
                 }
 

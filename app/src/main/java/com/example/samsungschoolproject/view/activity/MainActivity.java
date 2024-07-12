@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.activity;
+package com.example.samsungschoolproject.view.activity;
 
 import static com.example.samsungschoolproject.network.NetworkUtils.disableSSLCertificateChecking;
 
@@ -22,7 +22,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.fragment.MainMenuFragment;
+import com.example.samsungschoolproject.view.fragment.MainMenuFragment;
 import com.example.samsungschoolproject.network.NetworkUtils;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
 

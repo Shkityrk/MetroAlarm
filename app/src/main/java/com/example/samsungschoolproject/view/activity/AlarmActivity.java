@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.activity;
+package com.example.samsungschoolproject.view.activity;
 
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
@@ -6,12 +6,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 
 import android.widget.Button;
@@ -19,10 +15,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.fragment.MainMenuFragment;
+import com.example.samsungschoolproject.view.fragment.MainMenuFragment;
 import com.example.samsungschoolproject.service.MusicService;
 import com.example.samsungschoolproject.utils.NotificationHelper;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;

@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.fragment.viewmodel;
+package com.example.samsungschoolproject.view.fragment.viewmodel;
 
 import android.content.Context;
 import android.util.Log;

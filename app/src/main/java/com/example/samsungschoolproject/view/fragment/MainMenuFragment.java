@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.fragment;
+package com.example.samsungschoolproject.view.fragment;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -21,14 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.activity.AlarmActivity;
-import com.example.samsungschoolproject.activity.ChoseUploadingDatabaseActivity;
-import com.example.samsungschoolproject.activity.SettingsMenuActivity;
+import com.example.samsungschoolproject.view.activity.AlarmActivity;
+import com.example.samsungschoolproject.view.activity.ChoseUploadingDatabaseActivity;
+import com.example.samsungschoolproject.view.activity.SettingsMenuActivity;
 import com.example.samsungschoolproject.service.LocationService;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
-
-import java.lang.ref.WeakReference;
-import java.util.Objects;
 
 
 public class MainMenuFragment extends Fragment {

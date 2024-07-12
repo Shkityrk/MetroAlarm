@@ -1,4 +1,4 @@
-package com.example.samsungschoolproject.fragment;
+package com.example.samsungschoolproject.view.fragment;
 
 import android.os.Bundle;
 
@@ -19,12 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.samsungschoolproject.R;
 import com.example.samsungschoolproject.adapter.AllStationAdapter;
 import com.example.samsungschoolproject.databinding.FragmentAddStationsBinding;
-import com.example.samsungschoolproject.fragment.viewmodel.AllStationsViewModel;
+import com.example.samsungschoolproject.view.fragment.viewmodel.AllStationsViewModel;
 import com.example.samsungschoolproject.model.Station;
 
 import java.util.ArrayList;

@@ -1,28 +1,21 @@
-package com.example.samsungschoolproject.activity;
+package com.example.samsungschoolproject.view.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.samsungschoolproject.R;
-import com.example.samsungschoolproject.fragment.viewmodel.IntroViewPagerAdapter;
+import com.example.samsungschoolproject.view.fragment.viewmodel.IntroViewPagerAdapter;
 import com.example.samsungschoolproject.utils.SharedPreferencesUtils;
-import com.example.samsungschoolproject.utils.ThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
